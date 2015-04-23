@@ -50,4 +50,21 @@ public class DegreeController {
 		return "degree/update";
 	}
 	
+	@RequestMapping(value="/update/{codDegree}", method=RequestMethod.POST)
+	public String processUpdateSubmit( @PathVariable int codDegree, @ModelAttribute("degree") Degree degree, BindingResult bindingResult ) {
+		if( bindingResult.hasErrors() ) {
+			return "degree/update";
+		}
+		degreeDao.updateDegree( degree );
+		return "redirect:../list.html";
+	}
+	
+	@RequestMapping(value="/delete/{codDegree}")
+	public String deleteDegree( @PathVariable int codDegree ) {
+		Degree degree = new Degree();
+		degree.setCodDegree( codDegree );
+		degreeDao.deleteDegree( degree );
+		return "redirect:../list.html";
+	}
+	
 }
