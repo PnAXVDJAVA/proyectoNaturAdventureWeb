@@ -8,6 +8,7 @@
 	<ul>
 		<li><a href="activity/list.html">Gestión de actividades</a></li>
 		<li><a href="instructor/list.html">Gestión de monitores</a></li>
+		<li><a href="degree/list.html">Gestión de títulos</a></li>
 	</ul>
 </body> 
 </html>
