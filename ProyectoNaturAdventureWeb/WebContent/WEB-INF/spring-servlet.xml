@@ -38,5 +38,6 @@
 	<bean id="activityDao" class="es.uji.ei1027.naturAdventure.dao.ActivityDao"/>
 	<bean id="instructorDao" class="es.uji.ei1027.naturAdventure.dao.InstructorDao"/>
 	<bean id="degreeDao" class="es.uji.ei1027.naturAdventure.dao.DegreeDao"/> 
+	<bean id="bookingDao" class="es.uji.ei1027.naturAdventure.dao.BookingDao"/>
 	
 </beans>

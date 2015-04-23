@@ -7,8 +7,10 @@ import java.util.List;
 public class Booking {
 	private int codBooking;
 	private Date proposalPerformingDate;
+	private String proposalPerformingDateString;
 	private int numPartakers;
 	private Date bookingDate;
+	private String bookingDateString;
 	private StartHour startHour;
 	private BookingStatus status;
 	private int codActivity;
@@ -25,6 +27,8 @@ public class Booking {
 		this.codActivity = -1;
 		this.status = null;
 		this.assignedInstructors = null;
+		this.proposalPerformingDateString = null;
+		this.bookingDateString = null;
 	}
 
 	public int getCodBooking() {
@@ -41,6 +45,16 @@ public class Booking {
 
 	public void setProposalPerformingDate(Date proposalPerformingDate) {
 		this.proposalPerformingDate = proposalPerformingDate;
+		this.proposalPerformingDateString = proposalPerformingDateString.toString();
+	}
+	
+	public String getProposalPerformingDateString() {
+		return this.proposalPerformingDateString;
+	}
+	
+	public void setProposalPerformingDateString( String date ) {
+		this.proposalPerformingDateString = date;
+		this.proposalPerformingDate = Date.valueOf( date );
 	}
 
 	public int getNumPartakers() {
@@ -57,6 +71,16 @@ public class Booking {
 
 	public void setBookingDate(Date bookingDate) {
 		this.bookingDate = bookingDate;
+		this.bookingDateString = bookingDate.toString();
+	}
+	
+	public String getBookingDateString() {
+		return this.bookingDateString;
+	}
+	
+	public void setBookingDateString( String bookingDate ) {
+		this.bookingDateString = bookingDate;
+		this.bookingDate = Date.valueOf( bookingDate );
 	}
 
 	public String getCustomerNif() {
