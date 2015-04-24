@@ -10,6 +10,9 @@
 		<li><a href="instructor/list.html">Gestión de monitores</a></li>
 		<li><a href="degree/list.html">Gestión de títulos</a></li>
 		<li><a href="booking/list.html">Gestión de reservas</a></li>
+		<li><a href="login.html">Login</a></li>
+		<li><a href="logout.html">Logout</a></li>
 	</ul>
+	<p>Has entrado como: ${user.username}</p>
 </body> 
 </html>
