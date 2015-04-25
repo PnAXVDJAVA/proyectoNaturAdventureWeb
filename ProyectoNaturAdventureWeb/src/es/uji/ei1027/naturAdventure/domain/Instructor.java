@@ -16,10 +16,10 @@ public class Instructor {
 	private String email;
 	private String bankAccount;
 	private String userID;
-	private String password;
 	private List<Degree> degrees;
 	private List<Booking> bookings;
 	private List<Activity> activities;
+	public static final int ROLE = 1;
 	
 	public Instructor() {
 		this.nif = null;
@@ -32,7 +32,6 @@ public class Instructor {
 		this.email = null;
 		this.bankAccount = null;
 		this.userID = null;
-		this.password = null;
 		this.degrees = null;
 		this.bookings = null;
 		this.activities = null;
@@ -133,14 +132,6 @@ public class Instructor {
 
 	public void setUserID(String userID) {
 		this.userID = userID;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public List<Degree> getDegrees() {

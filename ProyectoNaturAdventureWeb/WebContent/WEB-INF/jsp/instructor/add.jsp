@@ -14,7 +14,7 @@
 	<body>
 	
 	<h2>Nuevo monitor</h2>
-	    <form:form method="post" modelAttribute="instructor">
+	    <form:form method="post" modelAttribute="instructorUser">
 	        <table>
 	        	 <tr>
 	                <td><form:label path="nif">NIF: </form:label></td>
@@ -59,13 +59,13 @@
 	                <td><form:errors path="bankAccount" cssClass="error" /></td>
 	            </tr>
 	             <tr>
-	                <td><form:label path="userID">User ID: </form:label></td>
-	                <td><form:input path="userID" /></td>
-	                <td><form:errors path="userID" cssClass="error" /></td>
+	                <td><form:label path="username">Username: </form:label></td>
+	                <td><form:input path="username" /></td>
+	                <td><form:errors path="username" cssClass="error" /></td>
 	            </tr>
 	            <tr>
 	                <td><form:label path="password">Contraseña: </form:label></td>
-	                <td><form:input path="password" /></td>
+	                <td><form:input type="password" path="password" /></td>
 	                <td><form:errors path="password" cssClass="error" /></td>
 	            </tr>
 	            <tr>

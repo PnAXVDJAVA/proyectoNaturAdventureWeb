@@ -1,18 +1,7 @@
-<%@ page contentType="text/html; charset=utf-8" %>
-<html> 
-<head>
-	<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/natacio.css"> -->
-  	<title>Bienvenido a NaturAdventure</title> 
-</head>
-<body> 
-	<ul>
-		<li><a href="activity/list.html">Gesti贸n de actividades</a></li>
-		<li><a href="instructor/list.html">Gesti贸n de monitores</a></li>
-		<li><a href="degree/list.html">Gesti贸n de t铆tulos</a></li>
-		<li><a href="booking/list.html">Gesti贸n de reservas</a></li>
-		<li><a href="login.html">Login</a></li>
-		<li><a href="logout.html">Logout</a></li>
-	</ul>
-	<p>Has entrado como: ${user.username}</p>
-</body> 
-</html>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<t:paginabasica title="EI1027">
+<jsp:body>
+<h2>Descripci髇</h2>
+	<p>P醙ina web en desarrollo</p>
+</jsp:body>
+</t:paginabasica>

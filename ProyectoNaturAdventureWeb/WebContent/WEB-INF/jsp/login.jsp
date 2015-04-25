@@ -1,27 +1,28 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<html>
-<head>
-<!-- <link rel="stylesheet" type="text/css"
-    href="${pageContext.request.contextPath}/css/natacio.css"> -->
-<title>Login</title>
-</head>
-<body>
-    <h2>Acceso</h2>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<t:paginabasica title="Login">
+<jsp:body>
+<h2>Acceso</h2>
     <form:form method="post" modelAttribute="user"
-        action="${pageContext.request.contextPath}/login.html">
-        <p>
-            <form:label path="username">Nombre de usuario:</form:label>
-            <form:input path="username" />
-            <form:errors path="username" cssClass="error" />
-        </p>
-        <p>
-            <form:label path="password">Contraseña:</form:label>
-            <form:password path="password" />
-            <form:errors path="password" cssClass="error" />
-        </p>        
-        <input type="submit" value="Acceder" />
+        action="${pageContext.request.contextPath}/login.html" role="form" class="form form-horizontal">
+        <div class="form-group">
+        	<div class="col-md-3">
+	            <form:label path="username" for="username">Nombre de usuario:</form:label>
+	            <form:input path="username" class="form-control" id="username"
+	            			placeHolder="Usuario" />
+	           	<form:errors path="username" cssClass="error" />
+           	</div>
+        </div>
+        <div class="form-group">
+        	<div class="col-md-3">
+	            <form:label path="password" for="password">Contraseña:</form:label>
+	            <form:password path="password" class="form-control" id="password"
+	            				placeHolder="Contraseña"/>
+	            <form:errors path="password" cssClass="error" /> 
+	        </div>
+        </div>   
+        <button type="submit" class="btn btn-default">Login</button>
     </form:form>
-
-</body>
-</html>
+</jsp:body>
+</t:paginabasica>

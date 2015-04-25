@@ -2,6 +2,7 @@ package es.uji.ei1027.naturAdventure.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.uji.ei1027.naturAdventure.dao.InstructorDao;
+import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
 import es.uji.ei1027.naturAdventure.domain.Instructor;
+import es.uji.ei1027.naturAdventure.domain.InstructorUser;
+import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 
 @Controller
@@ -20,10 +24,17 @@ import es.uji.ei1027.naturAdventure.domain.UserDetails;
 public class InstructorController {
 	
 	private InstructorDao instructorDao;
+	private UserDetailsDao userDetailsDao;
+	private static final int SECURITY_LEVEL = Roles.ADMIN.getLevel();
 	
 	@Autowired
 	public void setInstructorDao( InstructorDao instructorDao ) {
 		this.instructorDao = instructorDao;
+	}
+	
+	@Autowired
+	public void setUserDetailsDao( UserDetailsDao udd ) {
+		this.userDetailsDao = udd;
 	}
 	
 	@RequestMapping("/list")
@@ -41,7 +52,7 @@ public class InstructorController {
 	@RequestMapping(value="/add")
 	public String addInstructor( Model model, HttpSession session ) {
 		if( checkAuthentified( session ) ) {
-			model.addAttribute( "instructor", new Instructor() );
+			model.addAttribute( "instructorUser", new InstructorUser() );
 			return "instructor/add";	
 		}
 		model.addAttribute( "user", new UserDetails() );
@@ -50,7 +61,8 @@ public class InstructorController {
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String processAddSubmit( @ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult, HttpSession session, Model model ) {
+	public String processAddSubmit( @ModelAttribute("instructorUser") InstructorUser instructorUser,
+			BindingResult bindingResult, HttpSession session, Model model ) {
 		if( !checkAuthentified( session ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/instructor/add.html" );
@@ -59,7 +71,7 @@ public class InstructorController {
 		if( bindingResult.hasErrors() ) {
 			return "instructor/add";
 		}
-		instructorDao.addInstructor( instructor );
+		instructorUserConversion( instructorUser );
 		return "redirect:list.html";
 	}
 	
@@ -95,17 +107,40 @@ public class InstructorController {
 			session.setAttribute( "nextURL", "/instructor/delete/" + nif + ".html" );
 			return "login";
 		}
-		Instructor instructor = new Instructor();
-		instructor.setNif( nif );
+		Instructor instructor = instructorDao.getInstructor( nif );
 		instructorDao.deleteInstructor( instructor );
 		return "redirect:../list.html";
 	}
 	
 	private boolean checkAuthentified( HttpSession session ) {
-		if( session.getAttribute( "user" ) == null ) {
+		UserDetails user = (UserDetails) session.getAttribute( "user" );
+		if( user == null || user.getRole() < SECURITY_LEVEL ) {
 			return false;
 		}
 		return true;
+	}
+	
+	private void instructorUserConversion( InstructorUser instructorUser ) {
+		Instructor instructor = new Instructor();
+		UserDetails user = new UserDetails();
+		instructor.setNif( instructorUser.getNif() );
+		instructor.setName( instructorUser.getName() );
+		instructor.setFirstSurname( instructorUser.getFirstSurname() );
+		instructor.setSecondSurname( instructorUser.getSecondSurname() );
+		instructor.setAddress( instructorUser.getAddress() );
+		instructor.setTelephone( instructorUser.getTelephone() );
+		instructor.setDateOfBirth( instructorUser.getDateOfBirth() );
+		instructor.setEmail( instructorUser.getEmail() );
+		instructor.setBankAccount( instructorUser.getBankAccount() );
+		instructor.setUserID( instructorUser.getUsername() );
+		user.setUsername( instructorUser.getUsername() );
+		String password = instructorUser.getPassword();
+		BasicPasswordEncryptor pwdEncryptor = new BasicPasswordEncryptor();
+		String pwdEncriptada = pwdEncryptor.encryptPassword( password );
+		user.setPassword( pwdEncriptada );
+		user.setRole( Roles.INSTRUCTOR.getLevel() );
+		userDetailsDao.addUser( user );
+		instructorDao.addInstructor( instructor );
 	}
 
 }

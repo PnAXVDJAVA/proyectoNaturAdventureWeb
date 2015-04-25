@@ -6,19 +6,16 @@ import java.util.List;
 
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 
-@Repository
-public class InstructorUserDao implements UserDao {
+public class GenericUserDao implements UserDao {
 	
-	private InstructorDao instructorDao;
+	private UserDetailsDao userDetailsDao;
 	
 	@Autowired
-	public void setInstructorDao( InstructorDao instructorDao ) {
-		this.instructorDao = instructorDao;
+	public void setUserDetailsDao( UserDetailsDao udd ) {
+		this.userDetailsDao = udd;
 	}
 
 	@Override
@@ -38,27 +35,23 @@ public class InstructorUserDao implements UserDao {
 			return null;
 		}
 		
-		/*BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+		BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 		if( passwordEncryptor.checkPassword( password ,  foundUser.getPassword() ) ) {
 			return foundUser;
-		}*/
+		}
 		if( foundUser.getPassword().equals( password ) ) {
 			return foundUser;
 		}
 		else {
 			return null;
 		}
-		
 	}
 
 	@Override
 	public Collection<UserDetails> listAllUsers() {
 		Collection<UserDetails> usersList = new LinkedList<>();
-		List<Instructor> instructorsList = instructorDao.getInstructors();
-		for( Instructor instructor: instructorsList ) {
-			UserDetails user = new UserDetails();
-			user.setUsername( instructor.getUserID() );
-			user.setPassword( instructor.getPassword() );
+		List<UserDetails> usersListDao = userDetailsDao.getUsers();
+		for( UserDetails user: usersListDao ) {
 			usersList.add( user );
 		}
 		

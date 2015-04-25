@@ -36,7 +36,6 @@ public class InstructorDao {
 			instructor.setEmail( rs.getString( "email" ) );
 			instructor.setBankAccount( rs.getString( "bankaccount" ) );
 			instructor.setUserID( rs.getString( "userid" ) );
-			instructor.setPassword( rs.getString( "password" ) );
 			return instructor;
 		}
 	}
@@ -50,19 +49,20 @@ public class InstructorDao {
 	}
 	
 	public void addInstructor( Instructor instructor ) {
-		this.jdbcTemplate.update( "INSERT INTO Instructor ( nif, name, firstsurname, secondsurname, address, telephone, dateofbirth, email, bankaccount, userid, password ) "
-								+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", instructor.getNif(), instructor.getName(), instructor.getFirstSurname(), 
+		this.jdbcTemplate.update( "INSERT INTO Instructor ( nif, name, firstsurname, secondsurname, address, telephone, dateofbirth, email, bankaccount, userid ) "
+								+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", instructor.getNif(), instructor.getName(), instructor.getFirstSurname(), 
 								instructor.getSecondSurname(), instructor.getAddress(), instructor.getTelephone(), instructor.getDateOfBirth(), instructor.getEmail(), 
-								instructor.getBankAccount(), instructor.getUserID(), instructor.getPassword() );
+								instructor.getBankAccount(), instructor.getUserID() );
 	}
 	
 	public void updateInstructor( Instructor instructor ) {
-		this.jdbcTemplate.update( "UPDATE Instructor SET name = ?, firstsurname = ?, secondsurname = ?, address = ?, telephone = ?, dateofbirth = ?, email = ?, bankaccount = ?, userid = ?, password = ? WHERE nif = ?",
+		this.jdbcTemplate.update( "UPDATE Instructor SET name = ?, firstsurname = ?, secondsurname = ?, address = ?, telephone = ?, dateofbirth = ?, email = ?, bankaccount = ?, userid = ? WHERE nif = ?",
 									instructor.getName(), instructor.getFirstSurname(), instructor.getSecondSurname(), instructor.getAddress(), instructor.getTelephone(), instructor.getDateOfBirth(), 
-									instructor.getEmail(), instructor.getBankAccount(), instructor.getUserID(), instructor.getPassword(), instructor.getNif() );
+									instructor.getEmail(), instructor.getBankAccount(), instructor.getUserID(), instructor.getNif() );
 	}
 	
 	public void deleteInstructor( Instructor instructor ) {
+		this.jdbcTemplate.update( "DELETE FROM User_details WHERE userid = ?", instructor.getUserID() );
 		this.jdbcTemplate.update( "DELETE FROM Instructor WHERE nif = ?", instructor.getNif() );
 	}
 
