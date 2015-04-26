@@ -1,80 +1,88 @@
-<%@page contentType="text/html; charset=iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
-<!DOCTYPE html>
-
-<html>
-
-	<head>
-		<meta charset="UTF-8" />
-		<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/natacio.css">  -->
-		<title>Crear nuevo monitor</title>
-	</head>
-	
-	<body>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<t:paginabasica title="Gestión de monitores">
+<jsp:body>
 	
 	<h2>Nuevo monitor</h2>
-	    <form:form method="post" modelAttribute="instructorUser">
-	        <table>
-	        	 <tr>
-	                <td><form:label path="nif">NIF: </form:label></td>
-	                <td><form:input path="nif" /></td>
-	                <td><form:errors path="nif" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="name">Nombre: </form:label></td>
-	                <td><form:input path="name" /></td>
-	                <td><form:errors path="name" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="firstSurname">Primer apellido: </form:label></td>
-	                <td><form:input path="firstSurname" /></td>
-	            </tr>
-	             <tr>
-	                <td><form:label path="secondSurname">Segundo apellido: </form:label></td>
-	                <td><form:input path="secondSurname" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="address">Direcci�n: </form:label></td>
-	                <td><form:input path="address" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="telephone">Tel�fono: </form:label></td>
-	                <td><form:input path="telephone" /></td>
-	                <td><form:errors path="telephone" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="dateOfBirthString">Fecha de cumplea�os: ( DD/MM/AAAA ) </form:label></td>
-	                <td><form:input path="dateOfBirthString" /></td>
-	                <td><form:errors path="dateOfBirthString" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="email">E-mail: </form:label></td>
-	                <td><form:input path="email" /></td>
-	                <td><form:errors path="email" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="bankAccount">Cuenta bancaria: </form:label></td>
-	                <td><form:input path="bankAccount" /></td>
-	                <td><form:errors path="bankAccount" cssClass="error" /></td>
-	            </tr>
-	             <tr>
-	                <td><form:label path="username">Username: </form:label></td>
-	                <td><form:input path="username" /></td>
-	                <td><form:errors path="username" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="password">Contrase�a: </form:label></td>
-	                <td><form:input type="password" path="password" /></td>
-	                <td><form:errors path="password" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td colspan="2"><input type="submit" value="A�adir monitor" />
-	                </td>
-	            </tr>
-	        </table>
+	    <form:form method="post" modelAttribute="instructorUser" role="form" class="form form-horizontal">
+	        	<div class="form-group">
+	       			<div class="col-md-3">
+			         	<form:label path="instructor.nif" class="control-label" >NIF: </form:label>
+			            <form:input path="instructor.nif" class="form-control" />
+			            <form:errors path="instructor.nif" cssClass="error" />
+			        </div>
+			    </div>
+	            <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="instructor.name">Nombre: </form:label>
+	                	<form:input path="instructor.name" class="form-control"/>
+	                	<form:errors path="instructor.name" cssClass="error" />
+	            	</div>
+	            </div>
+	            <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="instructor.firstSurname">Primer apellido: </form:label>
+	                	<form:input path="instructor.firstSurname" class="form-control" />
+	            	</div>
+	            </div>
+	             <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="instructor.secondSurname">Segundo apellido: </form:label>
+	                	<form:input path="instructor.secondSurname" class="form-control"/>
+	            	</div>
+	            </div>
+	            <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="instructor.address">Dirección: </form:label>
+	                	<form:input path="instructor.address" class="form-control"/>
+	            	</div>
+	            </div>
+	            <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="instructor.telephone">Teléfono: </form:label>
+	                	<form:input path="instructor.telephone" class="form-control"/>
+	                	<form:errors path="instructor.telephone" cssClass="error" />
+	            	</div>
+	            </div>
+	            <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="instructor.dateOfBirthString">Fecha de cumpleaños: ( DD/MM/AAAA ) </form:label>
+	                	<form:input path="instructor.dateOfBirthString" class="form-control"/>
+	                	<form:errors path="instructor.dateOfBirthString" cssClass="error" />
+	            </div>
+	            </div>
+	            <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="instructor.email">E-mail: </form:label>
+	                	<form:input path="instructor.email" class="form-control"/>
+	                	<form:errors path="instructor.email" cssClass="error" />
+	            	</div>
+	            </div>
+	            <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="instructor.bankAccount">Cuenta bancaria: </form:label>
+	                	<form:input path="instructor.bankAccount" class="form-control"/>
+	                	<form:errors path="instructor.bankAccount" cssClass="error" />
+	            	</div>
+	             </div>
+	             <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="userDetails.username">Username: </form:label>
+	                	<form:input path="userDetails.username" class="form-control"/>
+	                	<form:errors path="userDetails.username" cssClass="error" />
+	            	</div>
+	            </div>
+	            <div class="form-group">
+	       			<div class="col-md-3">
+	                	<form:label path="userDetails.password">Contraseña: </form:label>
+	                	<form:input type="password" path="userDetails.password" class="form-control"/>
+	                	<form:errors path="userDetails.password" cssClass="error" />
+	            	</div>
+	            </div>	            
+	            <button type="submit" class="btn btn-default">Añadir monitor</button>
 	    </form:form>
 	    
-	</body>
-	
-</html>
+</jsp:body>
+</t:paginabasica>

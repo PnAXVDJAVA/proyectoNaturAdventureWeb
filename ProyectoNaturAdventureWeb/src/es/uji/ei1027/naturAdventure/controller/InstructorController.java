@@ -2,11 +2,12 @@ package es.uji.ei1027.naturAdventure.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +16,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import es.uji.ei1027.naturAdventure.dao.InstructorDao;
 import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
 import es.uji.ei1027.naturAdventure.domain.Instructor;
-import es.uji.ei1027.naturAdventure.domain.InstructorUser;
+import es.uji.ei1027.naturAdventure.domain.InstructorUserDetailsModel;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
+
+class PasswordValidator implements Validator {
+
+	@Override
+	public boolean supports(Class<?> cls) {
+		return UserDetails.class.isAssignableFrom(cls);
+	}
+
+	@Override
+	public void validate(Object obj, Errors errors) {
+		UserDetails user = (UserDetails) obj;
+		if( user.getPassword().trim().equals("") ) {
+			errors.rejectValue( "password" , "obligatorio", "Hay que introducir la contraseña" );
+		}
+	}
+	
+}
 
 @Controller
 @RequestMapping("/instructor")
@@ -25,7 +43,6 @@ public class InstructorController {
 	
 	private InstructorDao instructorDao;
 	private UserDetailsDao userDetailsDao;
-	private static final int SECURITY_LEVEL = Roles.ADMIN.getLevel();
 	
 	@Autowired
 	public void setInstructorDao( InstructorDao instructorDao ) {
@@ -39,7 +56,7 @@ public class InstructorController {
 	
 	@RequestMapping("/list")
 	public String listInstructors( Model model, HttpSession session ) {
-		if( checkAuthentified( session ) ) {			
+		if( checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {			
 			model.addAttribute( "instructors", instructorDao.getInstructors() );
 			return "instructor/list";
 		}
@@ -51,8 +68,8 @@ public class InstructorController {
 	
 	@RequestMapping(value="/add")
 	public String addInstructor( Model model, HttpSession session ) {
-		if( checkAuthentified( session ) ) {
-			model.addAttribute( "instructorUser", new InstructorUser() );
+		if( checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+			model.addAttribute( "instructorUser", new InstructorUserDetailsModel() );
 			return "instructor/add";	
 		}
 		model.addAttribute( "user", new UserDetails() );
@@ -61,9 +78,9 @@ public class InstructorController {
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String processAddSubmit( @ModelAttribute("instructorUser") InstructorUser instructorUser,
+	public String processAddSubmit( @ModelAttribute("instructorUser") InstructorUserDetailsModel instructorUser,
 			BindingResult bindingResult, HttpSession session, Model model ) {
-		if( !checkAuthentified( session ) ) {
+		if( !checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/instructor/add.html" );
 			return "login";
@@ -71,13 +88,17 @@ public class InstructorController {
 		if( bindingResult.hasErrors() ) {
 			return "instructor/add";
 		}
-		instructorUserConversion( instructorUser );
+		Instructor instructor = instructorUser.getInstructor();
+		UserDetails user = instructorUser.getUserDetails();
+		instructor.setUserID( user.getUsername() );
+		userDetailsDao.addUser( user, Roles.INSTRUCTOR.getLevel() );
+		instructorDao.addInstructor( instructor );
 		return "redirect:list.html";
 	}
 	
 	@RequestMapping(value="/update/{nif}")
 	public String updateInstructor( Model model, @PathVariable String nif, HttpSession session ) {
-		if( checkAuthentified( session ) ) {
+		if( checkAuthentificationByNif( session, Roles.INSTRUCTOR.getLevel(), nif ) ) {
 			model.addAttribute( "instructor" , instructorDao.getInstructor( nif ) );
 			return "instructor/update";
 		}
@@ -87,8 +108,8 @@ public class InstructorController {
 	}
 	
 	@RequestMapping(value="/update/{nif}", method=RequestMethod.POST)
-	public String processUpdateSubmit( @ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult, HttpSession session, Model model ) {
-		if( !checkAuthentified( session ) ) {
+	public String processUpdateSubmit( @PathVariable String nif, @ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult, HttpSession session, Model model ) {
+		if( !checkAuthentificationByNif( session, Roles.INSTRUCTOR.getLevel(), nif ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/instructor/update/" + instructor.getNif() + ".html" );
 			return "login";
@@ -102,7 +123,7 @@ public class InstructorController {
 	
 	@RequestMapping(value="/delete/{nif}")
 	public String deleteInstructor( @PathVariable String nif, HttpSession session, Model model ) {
-		if( !checkAuthentified( session ) ) {
+		if( !checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/instructor/delete/" + nif + ".html" );
 			return "login";
@@ -112,35 +133,62 @@ public class InstructorController {
 		return "redirect:../list.html";
 	}
 	
-	private boolean checkAuthentified( HttpSession session ) {
+	@RequestMapping(value="/changePwd/{username}")
+	public String changePassword( Model model, @PathVariable String username, HttpSession session ) {
+		if( checkAuthentificationByUsername( session, Roles.INSTRUCTOR.getLevel(), username ) ) {
+			UserDetails user = userDetailsDao.getUser( username );
+			user.setPassword( null );
+			model.addAttribute( "user" , user );
+			return "instructor/changePwd";
+		}
+		model.addAttribute( "user", new UserDetails() );
+		session.setAttribute( "nextURL", "/instructor/changePwd/" + username + ".html" );
+		return "login";
+	}
+	
+	@RequestMapping(value="/changePwd/{username}", method=RequestMethod.POST)
+	public String processChangePwdSubmit( @PathVariable String username, Model model, @ModelAttribute("user") UserDetails user, 
+											BindingResult bindingResult, HttpSession session ) {
+		if( !checkAuthentificationByUsername( session, Roles.INSTRUCTOR.getLevel(), username ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/instructor/changePwd/" +user.getUsername() + ".html" );
+			return "login";
+		}
+		PasswordValidator pwdValidator = new PasswordValidator();
+		pwdValidator.validate( user , bindingResult );
+		if( bindingResult.hasErrors() ) {
+			return "instructor/changePwd";
+		}
+		userDetailsDao.updateUser( user, Roles.INSTRUCTOR.getLevel() );
+		return "redirect:../../index.jsp";
+		//return "redirect:../../index.html";
+	}
+	
+	private boolean checkAuthentification( HttpSession session, int securityLevel ) {
 		UserDetails user = (UserDetails) session.getAttribute( "user" );
-		if( user == null || user.getRole() < SECURITY_LEVEL ) {
+		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && user.getRole() < securityLevel ) ) {
 			return false;
 		}
 		return true;
 	}
 	
-	private void instructorUserConversion( InstructorUser instructorUser ) {
-		Instructor instructor = new Instructor();
-		UserDetails user = new UserDetails();
-		instructor.setNif( instructorUser.getNif() );
-		instructor.setName( instructorUser.getName() );
-		instructor.setFirstSurname( instructorUser.getFirstSurname() );
-		instructor.setSecondSurname( instructorUser.getSecondSurname() );
-		instructor.setAddress( instructorUser.getAddress() );
-		instructor.setTelephone( instructorUser.getTelephone() );
-		instructor.setDateOfBirth( instructorUser.getDateOfBirth() );
-		instructor.setEmail( instructorUser.getEmail() );
-		instructor.setBankAccount( instructorUser.getBankAccount() );
-		instructor.setUserID( instructorUser.getUsername() );
-		user.setUsername( instructorUser.getUsername() );
-		String password = instructorUser.getPassword();
-		BasicPasswordEncryptor pwdEncryptor = new BasicPasswordEncryptor();
-		String pwdEncriptada = pwdEncryptor.encryptPassword( password );
-		user.setPassword( pwdEncriptada );
-		user.setRole( Roles.INSTRUCTOR.getLevel() );
-		userDetailsDao.addUser( user );
-		instructorDao.addInstructor( instructor );
+	private boolean checkAuthentificationByUsername( HttpSession session, int securityLevel, String username ) {
+		UserDetails user = (UserDetails) session.getAttribute( "user" );
+		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( user.getRole() < securityLevel || !user.getUsername().equals( username ) ) ) ) {
+			return false;
+		}
+		return true;
 	}
+	
+	private boolean checkAuthentificationByNif( HttpSession session, int securityLevel, String nif ) {
+		UserDetails user = (UserDetails) session.getAttribute( "user" );
+		Instructor instructor = (Instructor) session.getAttribute( "profile" );
+		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( user.getRole() < securityLevel || !instructor.getNif().equals( nif ) ) ) ) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 
 }

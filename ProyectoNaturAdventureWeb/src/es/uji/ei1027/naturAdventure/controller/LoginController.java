@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.uji.ei1027.naturAdventure.dao.InstructorDao;
 import es.uji.ei1027.naturAdventure.dao.UserDao;
+import es.uji.ei1027.naturAdventure.domain.Instructor;
+import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 
 class UserValidator implements Validator {
@@ -39,10 +42,16 @@ class UserValidator implements Validator {
 public class LoginController {
 	
 	private UserDao userDao;
+	private InstructorDao instructorDao;
 	
 	@Autowired
 	public void setUserDao( UserDao userDao ) {
 		this.userDao = userDao;
+	}
+	
+	@Autowired
+	public void setInstructorDao( InstructorDao instructorDao ) {
+		this.instructorDao = instructorDao;
 	}
 	
 	@RequestMapping("/login")
@@ -66,6 +75,13 @@ public class LoginController {
 		}
 		
 		session.setAttribute( "user" , user );
+		
+		//Los admin no tienen perfil
+		if( user.getRole() < Roles.ADMIN.getLevel() ) {
+			Instructor profile = instructorDao.getInstructorByUsername( user.getUsername() );
+			session.setAttribute( "profile" , profile );
+		}
+		
 		
 		String nextUrl = (String) session.getAttribute( "nextURL" );
 		

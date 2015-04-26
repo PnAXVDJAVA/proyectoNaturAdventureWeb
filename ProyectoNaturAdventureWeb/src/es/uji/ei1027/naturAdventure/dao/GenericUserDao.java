@@ -39,9 +39,6 @@ public class GenericUserDao implements UserDao {
 		if( passwordEncryptor.checkPassword( password ,  foundUser.getPassword() ) ) {
 			return foundUser;
 		}
-		if( foundUser.getPassword().equals( password ) ) {
-			return foundUser;
-		}
 		else {
 			return null;
 		}

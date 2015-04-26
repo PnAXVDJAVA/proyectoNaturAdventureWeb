@@ -1,24 +1,16 @@
-<%@page contentType="text/html; charset=iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
-<!DOCTYPE html>
-
-<html>
-
-	<head>
-		<meta charset="UTF-8" />
-		<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/natacio.css"> -->
-		<title>Editar monitor</title>
-	</head>
-	
-	<body>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<t:paginabasica title="GestiÃ³n de monitores">
+<jsp:body>
 	
 	<h2>Editar monitor</h2>
 	    <form:form method="post" modelAttribute="instructor">
 	        <table>
 	            <tr>
 	                <td><form:label path="nif">NIF: </form:label></td>
-	                <td><form:input path="nif" value="${instructor.nif}" readonly="true"/></td>
+	                <td><form:input path="nif" readonly="true"/></td>
 	                <td><form:errors path="nif" cssClass="error" /></td>
 	            </tr>
 	            <tr>
@@ -35,16 +27,16 @@
 	                <td><form:input path="secondSurname" /></td>
 	            </tr>
 	            <tr>
-	                <td><form:label path="address">Dirección: </form:label></td>
+	                <td><form:label path="address">DirecciÃ³n: </form:label></td>
 	                <td><form:input path="address" /></td>
 	            </tr>
 	            <tr>
-	                <td><form:label path="telephone">Teléfono: </form:label></td>
+	                <td><form:label path="telephone">TelÃ©fono: </form:label></td>
 	                <td><form:input path="telephone" /></td>
 	                <td><form:errors path="telephone" cssClass="error" /></td>
 	            </tr>
 	            <tr>
-	                <td><form:label path="dateOfBirthString">Fecha de cumpleaños: ( DD/MM/AAAA ) </form:label></td>
+	                <td><form:label path="dateOfBirthString">Fecha de cumpleaÃ±os: ( DD/MM/AAAA ) </form:label></td>
 	                <td><form:input path="dateOfBirthString" /></td>
 	                <td><form:errors path="dateOfBirthString" cssClass="error" /></td>
 	            </tr>
@@ -58,23 +50,11 @@
 	                <td><form:input path="bankAccount" /></td>
 	                <td><form:errors path="bankAccount" cssClass="error" /></td>
 	            </tr>
-	             <tr>
-	                <td><form:label path="userID">User ID: </form:label></td>
-	                <td><form:input path="userID" /></td>
-	                <td><form:errors path="userID" cssClass="error" /></td>
-	            </tr>
 	            <tr>
-	                <td><form:label path="password">Contraseña: </form:label></td>
-	                <td><form:input path="password" /></td>
-	                <td><form:errors path="password" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td colspan="2"><input type="submit" value="Confirmar cambios" />
-	                </td>
+	                <td><input type="submit" value="Confirmar cambios" /></td>
 	            </tr>
 	        </table>
 	    </form:form>
 	    
-	</body>
-	
-</html>
+</jsp:body>
+</t:paginabasica>

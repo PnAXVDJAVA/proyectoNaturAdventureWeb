@@ -1,13 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="d"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@tag pageEncoding="UTF-8"%>
 <!-- La sessió està disponible automàticament en l’objecte "session" -->
 <c:set var="user" scope="request" value='${session.getAttribute("user")}'/>
 <d:set var="role" scope="request" value='${user.role}' />
+<e:set var="profile" scope="request" value='${session.getAttribute("profile")}'/>
 <p class="loggeduser">
 <c:choose>
 <c:when test='${user != null}'>
+	<!-- <nav class="navbar navbar-default navbar-fixed-top"> -->
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-collapse collapse">
@@ -22,6 +25,8 @@
 					<d:otherwise>
 						<li><a href="${pageContext.request.contextPath}/index.jsp">Página principal</a></li>
 						<li><a href="${pageContext.request.contextPath}/index.jsp">Reservas asignadas</a></li>
+						<li><a href="${pageContext.request.contextPath}/instructor/update/${profile.nif}.html">Editar perfil</a></li>
+						<li><a href="${pageContext.request.contextPath}/instructor/changePwd/${user.username}.html">Cambiar contraseña</a></li>
 					</d:otherwise>
 					</d:choose>
 				</ul>

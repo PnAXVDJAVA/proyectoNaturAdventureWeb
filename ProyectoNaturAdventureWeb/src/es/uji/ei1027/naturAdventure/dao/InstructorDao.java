@@ -48,6 +48,10 @@ public class InstructorDao {
 		return this.jdbcTemplate.queryForObject( "SELECT * FROM Instructor WHERE nif = ?", new Object [] { nif } , new InstructorMapper() );
 	}
 	
+	public Instructor getInstructorByUsername( String username ) {
+		return this.jdbcTemplate.queryForObject( "SELECT * FROM Instructor WHERE userid = ?", new Object [] { username } , new InstructorMapper() );
+	}
+	
 	public void addInstructor( Instructor instructor ) {
 		this.jdbcTemplate.update( "INSERT INTO Instructor ( nif, name, firstsurname, secondsurname, address, telephone, dateofbirth, email, bankaccount, userid ) "
 								+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", instructor.getNif(), instructor.getName(), instructor.getFirstSurname(), 
@@ -56,9 +60,9 @@ public class InstructorDao {
 	}
 	
 	public void updateInstructor( Instructor instructor ) {
-		this.jdbcTemplate.update( "UPDATE Instructor SET name = ?, firstsurname = ?, secondsurname = ?, address = ?, telephone = ?, dateofbirth = ?, email = ?, bankaccount = ?, userid = ? WHERE nif = ?",
+		this.jdbcTemplate.update( "UPDATE Instructor SET name = ?, firstsurname = ?, secondsurname = ?, address = ?, telephone = ?, dateofbirth = ?, email = ?, bankaccount = ? WHERE nif = ?",
 									instructor.getName(), instructor.getFirstSurname(), instructor.getSecondSurname(), instructor.getAddress(), instructor.getTelephone(), instructor.getDateOfBirth(), 
-									instructor.getEmail(), instructor.getBankAccount(), instructor.getUserID(), instructor.getNif() );
+									instructor.getEmail(), instructor.getBankAccount(), instructor.getNif() );
 	}
 	
 	public void deleteInstructor( Instructor instructor ) {

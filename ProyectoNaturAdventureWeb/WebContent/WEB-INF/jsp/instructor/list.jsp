@@ -36,8 +36,9 @@
 	                	<td>${instructor.email}</td>
 	                	<td>${instructor.bankAccount}</td>
 	                	<td>${instructor.userID}</td>
-	                	<td><a href="update/${instructor.nif}.html">Edita</a>
-	                	<td><a href="delete/${instructor.nif}.html">Borra</a>
+	                	<td><a href="update/${instructor.nif}.html">Edita</a></td>
+	                	<td><a href="delete/${instructor.nif}.html">Borra</a></td>
+	                	<td><a href="changePwd/${instructor.userID}.html">Cambiar contraseña</a></td>
 					</tr>
 				
 				</c:forEach>
