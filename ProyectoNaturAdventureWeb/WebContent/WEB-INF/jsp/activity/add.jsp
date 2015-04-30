@@ -1,72 +1,71 @@
-<%@page contentType="text/html; charset=iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
-<!DOCTYPE html>
-
-<html>
-
-	<head>
-		<meta charset="UTF-8" />
-		<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/natacio.css">  -->
-		<title>Crear nueva actividad</title>
-	</head>
-	
-	<body>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<t:paginabasica title="GestiÃ³n de actividades">
+<jsp:body>
 	
 	<h2>Nueva actividad</h2>
-	    <form:form method="post" modelAttribute="activity">
-	        <table>
-	        	 <tr>
-	                <td><form:label path="codActivity">Código actividad: </form:label></td>
-	                <td><form:input path="codActivity" /></td>
-	                <td><form:errors path="codActivity" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="name">Nombre: </form:label></td>
-	                <td><form:input path="name" /></td>
-	                <td><form:errors path="name" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="description">Descripción: </form:label></td>
-	                <td><form:input path="description" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="pricePerPerson">Precio por persona: </form:label></td>
-	                <td><form:input path="pricePerPerson" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="duration">Duración: </form:label></td>
-	                <td><form:input path="duration" /></td>
-	                <td><form:errors path="duration" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="minPartakers">Mín. núm. participantes: </form:label></td>
-	                <td><form:input path="minPartakers" /></td>
-	                <td><form:errors path="minPartakers" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="maxPartakers">Máx. núm. participantes: </form:label></td>
-	                <td><form:input path="maxPartakers" /></td>
-	                <td><form:errors path="maxPartakers" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="level">Nivel: </form:label></td>
-	                <td>
-	                	<form:select path="level">
+	    <form:form method="post" modelAttribute="activity" role="form" class="form form-horizontal">
+				
+				<div class="form-group">
+	                <form:label path="name" class="control-label col-sm-2">Nombre: </form:label>
+	                <div class="col-xs-3">
+	                	<form:input path="name" class="form-control"/>
+	                </div>
+	                <form:errors path="name" cssClass="error" />
+				</div>
+				<div class="form-group">
+	                <form:label path="description" class="control-label col-sm-2">DescripciÃ³n: </form:label>
+	                <div class="col-xs-3">
+	                	<form:input path="description" class="form-control"/>
+	            	</div>
+	            </div>
+				<div class="form-group">
+	                <form:label path="pricePerPerson" class="control-label col-sm-2">Precio por persona: </form:label>
+	                <div class="col-xs-3">
+	                	<form:input path="pricePerPerson" class="form-control"/>
+	           		</div>
+	           	</div>
+				<div class="form-group">
+	                <form:label path="duration" class="control-label col-sm-2">DuraciÃ³n: </form:label>
+	                <div class="col-xs-3">
+	                	<form:input path="duration" class="form-control"/>
+	                </div>
+	                <form:errors path="duration" cssClass="error" />
+	          	</div>
+				<div class="form-group">
+	                <form:label path="minPartakers" class="control-label col-sm-2">MÃ­n. nÃºm. participantes: </form:label>
+	                <div class="col-xs-3">
+	                	<form:input path="minPartakers" class="form-control"/>
+	                </div>
+	                <form:errors path="minPartakers" cssClass="error" />
+	            </div>
+				<div class="form-group">
+	                <form:label path="maxPartakers" class="control-label col-sm-2">MÃ¡x. nÃºm. participantes: </form:label>
+	                <div class="col-xs-3">
+	                	<form:input path="maxPartakers" class="form-control"/>
+	                </div>
+	                <form:errors path="maxPartakers" cssClass="error" />
+	            </div>
+				<div class="form-group">
+	                <form:label path="level" class="control-label col-sm-2">Nivel: </form:label>
+	                <div class="col-xs-3">
+	                	<form:select path="level" class="form-control">
 	                		<form:option value="NONE" label="Elige"/>
 	                		<form:options items="${levels}" />
 	                	</form:select>
-	                	
-	                </td>
-	                <td><form:errors path="level" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td colspan="2"><input type="submit" value="Añadir actividad" />
-	                </td>
-	            </tr>
-	        </table>
+	                </div>		              
+	                <form:errors path="level" cssClass="error" />
+	            </div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+	                	<button type="submit" class="btn btn-default">AÃ±adir actividad</button>
+		            	<button type="reset" class="btn btn-default">Limpiar</button>
+		            	<input type="button" class="btn btn-default" value="Cancelar" onclick="history.back(-1)"/>	                
+					</div>
+				</div>
 	    </form:form>
 	    
-	</body>
-	
-</html>
+</jsp:body>
+</t:paginabasica>

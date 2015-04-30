@@ -13,15 +13,23 @@ import org.springframework.stereotype.Repository;
 
 import es.uji.ei1027.naturAdventure.domain.Activity;
 import es.uji.ei1027.naturAdventure.domain.Level;
+import es.uji.ei1027.naturAdventure.service.CodeGetter;
 
 @Repository
 public class ActivityDao {
 	
 	private JdbcTemplate jdbcTemplate;
+	private CodeGetter codeGetter;
+	
 	
 	@Autowired
 	public void setDataSource( DataSource dataSource ) {
 		this.jdbcTemplate = new JdbcTemplate( dataSource );
+	}
+	
+	@Autowired
+	public void setCodeGetter( CodeGetter codeGetter ) {
+		this.codeGetter = codeGetter;
 	}
 	
 	private static final class ActivityMapper implements RowMapper<Activity> {
@@ -48,8 +56,9 @@ public class ActivityDao {
 	}
 	
 	public void addActivity( Activity activity ) {
+		int nextCodActivity = this.codeGetter.getNextCode( "codActivity" , "Activity" );
 		this.jdbcTemplate.update( "INSERT INTO Activity ( codActivity, name, description, pricePerPerson, level, duration, maxpartakers, minpartakers ) VALUES( ?, ?, ?, ?, cast(? as ActivityLevel), ?, ?, ? ) ",
-									activity.getCodActivity(), activity.getName(), activity.getDescription(), activity.getPricePerPerson(), activity.getLevel().toString(), activity.getDuration(), activity.getMaxPartakers(), activity.getMinPartakers() );
+				nextCodActivity, activity.getName(), activity.getDescription(), activity.getPricePerPerson(), activity.getLevel().toString(), activity.getDuration(), activity.getMaxPartakers(), activity.getMinPartakers() );
 	}
 	
 	public void updateActivity( Activity activity ) {

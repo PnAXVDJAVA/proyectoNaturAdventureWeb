@@ -17,11 +17,6 @@
 	    <form:form method="post" modelAttribute="activity">
 	        <table>
 	            <tr>
-	                <td><form:label path="codActivity">Código actividad: </form:label></td>
-	                <td><form:input path="codActivity" value="${activity.codActivity}" readonly="true" /></td>
-	                <td><form:errors path="codActivity" cssClass="error" /></td>
-	            </tr>
-	            <tr>
 	                <td><form:label path="name">Nombre: </form:label></td>
 	                <td><form:input path="name" /></td>
 	                <td><form:errors path="name" cssClass="error" /></td>

@@ -42,4 +42,7 @@
 	<bean id="userDao" class="es.uji.ei1027.naturAdventure.dao.GenericUserDao"/>
 	<bean id="userDetailsDao" class="es.uji.ei1027.naturAdventure.dao.UserDetailsDao"/>
 	
+	<context:component-scan base-package="es.uji.ei1027.naturAdventure.service" />
+	<bean id="codeGetter" class="es.uji.ei1027.naturAdventure.service.CodeGetter"/>
+	
 </beans>
