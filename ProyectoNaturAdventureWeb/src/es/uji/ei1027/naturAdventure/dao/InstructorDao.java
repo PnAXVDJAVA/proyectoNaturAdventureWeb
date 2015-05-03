@@ -69,5 +69,10 @@ public class InstructorDao {
 		this.jdbcTemplate.update( "DELETE FROM User_details WHERE userid = ?", instructor.getUserID() );
 		this.jdbcTemplate.update( "DELETE FROM Instructor WHERE nif = ?", instructor.getNif() );
 	}
+	
+	public List<Instructor> getSpecializedInstructors( int codActivity ) {
+		return this.jdbcTemplate.query( "SELECT i.* FROM Instructor AS i JOIN Specialized AS s ON( i.nif = s.instructorNif ) "
+									+ "WHERE s.codActivity = ?", new Object[] {codActivity}, new InstructorMapper() );
+	}
 
 }

@@ -5,8 +5,8 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
 <t:paginabasica title="Gestión de actividades">
 <jsp:body>
-	
-		<h1>Lista de actividades</h1>
+		
+		<h2>Lista de actividades</h2>
 		
 		<div class="table-responsive">
 			<table class="table table-striped">
@@ -33,8 +33,9 @@
 	                	<td>${activity.duration}</td>
 	                	<td>${activity.minPartakers}</td>
 	                	<td>${activity.maxPartakers}</td>
-	                	<td><a href="update/${activity.codActivity}.html">Edita</a>
-	                	<td><a href="delete/${activity.codActivity}.html">Borra</a>
+	                	<td><a href="update/${activity.codActivity}.html"><span class="glyphicon glyphicon-pencil"></span></a>
+	                	<td><a href="delete/${activity.codActivity}.html" onclick="return confirm('¿Estás seguro de que quieres borrar la actividad?');"><span class="glyphicon glyphicon-trash"></span></a>
+						<td><a href="addSpecializedInstructor/${activity.codActivity}.html">Añadir monitor especializado</a></td>
 					</tr>
 				
 				</c:forEach>

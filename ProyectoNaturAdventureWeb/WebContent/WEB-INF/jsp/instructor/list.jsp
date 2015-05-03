@@ -5,7 +5,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
 <t:paginabasica title="Gestión de monitores">
 <jsp:body>
-<h1>Lista de monitores</h1>
+<h2>Lista de monitores</h2>
 		
 		<div class="table-responsive">
 			<table class="table table-striped">
@@ -36,8 +36,8 @@
 	                	<td>${instructor.email}</td>
 	                	<td>${instructor.bankAccount}</td>
 	                	<td>${instructor.userID}</td>
-	                	<td><a href="update/${instructor.nif}.html">Edita</a></td>
-	                	<td><a href="delete/${instructor.nif}.html">Borra</a></td>
+	                	<td><a href="update/${instructor.nif}.html"><span class="glyphicon glyphicon-pencil"></span></a></td>
+	                	<td><a href="delete/${instructor.nif}.html" onclick="return confirm('¿Estás seguro de que quieres borrar el monitor?');"><span class="glyphicon glyphicon-trash"></span></a></td>
 	                	<td><a href="changePwd/${instructor.userID}.html">Cambiar contraseña</a></td>
 					</tr>
 				

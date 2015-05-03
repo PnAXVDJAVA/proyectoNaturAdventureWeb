@@ -92,7 +92,7 @@ public class Instructor {
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
-		//Cuando se modifique el sql.date también tiene que modificarse el dateString
+		//Cuando se modifique el sql.date tambiï¿½n tiene que modificarse el dateString
 		String [] dateList = dateOfBirth.toString().split( "-" );
 		String formattedString = dateList[2] + "/" + dateList[1] + "/" + dateList[0];
 		this.dateOfBirthString = formattedString;
@@ -104,7 +104,7 @@ public class Instructor {
 	
 	public void setDateOfBirthString( String dateOfBirth ) {
 		this.dateOfBirthString = dateOfBirth;
-		//Cuando se modifique el dateString también tiene que modificarse el sql.date
+		//Cuando se modifique el dateString tambiï¿½n tiene que modificarse el sql.date
 		String [] dateList = dateOfBirth.split( "/" );
 		String formattedString = dateList[2] + "-" + dateList[1] + "-" + dateList[0];
 		 this.dateOfBirth = Date.valueOf( formattedString );
@@ -188,5 +188,11 @@ public class Instructor {
 		for (Degree d: degrees)
 			sb.append("\t"+d.toString()+"\n");
 		return sb.toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Instructor other = (Instructor) obj;
+		return this.nif.equals( other.getNif() );
 	}
 }

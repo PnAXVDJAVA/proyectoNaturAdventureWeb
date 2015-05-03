@@ -6,7 +6,8 @@
 <jsp:body>
 	
 	<h2>Nueva actividad</h2>
-	    <form:form method="post" modelAttribute="activity" role="form" class="form form-horizontal">
+	    <form:form method="post" modelAttribute="activity" role="form" class="form form-horizontal"
+	     accept-charset="utf-8">
 				
 				<div class="form-group">
 	                <form:label path="name" class="control-label col-sm-2">Nombre: </form:label>
@@ -14,13 +15,12 @@
 	                	<form:input path="name" class="form-control"/>
 	                </div>
 	                <form:errors path="name" cssClass="error" />
-				</div>
-				<div class="form-group">
 	                <form:label path="description" class="control-label col-sm-2">Descripción: </form:label>
 	                <div class="col-xs-3">
 	                	<form:input path="description" class="form-control"/>
 	            	</div>
 	            </div>
+	            	            
 				<div class="form-group">
 	                <form:label path="pricePerPerson" class="control-label col-sm-2">Precio por persona: </form:label>
 	                <div class="col-xs-3">
@@ -40,8 +40,7 @@
 	                	<form:input path="minPartakers" class="form-control"/>
 	                </div>
 	                <form:errors path="minPartakers" cssClass="error" />
-	            </div>
-				<div class="form-group">
+	                
 	                <form:label path="maxPartakers" class="control-label col-sm-2">Máx. núm. participantes: </form:label>
 	                <div class="col-xs-3">
 	                	<form:input path="maxPartakers" class="form-control"/>
@@ -59,10 +58,10 @@
 	                <form:errors path="level" cssClass="error" />
 	            </div>
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-	                	<button type="submit" class="btn btn-default">Añadir actividad</button>
-		            	<button type="reset" class="btn btn-default">Limpiar</button>
-		            	<input type="button" class="btn btn-default" value="Cancelar" onclick="history.back(-1)"/>	                
+					<div class="col-sm-offset-4 col-sm-10">
+	                	<button type="submit" class="btn btn-default btn-padding">Añadir actividad</button>
+		            	<button type="reset" class="btn btn-default btn-padding">Limpiar</button>
+		            	<input type="button" class="btn btn-default btn-padding" value="Cancelar" onclick="history.back(-1)"/>	                
 					</div>
 				</div>
 	    </form:form>

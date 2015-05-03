@@ -69,5 +69,15 @@ public class ActivityDao {
 	public void deleteActivity( Activity activity ) {
 		this.jdbcTemplate.update( "DELETE FROM Activity WHERE codActivity = ?", activity.getCodActivity() );
 	}
+	
+	public void addSpecializedInstructor( int codActivity, String instructorNif ) {
+		this.jdbcTemplate.update( "INSERT INTO Specialized ( codActivity, instructorNif ) VALUES ( ?, ? )",
+									codActivity, instructorNif );
+	}
+	
+	public void removeSpecializedInstructor( int codActivity, String instructorNif ) {
+		this.jdbcTemplate.update( "DELETE FROM Specialized WHERE codActivity = ? AND instructorNif = ?", 
+				codActivity, instructorNif );
+	}
 
 }
