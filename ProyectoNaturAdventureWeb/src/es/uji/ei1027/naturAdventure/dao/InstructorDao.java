@@ -12,9 +12,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import es.uji.ei1027.naturAdventure.domain.Instructor;
+import es.uji.ei1027.naturAdventure.domain.Profile;
 
 @Repository
-public class InstructorDao {
+public class InstructorDao implements LoginDao {
 	
 	private JdbcTemplate jdbcTemplate;
 	
@@ -48,10 +49,6 @@ public class InstructorDao {
 		return this.jdbcTemplate.queryForObject( "SELECT * FROM Instructor WHERE nif = ?", new Object [] { nif } , new InstructorMapper() );
 	}
 	
-	public Instructor getInstructorByUsername( String username ) {
-		return this.jdbcTemplate.queryForObject( "SELECT * FROM Instructor WHERE userid = ?", new Object [] { username } , new InstructorMapper() );
-	}
-	
 	public void addInstructor( Instructor instructor ) {
 		this.jdbcTemplate.update( "INSERT INTO Instructor ( nif, name, firstsurname, secondsurname, address, telephone, dateofbirth, email, bankaccount, userid ) "
 								+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", instructor.getNif(), instructor.getName(), instructor.getFirstSurname(), 
@@ -73,6 +70,11 @@ public class InstructorDao {
 	public List<Instructor> getSpecializedInstructors( int codActivity ) {
 		return this.jdbcTemplate.query( "SELECT i.* FROM Instructor AS i JOIN Specialized AS s ON( i.nif = s.instructorNif ) "
 									+ "WHERE s.codActivity = ?", new Object[] {codActivity}, new InstructorMapper() );
+	}
+
+	@Override
+	public Profile getProfileByUsername( String username ) {
+		return this.jdbcTemplate.queryForObject( "SELECT * FROM Instructor WHERE userid = ?", new Object [] { username } , new InstructorMapper() );
 	}
 
 }

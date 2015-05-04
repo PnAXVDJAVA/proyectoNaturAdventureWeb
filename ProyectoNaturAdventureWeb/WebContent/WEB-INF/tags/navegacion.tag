@@ -11,7 +11,8 @@
 <!-- <nav class="navbar navbar-default navbar-fixed-top"> -->
 
 <nav class="navbar navbar-inverse">
-	<div class="container">
+	<div class="navbar-padding">
+	<!--<div class="container">-->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 	        <span class="icon-bar"></span>
@@ -61,11 +62,24 @@
 								<li><a href="${pageContext.request.contextPath}/degree/add.html">Añadir título</a></li>
 							</ul>
 						</li>
+						<li class="dropdown">
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de clientes
+							<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="${pageContext.request.contextPath}/customer/list.html">Listar clientes</a></li>
+								<li><a href="${pageContext.request.contextPath}/customer/add.html">Añadir cliente</a></li>
+							</ul>
+						</li>
 					</d:when>
 					<d:when test='${role==1}'>
 						<li><a href="${pageContext.request.contextPath}/index.jsp">Reservas asignadas</a></li>
 						<li><a href="${pageContext.request.contextPath}/instructor/update/${profile.nif}.html">Editar perfil</a></li>
 						<li><a href="${pageContext.request.contextPath}/instructor/changePwd/${user.username}.html">Cambiar contraseña</a></li>
+					</d:when>
+					<d:when test='${role==0}'>
+						<li><a href="${pageContext.request.contextPath}/customer/update/${profile.nif}.html">Editar perfil</a></li>
+						<li><a href="${pageContext.request.contextPath}/customer/changePwd/${user.username}.html">Cambiar contraseña</a></li>
 					</d:when>
 					</d:choose>
 				</c:when>
@@ -77,6 +91,6 @@
 			</ul>
 			<t:logininfo />
 		</div>
+	<!--</div>-->
 	</div>
 </nav>
-</p>

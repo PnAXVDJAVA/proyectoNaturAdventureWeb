@@ -41,8 +41,10 @@
 	<bean id="bookingDao" class="es.uji.ei1027.naturAdventure.dao.BookingDao"/>
 	<bean id="userDao" class="es.uji.ei1027.naturAdventure.dao.GenericUserDao"/>
 	<bean id="userDetailsDao" class="es.uji.ei1027.naturAdventure.dao.UserDetailsDao"/>
+	<bean id="customerDao" class="es.uji.ei1027.naturAdventure.dao.CustomerDao"/>
 	
 	<context:component-scan base-package="es.uji.ei1027.naturAdventure.service" />
 	<bean id="codeGetter" class="es.uji.ei1027.naturAdventure.service.CodeGetter"/>
+	<bean id="loginDaoFactory" class="es.uji.ei1027.naturAdventure.service.LoginDaoFactory"/>
 	
 </beans>

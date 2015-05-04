@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Instructor {
+public class Instructor implements Profile {
 	private String nif;
 	private String name;
 	private String firstSurname;
@@ -132,6 +132,17 @@ public class Instructor {
 
 	public void setUserID(String userID) {
 		this.userID = userID;
+	}
+	
+	@Override
+	public void setUsername(String username) {
+		this.userID = username;
+		
+	}
+
+	@Override
+	public String getUsername() {
+		return this.userID;
 	}
 
 	public List<Degree> getDegrees() {
