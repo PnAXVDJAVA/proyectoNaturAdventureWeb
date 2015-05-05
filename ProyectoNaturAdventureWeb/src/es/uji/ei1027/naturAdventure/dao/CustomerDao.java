@@ -55,9 +55,9 @@ public class CustomerDao implements LoginDao {
 	}
 	
 	public void updateCustomer( Customer customer ) {
-		this.jdbcTemplate.update( "UPDATE Customer SET name = ?, firstSurname = ?, secondSurname = ?, email = ?, telephone = ?, userid = ? "
+		this.jdbcTemplate.update( "UPDATE Customer SET name = ?, firstSurname = ?, secondSurname = ?, email = ?, telephone = ? "
 								+ "WHERE nif = ?", customer.getName(), customer.getFirstSurname(), customer.getSecondSurname(), customer.getEmail(),
-								customer.getTelephone(), customer.getUsername(), customer.getNif() );
+								customer.getTelephone(), customer.getNif() );
 	}
 	
 	public void deleteCustomer( Customer customer ) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -72,5 +73,36 @@ public class CustomerController {
 		}
 		return "redirect:login.html";
 	}
+	
+	@RequestMapping("/update/{nif}")
+	public String updateCustomer( Model model, @PathVariable String nif, HttpSession session ) {
+		if( Authentification.checkAuthentificationByNif( session, Roles.CUSTOMER.getLevel(), nif ) ) {
+			model.addAttribute( "customer", customerDao.getCustomer( nif ) );
+			return "customer/update";
+		}
+		model.addAttribute( "user", new UserDetails() );
+		session.setAttribute( "nextURL", "/customer/update/" + nif + ".html" );
+		return "login";
+	}
+	
+	@RequestMapping(value="/update/{nif}", method=RequestMethod.POST)
+	public String processUpdateSubmit( Model model, @PathVariable String nif, HttpSession session, 
+										@ModelAttribute("customer") Customer customer, BindingResult bindingResult ) {
+		if( !Authentification.checkAuthentificationByNif( session, Roles.CUSTOMER.getLevel(), nif ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/customer/update/" + nif + ".html" );
+			return "login";
+		}
+		if( bindingResult.hasErrors() ) {
+			return "customer/update";
+		}
+		customerDao.updateCustomer( customer );
+		UserDetails user = ( UserDetails ) session.getAttribute( "user" );
+		if( user.getRole() == Roles.ADMIN.getLevel() ) {
+			return "redirect:../list.html";
+		}
+		return "redirect:../../index.jsp";
+	}
+	
 	
 }

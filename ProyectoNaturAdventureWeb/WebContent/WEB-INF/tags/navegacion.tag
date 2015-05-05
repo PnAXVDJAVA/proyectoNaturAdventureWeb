@@ -28,15 +28,6 @@
 					<d:choose>
 					<d:when test='${role == 2}'>
 						<li class="dropdown">
-							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de monitores 
-							<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="${pageContext.request.contextPath}/instructor/list.html">Listar monitores</a></li>
-								<li><a href="${pageContext.request.contextPath}/instructor/add.html">Añadir monitor</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
 							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de actividades
 							<span class="caret"></span>
 							</a>
@@ -46,18 +37,15 @@
 							</ul>
 						</li>
 						<li class="dropdown">
-							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de reservas
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de monitores 
 							<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="${pageContext.request.contextPath}/booking/list.html">Listar reservas</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de títulos
-							<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu" role="menu">
+								<li class="dropdown-header">Monitores</li>
+								<li><a href="${pageContext.request.contextPath}/instructor/list.html">Listar monitores</a></li>
+								<li><a href="${pageContext.request.contextPath}/instructor/add.html">Añadir monitor</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">Títulos</li>
 								<li><a href="${pageContext.request.contextPath}/degree/list.html">Listar títulos</a></li>
 								<li><a href="${pageContext.request.contextPath}/degree/add.html">Añadir título</a></li>
 							</ul>
@@ -69,6 +57,14 @@
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="${pageContext.request.contextPath}/customer/list.html">Listar clientes</a></li>
 								<li><a href="${pageContext.request.contextPath}/customer/add.html">Añadir cliente</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de reservas
+							<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="${pageContext.request.contextPath}/booking/list.html">Listar reservas</a></li>
 							</ul>
 						</li>
 					</d:when>
