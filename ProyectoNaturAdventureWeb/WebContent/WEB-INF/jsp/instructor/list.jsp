@@ -32,7 +32,7 @@
 	                	<td>${instructor.secondSurname}</td>
 	                	<td>${instructor.address}</td>
 	                	<td>${instructor.telephone}</td>
-	                	<td>${instructor.dateOfBirthString}</td>
+	                	<td>${instructor.dateOfBirth}</td>
 	                	<td>${instructor.email}</td>
 	                	<td>${instructor.bankAccount}</td>
 	                	<td>${instructor.userID}</td>

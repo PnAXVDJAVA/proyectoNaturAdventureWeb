@@ -1,33 +1,26 @@
-<%@page contentType="text/html; charset=iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
-<!DOCTYPE html>
-
-<html>
-
-	<head>
-		<meta charset="UTF-8" />
-		<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/natacio.css">  -->
-		<title>Crear nueva reserva</title>
-	</head>
-	
-	<body>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<t:paginabasica title="GestiÃ³n de reservas">
+<jsp:body>
 	
 	<h2>Nueva reserva</h2>
 	    <form:form method="post" modelAttribute="booking">
 	        <table>
 	        	 <tr>
-	                <td><form:label path="codBooking">Código reserva: </form:label></td>
+	                <td><form:label path="codBooking">CÃ³digo reserva: </form:label></td>
 	                <td><form:input path="codBooking" /></td>
 	                <td><form:errors path="codBooking" cssClass="error" /></td>
 	            </tr>
 	            <tr>
-	                <td><form:label path="proposalPerformingDateString">Fecha propuesta: </form:label></td>
-	                <td><form:input path="proposalPerformingDateString" /></td>
+	                <td><form:label path="proposalPerformingDateString" class="control-label">Fecha propuesta: </form:label></td>
+	                <td><form:input path="proposalPerformingDateString" id="calendar-input" class="form-control" /></td>
+	                <td><span class="calendar-icon glyphicon glyphicon-calendar"></span></td>
 	                <td><form:errors path="proposalPerformingDateString" cssClass="error" /></td>
-	            </tr>
+	            </tr>           
 	            <tr>
-	                <td><form:label path="numPartakers">Núm. participantes: </form:label></td>
+	                <td><form:label path="numPartakers">NÃºm. participantes: </form:label></td>
 	                <td><form:input path="numPartakers" /></td>
 	            </tr>
 	            <tr>
@@ -40,7 +33,7 @@
 	                <td><form:errors path="customerNif" cssClass="error" /></td>
 	            </tr>
 	            <tr>
-	                <td><form:label path="codActivity">Código de la actividad: </form:label></td>
+	                <td><form:label path="codActivity">CÃ³digo de la actividad: </form:label></td>
 	                <td><form:input path="codActivity" /></td>
 	                <td><form:errors path="codActivity" cssClass="error" /></td>
 	            </tr>
@@ -64,12 +57,19 @@
 	                </td>
 	            </tr>
 	            <tr>
-	                <td colspan="2"><input type="submit" value="Añadir reserva" />
+	                <td colspan="2"><input type="submit" value="AÃ±adir reserva" />
 	                </td>
 	            </tr>
 	        </table>
 	    </form:form>
 	    
-	</body>
-	
-</html>
+	    <script>
+
+            // datepickr on an icon, using altInput to store the value
+            // altInput must be a direct reference to an input element (for now)
+            datepickr('.calendar-icon', { altInput: document.getElementById('calendar-input') });
+   
+        </script>
+	    
+</jsp:body>
+</t:paginabasica>

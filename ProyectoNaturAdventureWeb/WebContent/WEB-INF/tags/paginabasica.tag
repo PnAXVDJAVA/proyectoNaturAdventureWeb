@@ -23,8 +23,14 @@
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepickr.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepickr.css">
+
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/functions.js"></script>
+<script src="${pageContext.request.contextPath}/js/datepickr.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/datepickr.js"></script>
 
 </head>
 <body>

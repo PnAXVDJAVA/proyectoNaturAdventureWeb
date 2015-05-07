@@ -33,9 +33,9 @@
 			
 				<tr>
 					<td>${booking.codBooking}</td>
-					<td>${booking.proposalPerformingDateString}</td>
+					<td>${booking.proposalPerformingDate}</td>
                 	<td>${booking.numPartakers}</td>
-                	<td>${booking.bookingDateString}</td>
+                	<td>${booking.bookingDate}</td>
                 	<td>${booking.customerNif}</td>
                 	<td>${booking.codActivity}</td>
                 	<td>${booking.startHour}</td>

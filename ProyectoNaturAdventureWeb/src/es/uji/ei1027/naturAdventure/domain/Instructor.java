@@ -1,8 +1,11 @@
 package es.uji.ei1027.naturAdventure.domain;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.ibm.icu.text.SimpleDateFormat;
 
 public class Instructor implements Profile {
 	private String nif;
@@ -21,6 +24,10 @@ public class Instructor implements Profile {
 	private List<Activity> activities;
 	public static final int ROLE = 1;
 	
+	private int dayOfBirth;
+	private int monthOfBirth;
+	private int yearOfBirth;
+	
 	public Instructor() {
 		this.nif = null;
 		this.name = null;
@@ -36,6 +43,9 @@ public class Instructor implements Profile {
 		this.bookings = null;
 		this.activities = null;
 		this.dateOfBirthString = null;
+		this.dayOfBirth = -1;
+		this.monthOfBirth = -1;
+		this.yearOfBirth = -1;
 	}
 
 	public String getNif() {
@@ -85,30 +95,31 @@ public class Instructor implements Profile {
 	public void setTelephone(int telephone) {
 		this.telephone = telephone;
 	}
-
+	
+	/*** ***/
 	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-		//Cuando se modifique el sql.date tambi�n tiene que modificarse el dateString
-		String [] dateList = dateOfBirth.toString().split( "-" );
-		String formattedString = dateList[2] + "/" + dateList[1] + "/" + dateList[0];
-		this.dateOfBirthString = formattedString;
+		return this.dateOfBirth;
 	}
 	
-	public String getDateOfBirthString() {
+	public void setDateOfBirth( Date dateOfBirth ) {
+		this.dateOfBirth = dateOfBirth;
+		java.util.Date utilDate = new java.util.Date( this.dateOfBirth.getTime() );
+		this.dateOfBirthString = utilDate.toString();
+	}
+	
+	public String getDateOfBirthString( String dateOfBirth ) {
 		return this.dateOfBirthString;
 	}
 	
-	public void setDateOfBirthString( String dateOfBirth ) {
-		this.dateOfBirthString = dateOfBirth;
-		//Cuando se modifique el dateString tambi�n tiene que modificarse el sql.date
-		String [] dateList = dateOfBirth.split( "/" );
-		String formattedString = dateList[2] + "-" + dateList[1] + "-" + dateList[0];
-		 this.dateOfBirth = Date.valueOf( formattedString );
+	public void setDateOfBirthString( String dateOfBirthString ) {
+		this.dateOfBirthString = dateOfBirthString;
+		try {
+			this.dateOfBirth = new Date( new SimpleDateFormat( "MMM d, yyyy" ).parse( dateOfBirthString ).getTime() );
+		} catch (ParseException e) {
+			//
+		}
 	}
+	/*** ***/
 	
 	public String getEmail() {
 		return email;
@@ -206,4 +217,29 @@ public class Instructor implements Profile {
 		Instructor other = (Instructor) obj;
 		return this.nif.equals( other.getNif() );
 	}
+
+	public int getDayOfBirth() {
+		return dayOfBirth;
+	}
+
+	public void setDayOfBirth(int dayOfBirth) {
+		this.dayOfBirth = dayOfBirth;
+	}
+
+	public int getMonthOfBirth() {
+		return monthOfBirth;
+	}
+
+	public void setMonthOfBirth(int monthOfBirth) {
+		this.monthOfBirth = monthOfBirth;
+	}
+
+	public int getYearOfBirth() {
+		return yearOfBirth;
+	}
+
+	public void setYearOfBirth(int yearOfBirth) {
+		this.yearOfBirth = yearOfBirth;
+	}
+	
 }

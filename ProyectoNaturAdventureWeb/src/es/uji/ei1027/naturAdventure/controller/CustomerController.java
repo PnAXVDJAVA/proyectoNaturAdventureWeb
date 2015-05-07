@@ -20,6 +20,7 @@ import es.uji.ei1027.naturAdventure.domain.CustomerUserDetailsModel;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 import es.uji.ei1027.naturAdventure.service.Authentification;
+import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
 
 @Controller
 @RequestMapping("/customer")
@@ -57,7 +58,7 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String processAddSubmit( @ModelAttribute("customerUser") CustomerUserDetailsModel customerUDM, BindingResult bindingResult, HttpSession session ) {
+	public String processAddSubmit( Model model, @ModelAttribute("customerUser") CustomerUserDetailsModel customerUDM, BindingResult bindingResult, HttpSession session ) {
 		
 		if( bindingResult.hasErrors() ) {
 			return "customer/add";
@@ -71,7 +72,8 @@ public class CustomerController {
 		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
 			return "redirect:list.html";
 		}
-		return "redirect:login.html";
+		model.addAttribute( "user", new UserDetails() );
+		return "login";
 	}
 	
 	@RequestMapping("/update/{nif}")
@@ -104,5 +106,46 @@ public class CustomerController {
 		return "redirect:../../index.jsp";
 	}
 	
+	@RequestMapping("/delete/{nif}")
+	public String deleteCustomer( @PathVariable String nif, HttpSession session, Model model ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/customer/delete/" + nif + ".html" );
+			return "login";
+		}
+		Customer customer = customerDao.getCustomer( nif );
+		customerDao.deleteCustomer( customer );
+		return "redirect:../list.html";
+	}
+	
+	@RequestMapping(value="/changePwd/{username}")
+	public String changePassword( Model model, @PathVariable String username, HttpSession session ) {
+		if( Authentification.checkAuthentificationByUsername( session, Roles.CUSTOMER.getLevel(), username ) ) {
+			UserDetails user = userDetailsDao.getUser( username );
+			user.setPassword( null );
+			model.addAttribute( "user", user );
+			return "customer/changePwd";
+		}
+		model.addAttribute( "user", new UserDetails() );
+		session.setAttribute( "nextURL" , "customer/changePwd/" + username + ".html" );
+		return "login";
+	}
+	
+	@RequestMapping(value="/changePwd/{username}", method=RequestMethod.POST)
+	public String processChangePwdSubmit( @PathVariable String username, Model model, @ModelAttribute("user") UserDetails user, 
+											BindingResult bindingResult, HttpSession session ) {
+		if( !Authentification.checkAuthentificationByUsername( session, Roles.CUSTOMER.getLevel(), username) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "customer/changePwd/" + username + ".html" );
+			return "login";
+		}
+		PasswordValidator pwdValidator = new PasswordValidator();
+		pwdValidator.validate( user , bindingResult );
+		if( bindingResult.hasErrors() ) {
+			return "customer/changePwd";
+		}
+		userDetailsDao.updateUser( user, Roles.CUSTOMER.getLevel() );
+		return "redirect:../../index.jsp";
+	}
 	
 }

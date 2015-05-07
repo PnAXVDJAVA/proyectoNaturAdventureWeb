@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+
 
 import es.uji.ei1027.naturAdventure.dao.InstructorDao;
 import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
@@ -19,23 +20,8 @@ import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.InstructorUserDetailsModel;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
+import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
 
-class PasswordValidator implements Validator {
-
-	@Override
-	public boolean supports(Class<?> cls) {
-		return UserDetails.class.isAssignableFrom(cls);
-	}
-
-	@Override
-	public void validate(Object obj, Errors errors) {
-		UserDetails user = (UserDetails) obj;
-		if( user.getPassword().trim().equals("") ) {
-			errors.rejectValue( "password" , "obligatorio", "Hay que introducir la contraseña" );
-		}
-	}
-	
-}
 
 @Controller
 @RequestMapping("/instructor")
@@ -90,6 +76,13 @@ public class InstructorController {
 		}
 		Instructor instructor = instructorUser.getInstructor();
 		UserDetails user = instructorUser.getUserDetails();
+		/*ystem.out.println( instructor.getDateTry() );
+		try {
+			Date dateTry = new SimpleDateFormat( "MMM d, yyyy" ).parse( instructor.getDateTry() );
+			System.out.println( dateTry.toString() );
+		} catch (ParseException e) {
+			System.out.println( "error" );
+		}*/
 		instructor.setUserID( user.getUsername() );
 		userDetailsDao.addUser( user, Roles.INSTRUCTOR.getLevel() );
 		instructorDao.addInstructor( instructor );
@@ -161,7 +154,6 @@ public class InstructorController {
 		}
 		userDetailsDao.updateUser( user, Roles.INSTRUCTOR.getLevel() );
 		return "redirect:../../index.jsp";
-		//return "redirect:../../index.html";
 	}
 	
 	private boolean checkAuthentification( HttpSession session, int securityLevel ) {

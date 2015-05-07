@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.Profile;
+import es.uji.ei1027.naturAdventure.service.DateService;
 
 @Repository
 public class InstructorDao implements LoginDao {
@@ -37,6 +38,11 @@ public class InstructorDao implements LoginDao {
 			instructor.setEmail( rs.getString( "email" ) );
 			instructor.setBankAccount( rs.getString( "bankaccount" ) );
 			instructor.setUserID( rs.getString( "userid" ) );
+			//parseamos la fecha para obtener los tres valores independientes
+			DateService dateService = new DateService( instructor.getDateOfBirth() );
+			instructor.setDayOfBirth( dateService.getDay() );
+			instructor.setMonthOfBirth( dateService.getMonth() );
+			instructor.setYearOfBirth( dateService.getYear() );
 			return instructor;
 		}
 	}
@@ -50,6 +56,9 @@ public class InstructorDao implements LoginDao {
 	}
 	
 	public void addInstructor( Instructor instructor ) {
+		DateService dateService = new DateService( instructor.getDayOfBirth() , instructor.getMonthOfBirth(), 
+													instructor.getYearOfBirth() );
+		instructor.setDateOfBirth( dateService.getDate() );
 		this.jdbcTemplate.update( "INSERT INTO Instructor ( nif, name, firstsurname, secondsurname, address, telephone, dateofbirth, email, bankaccount, userid ) "
 								+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", instructor.getNif(), instructor.getName(), instructor.getFirstSurname(), 
 								instructor.getSecondSurname(), instructor.getAddress(), instructor.getTelephone(), instructor.getDateOfBirth(), instructor.getEmail(), 
@@ -57,6 +66,9 @@ public class InstructorDao implements LoginDao {
 	}
 	
 	public void updateInstructor( Instructor instructor ) {
+		DateService dateService = new DateService( instructor.getDayOfBirth() , instructor.getMonthOfBirth(), 
+				instructor.getYearOfBirth() );
+		instructor.setDateOfBirth( dateService.getDate() );
 		this.jdbcTemplate.update( "UPDATE Instructor SET name = ?, firstsurname = ?, secondsurname = ?, address = ?, telephone = ?, dateofbirth = ?, email = ?, bankaccount = ? WHERE nif = ?",
 									instructor.getName(), instructor.getFirstSurname(), instructor.getSecondSurname(), instructor.getAddress(), instructor.getTelephone(), instructor.getDateOfBirth(), 
 									instructor.getEmail(), instructor.getBankAccount(), instructor.getNif() );

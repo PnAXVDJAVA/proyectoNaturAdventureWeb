@@ -47,12 +47,20 @@
 	                	<form:errors path="instructor.telephone" cssClass="error" />
 	            </div>
 	            <div class="form-group">
-	                	<form:label path="instructor.dateOfBirthString" class="control-label col-sm-2">Fecha de cumpleaños: ( DD/MM/AAAA ) </form:label>
-	                	<div class="col-xs-3">
-	                		<form:input path="instructor.dateOfBirthString" class="form-control"/>
-	                	</div>
-	                	<form:errors path="instructor.dateOfBirthString" cssClass="error" />
+	            	<form:label path="instructor.dayOfBirth"  class="control-label col-sm-2">Dia de cumpleaños: </form:label>
+	            	<div class="col-xs-2">
+           				<form:input path="instructor.dayOfBirth" id="calendar-input" class="form-control"/>
+	                </div>
+	                <form:label path="instructor.monthOfBirth"  class="control-label col-sm-2">Mes: </form:label>
+	                <div class="col-xs-2">
+	                	<form:input path="instructor.monthOfBirth" id="calendar-input" class="form-control"/>
+	                </div>
+	                <form:label path="instructor.yearOfBirth"  class="control-label col-sm-2">Año: </form:label>
+	                <div class="col-xs-2">
+	                	<form:input path="instructor.yearOfBirth" id="calendar-input" class="form-control"/>
+	                </div>		           
 	            </div>
+	            
 	            <div class="form-group">	     
 	                	<form:label path="instructor.email" class="control-label col-sm-2">E-mail: </form:label>
 	                	<div class="col-xs-3">
@@ -89,6 +97,14 @@
 		    		</div>
 	    		</div>
 	    </form:form>
+	    
+	    <script>
+
+            // datepickr on an icon, using altInput to store the value
+            // altInput must be a direct reference to an input element (for now)
+            datepickr('.calendar-icon', { altInput: document.getElementById('calendar-input') });
+   
+        </script>
 	    
 </jsp:body>
 </t:paginabasica>

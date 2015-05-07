@@ -1,8 +1,11 @@
 package es.uji.ei1027.naturAdventure.domain;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.ibm.icu.text.SimpleDateFormat;
 
 public class Booking {
 	private int codBooking;
@@ -45,7 +48,8 @@ public class Booking {
 
 	public void setProposalPerformingDate(Date proposalPerformingDate) {
 		this.proposalPerformingDate = proposalPerformingDate;
-		this.proposalPerformingDateString = proposalPerformingDateString.toString();
+		java.util.Date utilDate = new java.util.Date( this.proposalPerformingDate.getTime() );
+		this.proposalPerformingDateString = utilDate.toString();
 	}
 	
 	public String getProposalPerformingDateString() {
@@ -54,7 +58,11 @@ public class Booking {
 	
 	public void setProposalPerformingDateString( String date ) {
 		this.proposalPerformingDateString = date;
-		this.proposalPerformingDate = Date.valueOf( date );
+		try {
+			this.proposalPerformingDate = new Date( new SimpleDateFormat( "MMM d, yyyy" ).parse( date ).getTime() );
+		} catch (ParseException e) {
+			//
+		}
 	}
 
 	public int getNumPartakers() {

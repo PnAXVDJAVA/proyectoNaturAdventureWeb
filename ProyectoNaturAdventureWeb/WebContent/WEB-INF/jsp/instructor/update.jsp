@@ -48,12 +48,19 @@
 	                <form:errors path="telephone" cssClass="error" />
 	        </div>
 	        <div class="form-group">
-	                <form:label path="dateOfBirthString" class="control-label col-sm-2">Fecha de cumpleaños: ( DD/MM/AAAA ) </form:label>
-	               	<div class="col-xs-3">
-	                	<form:input path="dateOfBirthString" class="form-control"/>
+	            	<form:label path="dayOfBirth"  class="control-label col-sm-2">Dia de cumpleaños: </form:label>
+	            	<div class="col-xs-2">
+           				<form:input path="dayOfBirth" class="form-control"/>
 	                </div>
-	                <form:errors path="dateOfBirthString" cssClass="error" />
-	        </div>
+	                <form:label path="monthOfBirth"  class="control-label col-sm-2">Mes: </form:label>
+	                <div class="col-xs-2">
+	                	<form:input path="monthOfBirth" class="form-control"/>
+	                </div>
+	                <form:label path="yearOfBirth"  class="control-label col-sm-2">Año: </form:label>
+	                <div class="col-xs-2">
+	                	<form:input path="yearOfBirth" class="form-control"/>
+	                </div>		           
+	       	</div>
 			<div class="form-group">
 					<form:label path="email" class="control-label col-sm-2">E-mail: </form:label>
 	                <div class="col-xs-3">

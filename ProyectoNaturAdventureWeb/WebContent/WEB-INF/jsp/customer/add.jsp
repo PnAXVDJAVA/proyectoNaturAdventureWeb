@@ -6,7 +6,8 @@
 <jsp:body>
 	
 	<h2>Registro de usuario</h2>
-	    <form:form method="post" modelAttribute="customerUser" role="form" class="form form-horizontal">
+	    <form:form method="post" modelAttribute="customerUser" role="form" class="form form-horizontal" 
+	    	onsubmit="return checkPasswords();">
 	        	<div class="form-group">
 			         	<form:label path="customer.nif" class="control-label col-sm-2" for="nif" >NIF: </form:label>
 			         	<div class="col-xs-3">
@@ -57,10 +58,17 @@
 	            <div class="form-group">	      
 	                	<form:label path="userDetails.password" class="control-label col-sm-2">Contraseña: </form:label>
 	                	<div class="col-xs-3">	
-	                		<form:input type="password" path="userDetails.password" class="form-control"/>
+	                		<form:input type="password" path="userDetails.password" class="form-control" id="password"/>
 	                	</div>
 	                	<form:errors path="userDetails.password" cssClass="error" />	            	
 	            </div>
+	            <div class="form-group">
+		        	<label class="col-sm-2 control-label">Repite la contraseña: </label>
+		        	<div class="col-xs-3">
+		        		<input type="password" class="form-control" id="passwordRepeat" />
+		        		<div id="checkPasswords" class="hidden"></div>
+		        	</div>
+	        	</div>
 	            <div class="form-group">
 		            <div class="col-sm-offset-2 col-sm-10">	            
 		            	<button type="submit" class="btn btn-default">Añadir cliente</button>
