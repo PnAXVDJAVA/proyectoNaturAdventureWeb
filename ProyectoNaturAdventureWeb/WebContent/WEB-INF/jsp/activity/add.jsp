@@ -19,6 +19,7 @@
 	                <div class="col-xs-3">
 	                	<form:input path="description" class="form-control"/>
 	            	</div>
+	            	<form:errors path="description" cssClass="error" />
 	            </div>
 	            	            
 				<div class="form-group">
@@ -51,7 +52,6 @@
 	                <form:label path="level" class="control-label col-sm-2">Nivel: </form:label>
 	                <div class="col-xs-3">
 	                	<form:select path="level" class="form-control">
-	                		<form:option value="NONE" label="Elige"/>
 	                		<form:options items="${levels}" />
 	                	</form:select>
 	                </div>		              
