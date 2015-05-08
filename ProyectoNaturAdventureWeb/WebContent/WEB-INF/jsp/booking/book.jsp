@@ -45,13 +45,6 @@
 	                </div>
 	                <form:errors path="customerNif" cssClass="error" />
 			</div>
-			<div class="form-group">
-	                <form:label path="codActivity" class="control-label col-sm-2">Código de la actividad: </form:label>
-	                <div class="col-xs-3">
-	                	<form:input path="codActivity" class="form-control"/>
-	                </div>
-	                <form:errors path="codActivity" cssClass="error" />
-			</div>
 	        <div class="form-group">
 	                <form:label path="startHour" class="control-label col-sm-2">Hora de comienzo:</form:label>
 	                <div class="col-xs-3">

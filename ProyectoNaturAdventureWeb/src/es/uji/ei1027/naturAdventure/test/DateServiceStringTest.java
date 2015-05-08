@@ -14,7 +14,7 @@ import org.junit.runners.Parameterized.Parameters;
 import es.uji.ei1027.naturAdventure.service.DateService;
 
 @RunWith( Parameterized.class )
-public class DateServiceTestString {
+public class DateServiceStringTest {
 
 	private String dateString;
 	private int expectedDay;
@@ -22,7 +22,7 @@ public class DateServiceTestString {
 	private int expectedYear;
 	private DateService dateService;
 	
-	public DateServiceTestString( String dateString, int expectedDay, int expectedMonth, int expectedYear ) {
+	public DateServiceStringTest( String dateString, int expectedDay, int expectedMonth, int expectedYear ) {
 		this.dateString = dateString;
 		this.expectedDay = expectedDay;
 		this.expectedMonth = expectedMonth;

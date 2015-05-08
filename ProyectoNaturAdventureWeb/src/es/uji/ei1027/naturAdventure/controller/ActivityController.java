@@ -156,6 +156,12 @@ public class ActivityController {
 		return "redirect:addSpecializedInstructor/" + codActivity + ".html";
 	}
 	
+	@RequestMapping(value="/customerList")
+	public String listCustomerActivities( Model model ) {
+		model.addAttribute( "activities", activityDao.getActivities() );
+		return "activity/customerList";
+	}
+	
 	private boolean checkAuthentification( HttpSession session, int securityLevel ) {
 		UserDetails user = (UserDetails) session.getAttribute( "user" );
 		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && user.getRole() < securityLevel ) ) {

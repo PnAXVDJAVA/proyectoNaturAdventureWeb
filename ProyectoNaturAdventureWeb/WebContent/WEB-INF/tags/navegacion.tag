@@ -76,6 +76,7 @@
 					<d:when test='${role==0}'>
 						<li><a href="${pageContext.request.contextPath}/customer/update/${profile.nif}.html">Editar perfil</a></li>
 						<li><a href="${pageContext.request.contextPath}/customer/changePwd/${user.username}.html">Cambiar contraseña</a></li>
+						<li><a href="${pageContext.request.contextPath}/activity/customerList.html">Listar actividades</a></li>
 					</d:when>
 					</d:choose>
 				</c:when>
