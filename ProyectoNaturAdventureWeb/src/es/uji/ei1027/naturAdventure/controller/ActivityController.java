@@ -22,6 +22,7 @@ import es.uji.ei1027.naturAdventure.domain.Level;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 import es.uji.ei1027.naturAdventure.service.ListsDifference;
+import es.uji.ei1027.naturAdventure.validator.ActivityValidator;
 
 @Controller
 @RequestMapping("/activity")
@@ -70,6 +71,9 @@ public class ActivityController {
 			session.setAttribute( "nextURL", "/activity/add.html" );
 			return "login";
 		}
+		ActivityValidator validator = new ActivityValidator();
+		validator.validate(activity, bindingResult);
+		
 		if( bindingResult.hasErrors() ) {
 			return "activity/add";
 		}
