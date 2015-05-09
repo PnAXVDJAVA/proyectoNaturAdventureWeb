@@ -14,15 +14,23 @@ import org.springframework.stereotype.Repository;
 import es.uji.ei1027.naturAdventure.domain.Booking;
 import es.uji.ei1027.naturAdventure.domain.BookingStatus;
 import es.uji.ei1027.naturAdventure.domain.StartHour;
+import es.uji.ei1027.naturAdventure.service.CodeGetter;
+
 
 @Repository
 public class BookingDao {
 
 	private JdbcTemplate jdbcTemplate;
+	private CodeGetter codeGetter;
 	
 	@Autowired
 	public void setDataSource( DataSource dataSource ) {
 		this.jdbcTemplate = new JdbcTemplate( dataSource );
+	}
+	
+	@Autowired
+	public void setCodeGetter( CodeGetter codeGetter ) {
+		this.codeGetter = codeGetter;
 	}
 	
 	private static final class BookingMapper implements RowMapper<Booking> {
@@ -50,8 +58,9 @@ public class BookingDao {
 	}
 	
 	public void addBooking( Booking booking ) {
+		int nextCodBooking = this.codeGetter.getNextCode( "codBooking" , "Booking" );
 		this.jdbcTemplate.update( "INSERT INTO Booking ( codBooking, proposalPerformingDate, numPartakers, bookingDate, customerNif, codActivity, startHour, status ) "
-								+ "VALUES ( ?, ?, ?, ?, ?, ?, cast(? as StartHour), cast(? as BookingStatus) )", booking.getCodBooking(), booking.getProposalPerformingDate(), booking.getNumPartakers(),
+								+ "VALUES ( ?, ?, ?, ?, ?, ?, cast(? as StartHour), cast(? as BookingStatus) )", nextCodBooking, booking.getProposalPerformingDate(), booking.getNumPartakers(),
 								booking.getBookingDate(), booking.getCustomerNif(), booking.getCodActivity(), booking.getStartHour().toString(), booking.getStatus().toString() );
 	}
 	

@@ -10,7 +10,7 @@ public class Authentification {
 	
 	public static boolean checkAuthentification( HttpSession session, int securityLevel ) {
 		UserDetails user = (UserDetails) session.getAttribute( "user" );
-		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && user.getRole() < securityLevel ) ) {
+		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && user.getRole() != securityLevel ) ) {
 			return false;
 		}
 		return true;
@@ -18,7 +18,7 @@ public class Authentification {
 	
 	public static boolean checkAuthentificationByUsername( HttpSession session, int securityLevel, String username ) {
 		UserDetails user = (UserDetails) session.getAttribute( "user" );
-		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( user.getRole() < securityLevel || !user.getUsername().equals( username ) ) ) ) {
+		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( user.getRole() != securityLevel || !user.getUsername().equals( username ) ) ) ) {
 			return false;
 		}
 		return true;
@@ -27,7 +27,7 @@ public class Authentification {
 	public static boolean checkAuthentificationByNif( HttpSession session, int securityLevel, String nif ) {
 		UserDetails user = (UserDetails) session.getAttribute( "user" );
 		Profile profile= ( Profile ) session.getAttribute( "profile" );
-		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( user.getRole() < securityLevel || !profile.getNif().equals( nif ) ) ) ) {
+		if( user == null || profile == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( user.getRole() != securityLevel || !profile.getNif().equals( nif ) ) ) ) {
 			return false;
 		}
 		return true;

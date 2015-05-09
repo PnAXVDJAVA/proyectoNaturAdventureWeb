@@ -53,5 +53,12 @@ public class DateService {
 		return this.date;
 	}
 	
+	public static Date getTodaysDate() {
+		Calendar calendar = Calendar.getInstance();
+		java.util.Date utilDate = calendar.getTime();
+		Date sqlDate = new Date( utilDate.getTime() );
+		return sqlDate;
+	}
+	
 
 }

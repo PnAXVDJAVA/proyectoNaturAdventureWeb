@@ -8,13 +8,6 @@
 	<h2>Nueva reserva</h2>
 	    <form:form method="post" modelAttribute="booking" role="form" class="form form-horizontal">
 	        <div class="form-group">
-	                <form:label path="codBooking" class="control-label col-sm-2">Código reserva: </form:label>
-	                <div class="col-xs-3">
-		                <form:input path="codBooking" class="form-control"/>
-	       			</div>
-	       			<form:errors path="codBooking" cssClass="error" />
-	       	</div>
-	        <div class="form-group">
 	                <form:label path="proposalPerformingDateString" class="control-label col-sm-2">Fecha propuesta: </form:label>
 	                <div class="col-xs-3">
 		                <form:input path="proposalPerformingDateString" id="calendar-input" class="form-control" readonly="true"/>
@@ -30,21 +23,7 @@
 	                <div class="col-xs-3">
 	                	<form:input path="numPartakers" class="form-control" />
 	                </div>
-	        </div>
-	        <div class="form-group">
-	            	<form:label path="bookingDateString" class="control-label col-sm-2">Fecha de reserva: </form:label>
-	                <div class="col-xs-3">
-	                	<form:input path="bookingDateString" class="form-control" />
-	       			</div>
-	       </div>
-	            
-	       <div class="form-group">
-	                <form:label path="customerNif" class="control-label col-sm-2">NIF del cliente: </form:label>
-	                <div class="col-xs-3">
-	                	<form:input path="customerNif" class="form-control"/>
-	                </div>
-	                <form:errors path="customerNif" cssClass="error" />
-			</div>
+	        </div>	          
 	        <div class="form-group">
 	                <form:label path="startHour" class="control-label col-sm-2">Hora de comienzo:</form:label>
 	                <div class="col-xs-3">
@@ -55,21 +34,30 @@
 	                </div>
 	        </div>
 			<div class="form-group">
-	                <form:label path="status" class="control-label col-sm-2">Estado: </form:label>
-	                <div class="col-xs-3">
-	                	<form:select path="status" class="form-control">
-	                		<form:option value="NONE" label="Elige"/>
-	                		<form:options items="${statusS}" />
-	                	</form:select>	                	
-	                </div>
-	        </div>
-			<div class="form-group">
 	                <div class="col-sm-offset-2 col-sm-10">	            
 		            	<button type="submit" class="btn btn-default">Realizar reserva</button>
 		            	<button type="reset" class="btn btn-default">Limpiar</button>
 		            	<input type="button" class="btn btn-default" value="Cancelar" onclick="history.back(-1)"/>
 		    		</div>
 			</div>
+	    </form:form>
+	    
+	    <form:form method="post" modelAttribute="activity" role="form" class="form form-horizontal">
+	    
+	    	<div class="form-group">
+	    		<form:label path="name" class="control-label col-sm-2">Nombre: </form:label>
+	    		<div class="col-xs-3">
+	    			<form:input path="name" class="form-control" readonly="true"/>
+	    		</div>
+	    	</div>
+	    	
+	    	<div class="form-group">
+	    		<form:label path="description" class="control-label col-sm-2">Descripción: </form:label>
+	    		<div class="col-xs-3">
+	    			<form:input path="description" class="form-control" readonly="true"/>
+	    		</div>
+	    	</div>
+	    
 	    </form:form>
 	    
 	    <script>
