@@ -46,10 +46,16 @@ public class Booking {
 		return proposalPerformingDate;
 	}
 
-	public void setProposalPerformingDate(Date proposalPerformingDate) {
+/*	public void setProposalPerformingDate(Date proposalPerformingDate) {
 		this.proposalPerformingDate = proposalPerformingDate;
 		java.util.Date utilDate = new java.util.Date( this.proposalPerformingDate.getTime() );
 		this.proposalPerformingDateString = utilDate.toString();
+	}*/
+	
+	public void setProposalPerformingDate( Date proposalPerformingDate ) {
+		this.proposalPerformingDate = proposalPerformingDate;
+		SimpleDateFormat format = new SimpleDateFormat( "MMMMM d, yyyy" );
+		this.proposalPerformingDateString = format.format( this.proposalPerformingDate );
 	}
 	
 	public String getProposalPerformingDateString() {

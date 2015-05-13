@@ -70,3 +70,7 @@
 	font-size: 1.7em;
 	padding-top: 5px;
 }
+
+.clear {
+	clear: both;
+}

@@ -13,28 +13,35 @@
 		
 				<tr>
 					<th>Código</th>
-					<th>Fecha propuesta</th>
-					<th>Núm. participantes</th>
 					<th>Fecha de reserva</th>
+					<th>Fecha propuesta</th>
+					<th>Hora de comienzo</th>
+					<th>Núm. participantes</th>
 					<th>NIF del cliente</th>
 					<th>Código de la actividad</th>
-					<th>Hora de comienzo</th>
 					<th>Estado</th>
 				</tr>
 				
 				<c:forEach items="${bookings}" var="booking">
+				<c:set var="status" scope="request" value='${booking.status}'/>
 				
 					<tr>
 						<td>${booking.codBooking}</td>
-						<td>${booking.proposalPerformingDate}</td>
-	                	<td>${booking.numPartakers}</td>
 	                	<td>${booking.bookingDate}</td>
+						<td>${booking.proposalPerformingDate}</td>
+	                	<td>${booking.startHour}</td>
+	                	<td>${booking.numPartakers}</td>
 	                	<td>${booking.customerNif}</td>
 	                	<td>${booking.codActivity}</td>
-	                	<td>${booking.startHour}</td>
 	                	<td>${booking.status}</td>
 	                	<td><a href="update/${booking.codBooking}.html">Edita</a>
 	                	<td><a href="delete/${booking.codBooking}.html">Borra</a>
+	                	<c:choose>
+	                		<c:when test='${status == "pending"}'>	           
+	                			<td><a href="accept/${booking.codBooking}.html"><span class="glyphicon glyphicon-ok"></span>  Aceptar</a>
+	                			<td><a href="deny/${booking.codBooking}.html" onclick="return confirm('¿Estás seguro de que quieres rechazar la reserva? Se enviará en email de rechazo al cliente que la solicitó.');"><span class="glyphicon glyphicon-remove"></span>  Rechazar</a></td>
+							</c:when>
+						</c:choose>
 					</tr>
 				
 				</c:forEach>
@@ -43,6 +50,7 @@
 		</div>
 		
 		<a href="add.html">Añadir reserva</a>
+		<a href="send.html">Enviar email con PDF</a>
 	
 </jsp:body>
 </t:paginabasica>

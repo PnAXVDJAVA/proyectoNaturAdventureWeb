@@ -83,6 +83,11 @@ public class InstructorDao implements LoginDao {
 		return this.jdbcTemplate.query( "SELECT i.* FROM Instructor AS i JOIN Specialized AS s ON( i.nif = s.instructorNif ) "
 									+ "WHERE s.codActivity = ?", new Object[] {codActivity}, new InstructorMapper() );
 	}
+	
+	public List<Instructor> getAssignedInstructors( int codBooking ) {
+		return this.jdbcTemplate.query( "SELECT i.* FROM Instructor AS i JOIN Booking_Assigns AS ba ON( i.nif = ba.instructorNif ) "
+										+ "WHERE ba.codBooking = ?", new Object[] {codBooking}, new InstructorMapper() );
+	}
 
 	@Override
 	public Profile getProfileByUsername( String username ) {
