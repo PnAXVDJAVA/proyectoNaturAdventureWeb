@@ -1,19 +1,20 @@
 package es.uji.ei1027.naturAdventure.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import es.uji.ei1027.naturAdventure.dao.CustomerDao;
-import es.uji.ei1027.naturAdventure.domain.Profile;
+
+import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 
 public class UserDetailsValidator implements Validator {
 
-	private CustomerDao customerDao;
+	private UserDetailsDao userDetailsDao;
 	
 	@Autowired
-	public void setCustomerDao( CustomerDao daoCustomer ) {
-		this.customerDao = daoCustomer;
+	public void setUserDetailsDao( UserDetailsDao userDetailsDao ) {
+		this.userDetailsDao = userDetailsDao;
 	}
 
 	@Override
@@ -30,8 +31,14 @@ public class UserDetailsValidator implements Validator {
 		if (username.trim().equals(""))
 			error.rejectValue("userDetails.username", "Falta username", "Introduce un username");
 		else {
-			System.out.println(username);
-			Profile profil = customerDao.getProfileByUsername(username);
+			try {				
+				userDetailsDao.getUser( username );
+				error.rejectValue("userDetails.username", "Nombre en uso", "El nombre de usuario ya existe");
+			}
+			catch( EmptyResultDataAccessException e ) {
+				//No hacemos nada, no ha saltado la excepción que dice que no ha obtenido datos de la base de datos
+				//por lo tanto el nombre de usuario no existe
+			}
 		}
 		if (user.getPassword().trim().equals(""))
 			error.rejectValue("userDetails.password", "Falta contraseña", "Introduce una contraseña");

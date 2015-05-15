@@ -30,6 +30,7 @@ public class CustomerController {
 
 	private CustomerDao customerDao;
 	private UserDetailsDao userDetailsDao;
+	private UserDetailsValidator userDetailsValidator;
 	
 	@Autowired
 	public void setCustomerDao( CustomerDao customerDao ) {
@@ -39,6 +40,11 @@ public class CustomerController {
 	@Autowired
 	public void setUserDetailsDao( UserDetailsDao udd ) {
 		this.userDetailsDao = udd;
+	}
+	
+	@Autowired
+	public void setUserDetailsValidator( UserDetailsValidator userDetailsValidator ) {
+		this.userDetailsValidator = userDetailsValidator;
 	}
 	
 	@RequestMapping("/list")
@@ -63,9 +69,8 @@ public class CustomerController {
 	public String processAddSubmit( Model model, @ModelAttribute("customerUser") CustomerUserDetailsModel customerUDM, BindingResult bindingResult, HttpSession session ) {
 		
 		CustomerValidator userValidator = new CustomerValidator();
-		UserDetailsValidator validator = new UserDetailsValidator();
 		userValidator.validate(customerUDM.getCustomer(), bindingResult);
-		validator.validate(customerUDM.getUserDetails(), bindingResult);
+		userDetailsValidator.validate(customerUDM.getUserDetails(), bindingResult);
 		
 		if( bindingResult.hasErrors() ) {
 			return "customer/add";

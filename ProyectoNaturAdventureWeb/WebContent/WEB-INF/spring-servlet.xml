@@ -34,7 +34,6 @@
 	
 	<!--  Búsqueda de inyección de dependencias en el siguiente paquete: -->
 	<context:component-scan base-package="es.uji.ei1027.naturAdventure.dao" />
-	<context:component-scan base-package="es.uji.ei1027.naturAdventure.validator" />
 	<!-- Componentes inyectables que están presentes como variables con el mismo nombre que el id en el controlador -->
 	<bean id="activityDao" class="es.uji.ei1027.naturAdventure.dao.ActivityDao"/>
 	<bean id="instructorDao" class="es.uji.ei1027.naturAdventure.dao.InstructorDao"/>
@@ -43,6 +42,9 @@
 	<bean id="userDao" class="es.uji.ei1027.naturAdventure.dao.GenericUserDao"/>
 	<bean id="userDetailsDao" class="es.uji.ei1027.naturAdventure.dao.UserDetailsDao"/>
 	<bean id="customerDao" class="es.uji.ei1027.naturAdventure.dao.CustomerDao"/>
+	
+	<context:component-scan base-package="es.uji.ei1027.naturAdventure.validator" />
+	<bean id="userDetailsValidator" class="es.uji.ei1027.naturAdventure.validator.UserDetailsValidator"/>
 	
 	<context:component-scan base-package="es.uji.ei1027.naturAdventure.service" />
 	<bean id="codeGetter" class="es.uji.ei1027.naturAdventure.service.CodeGetter"/>
