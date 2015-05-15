@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@tag pageEncoding="UTF-8"%>
+
 <!-- La sessió està disponible automàticament en l’objecte "session" -->
 <c:set var="user" scope="request" value='${session.getAttribute("user")}'/>
 <d:set var="role" scope="request" value='${user.role}' />

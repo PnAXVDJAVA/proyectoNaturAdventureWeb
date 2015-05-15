@@ -1,0 +1,114 @@
+.normal, .movimiento{
+    width: 1600px;
+	display: inline-block;
+    position: relative;
+    left: -550px;
+}
+
+.movimiento {
+	-webkit-animation-name: movDiv; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 3s; /* Que la animacion de principio a fin tarde 4seg */
+    /* -webkit-animation-delay: 2s; Que la animacion comience en 2seg */
+    animation-name: movDiv;
+    animation-duration: 3s;
+}
+
+.aparecer {
+	-webkit-animation-name: opAparecer; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 3s; /* Que la animacion de principio a fin tarde 4seg */
+    /* -webkit-animation-delay: 2s; Que la animacion comience en 2seg */
+    animation-name: opAparecer;
+    animation-duration: 3s;
+}
+
+.desaparecer {
+	-webkit-animation-name: opDesparecer; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 3s; /* Que la animacion de principio a fin tarde 4seg */
+    /* -webkit-animation-delay: 2s; Que la animacion comience en 2seg */
+    animation-name: opDesparecer;
+    animation-duration: 3s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes movDiv {
+    0%   {
+    	left: -550px;}
+    100%  {left: -875px;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opAparecer {
+    0%   {opacity: 0.3;}
+    100%  {opacity: 1;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opDesparecer {
+    0%   {opacity: 1;}
+    100%  {opacity: 0.3;}
+}
+
+/* Standard syntax */
+@keyframes movDiv {
+    0%   {left: -550px;}
+    100%  {left: -870px;}
+}
+
+/* Standard syntax */
+@keyframes opAparecer {
+    0%   {opacity: 0.3;}
+    100%  {opacity: 1;}
+}
+
+/* Standard syntax */
+@keyframes opDesparecer {
+    0%   {opacity: 1;}
+    100%  {opacity: 0.3;}
+}
+
+.centro {
+	opacity: 1;
+}
+
+.izq, .izqOculta, .der, .derOculta{
+	opacity: 0.3;
+}
+
+.izq, .centro, .der, .derOculta, .aparecer, .desaparecer {
+	padding-left: 15px;
+}
+
+.sectionText {
+	float: left;
+	width: 50%;
+	text-align: justify;
+    text-justify: inter-word;
+}
+.sectionRight {
+	width: 50%;
+	float:right;
+	margin: auto;
+	padding: 70px 0px 0px 70px;
+}
+
+.sectionImg {
+    width: 500px;
+    border: 2px solid black;
+    border-radius: 25px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.headerBackground {
+	margin:0px;
+	height: 100px;
+	background: url("../images/header2.png") no-repeat 100%;
+}
+.titleHeader {
+	font-size: 50px;
+	color: white;
+	font-weight: bold;
+}
+
+
+
