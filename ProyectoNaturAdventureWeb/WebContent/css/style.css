@@ -75,16 +75,35 @@
 	clear: both;
 }
 
+.activityName {
+	margin: 0;
+	margin-bottom: 5px;
+}
+
 .activity-container {
+	width: 60%;
 	border: 1px solid;
 	border-radius: 5px;
 	margin: 5px;
+	overflow: hidden;
+	height: 70px;
+	transition: height 1s;
+}
+
+.msWrapper {
+	padding: 10px;
 }
 
 .menu-down-right {
 	float: right;
-	padding-top: 40px;
+	padding-top: 20px;
 	cursor: pointer;
+}
+
+.button-book-activity {
+	float: right;
+	padding-top: 110px;
+	padding-right: 20px;
 }
 
 .activity-info-left {

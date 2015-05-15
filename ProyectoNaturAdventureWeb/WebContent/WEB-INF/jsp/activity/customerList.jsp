@@ -10,26 +10,30 @@
 		
 		<c:forEach items="${activities}" var="activity">
 		
-			<div class="container activity-container" id="activity${activity.codActivity}">
-			
-				<div class="activity-info-left">
-					<h3>${activity.name}</h3>
-					<p>Precio: ${activity.pricePerPerson} €</p>
-				</div>
+			<div class="activity-container" id="activity${activity.codActivity}">
 				
-				<div class="menu-down-right">
-					<a onClick="menuDown( ${activity.codActivity} )"><span class="glyphicon glyphicon-menu-down" id="downButton${activity.codActivity}"></span></a>
-				</div>
-				
-				<div class="clear"></div>
-				
-				<div class="info-hidden"  id="${activity.codActivity}">
-					<p>Descripción: ${activity.description}</p>
-					<p>Nivel: ${activity.level}</p>
-					<p>Duracion: ${activity.duration}</p>
-					<p>Mínimo número de participantes: ${activity.minPartakers}</p>
-					<p>Máximo número de participantes: ${activity.maxPartakers}</p>
-					<a href="${pageContext.request.contextPath}/booking/book/${activity.codActivity}.html">Reservar actividad</a>
+				<div id="measuringWrapper${activity.codActivity}" class="msWrapper">
+					<div class="activity-info-left">
+						<h3 class="activityName">${activity.name}</h3>
+						<p>Precio: ${activity.pricePerPerson} €</p>
+					</div>
+					
+					<div class="menu-down-right">
+						<a onClick="menuDown( ${activity.codActivity} )"><span class="glyphicon glyphicon-menu-down" id="downButton${activity.codActivity}"></span></a>
+					</div>
+					
+					<div class="clear"></div>
+					
+					<div class="info-hidden"  id="${activity.codActivity}">
+						<div class="button-book-activity">
+							<button onClick="document.location.href='${pageContext.request.contextPath}/booking/book/${activity.codActivity}.html'"  class="btn btn-default">Reservar actividad</button>
+						</div>
+						<p>Descripción: ${activity.description}</p>
+						<p>Nivel: ${activity.level}</p>
+						<p>Duracion: ${activity.duration}</p>
+						<p>Mínimo número de participantes: ${activity.minPartakers}</p>
+						<p>Máximo número de participantes: ${activity.maxPartakers}</p>
+					</div>
 				</div>
 			
 			</div>
@@ -39,16 +43,22 @@
 		<script type="text/javascript">
 		
 			function menuDown( id ) {
+				var activityDiv = document.getElementById( 'activity' + id );
+				var wrapper = document.getElementById( 'measuringWrapper' + id );
 				var down = 'glyphicon glyphicon-menu-down';
 				var left = 'glyphicon glyphicon-menu-left'
 				var downButtonClass = document.getElementById( 'downButton' + id ).className;
-				if(  downButtonClass == down ) {					
+				if( downButtonClass == down ) {
 					document.getElementById( id ).className = 'info-visible';
+					activityDiv.style.height = wrapper.clientHeight + "px";
 					document.getElementById( 'downButton' + id ).className = 'glyphicon glyphicon-menu-left';
 				}
 				else {
-					document.getElementById( id ).className = 'info-hidden';
+					activityDiv.style.height = "70px";
 					document.getElementById( 'downButton' + id ).className = 'glyphicon glyphicon-menu-down';
+					setTimeout( function() {
+						document.getElementById( id ).className = 'info-hidden';
+					}, 1000 );
 				}
 			}
 		
