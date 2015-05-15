@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 
@@ -20,6 +20,7 @@ import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.InstructorUserDetailsModel;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
+import es.uji.ei1027.naturAdventure.validator.InstructorValidator;
 import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
 
 
@@ -71,6 +72,10 @@ public class InstructorController {
 			session.setAttribute( "nextURL", "/instructor/add.html" );
 			return "login";
 		}
+		
+		InstructorValidator validator = new InstructorValidator();
+		validator.validate(instructorUser.getInstructor(), bindingResult);
+		
 		if( bindingResult.hasErrors() ) {
 			return "instructor/add";
 		}

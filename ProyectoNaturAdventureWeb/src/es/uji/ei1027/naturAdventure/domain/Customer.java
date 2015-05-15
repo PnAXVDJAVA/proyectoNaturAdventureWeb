@@ -7,7 +7,7 @@ public class Customer implements Profile {
 	private String firstSurname;
 	private String secondSurname;
 	private String email;
-	private int telephone;
+	private long telephone;
 	private String username;
 	
 	public Customer() {
@@ -70,12 +70,12 @@ public class Customer implements Profile {
 	}
 
 	@Override
-	public int getTelephone() {
+	public long getTelephone() {
 		return telephone;
 	}
 
 	@Override
-	public void setTelephone(int telephone) {
+	public void setTelephone(long telephone) {
 		this.telephone = telephone;
 	}
 	

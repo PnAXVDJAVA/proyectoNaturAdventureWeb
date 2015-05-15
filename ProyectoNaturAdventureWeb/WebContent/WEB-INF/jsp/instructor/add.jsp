@@ -26,6 +26,7 @@
 	                	<div class="col-xs-3">
 	                		<form:input path="instructor.firstSurname" class="form-control" />
 	            		</div>
+	            		<form:errors path="instructor.firstSurname" cssClass="error" />
 	            </div>
 	             <div class="form-group">
 	                	<form:label path="instructor.secondSurname" class="control-label col-sm-2">Segundo apellido: </form:label>
@@ -38,6 +39,7 @@
 	                	<div class="col-xs-3">
 	                		<form:input path="instructor.address" class="form-control"/>
 	            		</div>
+	            		<form:errors path="instructor.address" cssClass="error" />
 	            </div>
 	            <div class="form-group">
 	                	<form:label path="instructor.telephone" class="control-label col-sm-2">Teléfono: </form:label>
@@ -51,14 +53,17 @@
 	            	<div class="col-xs-2">
            				<form:input path="instructor.dayOfBirth" id="calendar-input" class="form-control"/>
 	                </div>
+	                <form:errors path="instructor.dayOfBirth" cssClass="error" />
 	                <form:label path="instructor.monthOfBirth"  class="control-label col-sm-2">Mes: </form:label>
 	                <div class="col-xs-2">
 	                	<form:input path="instructor.monthOfBirth" id="calendar-input" class="form-control"/>
 	                </div>
+	                <form:errors path="instructor.monthOfBirth" cssClass="error" />
 	                <form:label path="instructor.yearOfBirth"  class="control-label col-sm-2">Año: </form:label>
 	                <div class="col-xs-2">
 	                	<form:input path="instructor.yearOfBirth" id="calendar-input" class="form-control"/>
 	                </div>		           
+	                <form:errors path="instructor.yearOfBirth" cssClass="error" />
 	            </div>
 	            
 	            <div class="form-group">	     
