@@ -22,6 +22,8 @@ public class InstructorValidator implements Validator {
 		
 		if (instructor.getNif().trim().equals(""))
 			errors.rejectValue("instructor.nif", "Campo vacío", "Introduce tu NIF");
+		else if (instructor.getNif().length() < 9 || instructor.getNif().length() > 9)
+			errors.rejectValue("instructor.nif", "Campo vacío", "Introduce correctamente el NIF");
 		if (instructor.getName().trim().equals(""))
 			errors.rejectValue("instructor.name", "Campo vacío", "Introduce tu nombre");
 		if (instructor.getFirstSurname().trim().equals(""))

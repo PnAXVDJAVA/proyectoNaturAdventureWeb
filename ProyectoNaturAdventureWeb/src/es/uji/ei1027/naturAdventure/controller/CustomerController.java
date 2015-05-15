@@ -20,7 +20,9 @@ import es.uji.ei1027.naturAdventure.domain.CustomerUserDetailsModel;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 import es.uji.ei1027.naturAdventure.service.Authentification;
+import es.uji.ei1027.naturAdventure.validator.CustomerValidator;
 import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
+import es.uji.ei1027.naturAdventure.validator.UserDetailsValidator;
 
 @Controller
 @RequestMapping("/customer")
@@ -59,6 +61,11 @@ public class CustomerController {
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String processAddSubmit( Model model, @ModelAttribute("customerUser") CustomerUserDetailsModel customerUDM, BindingResult bindingResult, HttpSession session ) {
+		
+		CustomerValidator userValidator = new CustomerValidator();
+		UserDetailsValidator validator = new UserDetailsValidator();
+		userValidator.validate(customerUDM.getCustomer(), bindingResult);
+		validator.validate(customerUDM.getUserDetails(), bindingResult);
 		
 		if( bindingResult.hasErrors() ) {
 			return "customer/add";
