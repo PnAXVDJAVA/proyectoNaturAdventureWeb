@@ -27,6 +27,7 @@
 	                	<div class="col-xs-3">
 	                		<form:input path="customer.firstSurname" class="form-control" />
 	            		</div>
+	            		<form:errors path="customer.firstSurname" cssClass="error" />
 	            </div>
 	             <div class="form-group">
 	                	<form:label path="customer.secondSurname" class="control-label col-sm-2">Segundo apellido: </form:label>

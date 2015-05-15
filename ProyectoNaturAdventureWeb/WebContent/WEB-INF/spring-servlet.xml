@@ -34,6 +34,7 @@
 	
 	<!--  Búsqueda de inyección de dependencias en el siguiente paquete: -->
 	<context:component-scan base-package="es.uji.ei1027.naturAdventure.dao" />
+	<context:component-scan base-package="es.uji.ei1027.naturAdventure.validator" />
 	<!-- Componentes inyectables que están presentes como variables con el mismo nombre que el id en el controlador -->
 	<bean id="activityDao" class="es.uji.ei1027.naturAdventure.dao.ActivityDao"/>
 	<bean id="instructorDao" class="es.uji.ei1027.naturAdventure.dao.InstructorDao"/>

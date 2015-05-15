@@ -13,7 +13,7 @@ public class Instructor implements Profile {
 	private String firstSurname;
 	private String secondSurname;
 	private String address;
-	private int telephone;
+	private long telephone;
 	private String dateOfBirthString;
 	private Date dateOfBirth;
 	private String email;
@@ -88,11 +88,11 @@ public class Instructor implements Profile {
 		this.address = address;
 	}
 
-	public int getTelephone() {
+	public long getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(int telephone) {
+	public void setTelephone(long telephone) {
 		this.telephone = telephone;
 	}
 	

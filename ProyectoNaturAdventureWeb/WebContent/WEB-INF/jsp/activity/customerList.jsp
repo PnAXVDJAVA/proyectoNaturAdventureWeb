@@ -8,36 +8,51 @@
 		
 		<h2>Lista de actividades</h2>
 		
-		<div class="table-responsive">
-			<table class="table table-striped">
+		<c:forEach items="${activities}" var="activity">
+		
+			<div class="container activity-container" id="activity${activity.codActivity}">
 			
-				<tr>
-					<th>Nombre</th>
-					<th>Descripción</th>
-					<th>Precio por persona</th>
-					<th>Nivel</th>
-					<th>Duración</th>
-					<th>Min. número de participantes</th>
-					<th>Max. número de participantes</th>
-				</tr>
+				<div class="activity-info-left">
+					<h3>${activity.name}</h3>
+					<p>Precio: ${activity.pricePerPerson} €</p>
+				</div>
 				
-				<c:forEach items="${activities}" var="activity">
+				<div class="menu-down-right">
+					<a onClick="menuDown( ${activity.codActivity} )"><span class="glyphicon glyphicon-menu-down" id="downButton${activity.codActivity}"></span></a>
+				</div>
 				
-					<tr>
-						<td>${activity.name}</td>
-	                	<td>${activity.description}</td>
-	                	<td>${activity.pricePerPerson}</td>
-	                	<td>${activity.level}</td>
-	                	<td>${activity.duration}</td>
-	                	<td>${activity.minPartakers}</td>
-	                	<td>${activity.maxPartakers}</td>
-	                	<td><a href="${pageContext.request.contextPath}/booking/book/${activity.codActivity}.html"><span class="glyphicon glyphicon-share-alt">Reservar actividad</span></a>	 
-					</tr>
+				<div class="clear"></div>
 				
-				</c:forEach>
+				<div class="info-hidden"  id="${activity.codActivity}">
+					<p>Descripción: ${activity.description}</p>
+					<p>Nivel: ${activity.level}</p>
+					<p>Duracion: ${activity.duration}</p>
+					<p>Mínimo número de participantes: ${activity.minPartakers}</p>
+					<p>Máximo número de participantes: ${activity.maxPartakers}</p>
+					<a href="${pageContext.request.contextPath}/booking/book/${activity.codActivity}.html">Reservar actividad</a>
+				</div>
 			
-			</table>
-		</div>
+			</div>
+		
+		</c:forEach>
+		
+		<script type="text/javascript">
+		
+			function menuDown( id ) {
+				var down = 'glyphicon glyphicon-menu-down';
+				var left = 'glyphicon glyphicon-menu-left'
+				var downButtonClass = document.getElementById( 'downButton' + id ).className;
+				if(  downButtonClass == down ) {					
+					document.getElementById( id ).className = 'info-visible';
+					document.getElementById( 'downButton' + id ).className = 'glyphicon glyphicon-menu-left';
+				}
+				else {
+					document.getElementById( id ).className = 'info-hidden';
+					document.getElementById( 'downButton' + id ).className = 'glyphicon glyphicon-menu-down';
+				}
+			}
+		
+		</script>
 	
 </jsp:body>
 </t:paginabasica>

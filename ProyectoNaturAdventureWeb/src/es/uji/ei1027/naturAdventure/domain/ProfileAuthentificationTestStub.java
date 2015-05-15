@@ -63,13 +63,13 @@ public class ProfileAuthentificationTestStub implements Profile {
 	}
 
 	@Override
-	public void setTelephone(int telephone) {
+	public void setTelephone(long telephone) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public int getTelephone() {
+	public long getTelephone() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
