@@ -67,8 +67,8 @@
 		        	<label class="col-sm-2 control-label">Repite la contraseña: </label>
 		        	<div class="col-xs-3">
 		        		<input type="password" class="form-control" id="passwordRepeat" />
-		        		<div id="checkPasswords" class="hidden"></div>
 		        	</div>
+		        	<div id="checkPasswords" class="error"></div>
 	        	</div>
 	            <div class="form-group">
 		            <div class="col-sm-offset-2 col-sm-10">	            

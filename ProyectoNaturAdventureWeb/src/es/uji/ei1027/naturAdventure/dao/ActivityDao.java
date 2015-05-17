@@ -43,6 +43,7 @@ public class ActivityDao {
 			activity.setMinPartakers( rs.getInt( "minpartakers" ) );
 			activity.setMaxPartakers( rs.getInt( "maxpartakers" ) );
 			activity.setLevel( Level.getOpcion( rs.getString( "level" ) ) );
+			activity.setPicture( rs.getBytes( "picture" ) );
 			return activity;
 		}
 	}
@@ -57,13 +58,13 @@ public class ActivityDao {
 	
 	public void addActivity( Activity activity ) {
 		int nextCodActivity = this.codeGetter.getNextCode( "codActivity" , "Activity" );
-		this.jdbcTemplate.update( "INSERT INTO Activity ( codActivity, name, description, pricePerPerson, level, duration, maxpartakers, minpartakers ) VALUES( ?, ?, ?, ?, cast(? as ActivityLevel), ?, ?, ? ) ",
-				nextCodActivity, activity.getName(), activity.getDescription(), activity.getPricePerPerson(), activity.getLevel().toString(), activity.getDuration(), activity.getMaxPartakers(), activity.getMinPartakers() );
+		this.jdbcTemplate.update( "INSERT INTO Activity ( codActivity, name, description, pricePerPerson, level, duration, maxpartakers, minpartakers, picture ) VALUES( ?, ?, ?, ?, cast(? as ActivityLevel), ?, ?, ?, ? ) ",
+				nextCodActivity, activity.getName(), activity.getDescription(), activity.getPricePerPerson(), activity.getLevel().toString(), activity.getDuration(), activity.getMaxPartakers(), activity.getMinPartakers(), activity.getPicture() );
 	}
-	
+
 	public void updateActivity( Activity activity ) {
-		this.jdbcTemplate.update( "UPDATE Activity SET name = ?, description = ?, pricePerPerson = ?, level = cast(? as ActivityLevel), duration = ?, maxpartakers = ?, minpartakers = ? WHERE codActivity = ?", 
-									activity.getName(), activity.getDescription(), activity.getPricePerPerson(), activity.getLevel().toString(), activity.getDuration(), activity.getMaxPartakers(), activity.getMinPartakers(), activity.getCodActivity() );
+		this.jdbcTemplate.update( "UPDATE Activity SET name = ?, description = ?, pricePerPerson = ?, level = cast(? as ActivityLevel), duration = ?, maxpartakers = ?, minpartakers = ?, picture = ? WHERE codActivity = ?", 
+									activity.getName(), activity.getDescription(), activity.getPricePerPerson(), activity.getLevel().toString(), activity.getDuration(), activity.getMaxPartakers(), activity.getMinPartakers(), activity.getPicture(), activity.getCodActivity() );
 	}
 	
 	public void deleteActivity( Activity activity ) {

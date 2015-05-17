@@ -20,6 +20,7 @@
 					<th>Duración</th>
 					<th>Min. número de participantes</th>
 					<th>Max. número de participantes</th>
+					<th>Foto</th>
 				</tr>
 				
 				<c:forEach items="${activities}" var="activity">
@@ -33,6 +34,7 @@
 	                	<td>${activity.duration}</td>
 	                	<td>${activity.minPartakers}</td>
 	                	<td>${activity.maxPartakers}</td>
+						<td><img src="data:image/jpeg;base64,${activity.pictureString}" width="100" height="70"></td>
 	                	<td><a href="update/${activity.codActivity}.html"><span class="glyphicon glyphicon-pencil"></span></a>
 	                	<td><a href="delete/${activity.codActivity}.html" onclick="return confirm('¿Estás seguro de que quieres borrar la actividad?');"><span class="glyphicon glyphicon-trash"></span></a>
 						<td><a href="addSpecializedInstructor/${activity.codActivity}.html">Añadir monitor especializado</a></td>
@@ -43,7 +45,10 @@
 			</table>
 		</div>
 		
-		<a href="add.html">Añadir actividad</a>
+		<a href="add.html">Añadir actividad</a><br>
+		<a href="fileUpload.html">Subir imagen</a><br>
+		<a href="add2.html">Añadir actividad 2</a><br>
+		
 	
 </jsp:body>
 </t:paginabasica>

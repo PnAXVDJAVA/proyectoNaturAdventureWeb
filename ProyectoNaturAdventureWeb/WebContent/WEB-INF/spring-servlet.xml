@@ -11,6 +11,11 @@
 	<context:component-scan 
 		base-package="es.uji.ei1027.naturAdventure.controller" />
 		
+	<bean id="multipartResolver"
+   class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="5000000"/>
+</bean>
+		
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
@@ -28,7 +33,7 @@
 	</bean>
 	
 	<!-- Fitxer de Propietats JDBC, localització relativa al classpath -->
-	<context:property-placeholder location="classpath:jdbc.properties"/>
+	<context:property-placeholder location="classpath:jdbc.properties2"/>
 	
 	<!--  ******************************************************************  -->
 	
@@ -42,6 +47,7 @@
 	<bean id="userDao" class="es.uji.ei1027.naturAdventure.dao.GenericUserDao"/>
 	<bean id="userDetailsDao" class="es.uji.ei1027.naturAdventure.dao.UserDetailsDao"/>
 	<bean id="customerDao" class="es.uji.ei1027.naturAdventure.dao.CustomerDao"/>
+	<bean id="imagenDao" class="es.uji.ei1027.naturAdventure.dao.ImagenDao"/>
 	
 	<context:component-scan base-package="es.uji.ei1027.naturAdventure.validator" />
 	<bean id="userDetailsValidator" class="es.uji.ei1027.naturAdventure.validator.UserDetailsValidator"/>
