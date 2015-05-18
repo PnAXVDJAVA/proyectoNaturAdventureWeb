@@ -83,7 +83,7 @@ public class ActivityController {
 			return "activity/add";
 		}
 		model.addAttribute( "user", new UserDetails() );
-		session.setAttribute( "nextURL", "/activity/add2.html" );
+		session.setAttribute( "nextURL", "/activity/add.html" );
 		return "login";
 	}
 	
@@ -95,6 +95,13 @@ public class ActivityController {
 			return "login";
 		}
 		
+		if( bindingResult.hasErrors() ) {
+			return "activity/add";
+		}
+		
+		ActivityValidator activityValidator = new ActivityValidator();
+		activityValidator.validate( activityWithPicture.getActivity() , bindingResult );
+		
 		Activity activity = activityWithPicture.getActivity();
 		ActivityPicture picture = activityWithPicture.getActivityPicture();
 		MultipartFile file = picture.getFile();
@@ -104,9 +111,6 @@ public class ActivityController {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		ActivityValidator validator = new ActivityValidator();
-		validator.validate(activity, bindingResult);
 		
 		if( bindingResult.hasErrors() ) {
 			return "activity/add";

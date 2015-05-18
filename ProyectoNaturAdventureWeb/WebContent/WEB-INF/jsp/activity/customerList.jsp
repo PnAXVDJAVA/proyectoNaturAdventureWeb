@@ -33,7 +33,7 @@
 						<p>Duracion: ${activity.duration}</p>
 						<p>Mínimo número de participantes: ${activity.minPartakers}</p>
 						<p>Máximo número de participantes: ${activity.maxPartakers}</p>
-						<img src="data:image/jpeg;base64,${activity.pictureString}" width="300" height="200">
+						<img src="data:image/jpeg;base64,${activity.pictureString}" width="200" height="200">
 					</div>
 				</div>
 			

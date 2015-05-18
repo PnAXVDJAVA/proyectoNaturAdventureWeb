@@ -1,4 +1,8 @@
 
+.error {
+	color: red;
+}
+
 .loggeduser { 
     color: gray;                
     text-align: right;
@@ -132,7 +136,7 @@
 }
 .navbar-custom .navbar-brand:hover,
 .navbar-custom .navbar-brand:focus {
-  color: #000000;
+  color: #cccccc;
   background-color: transparent;
 }
 .navbar-custom .navbar-text {
@@ -184,8 +188,9 @@
 .navbar-custom .navbar-nav > .open > a,
 .navbar-custom .navbar-nav > .open > a:hover,
 .navbar-custom .navbar-nav > .open > a:focus {
-  background-color: #868f99;
-  color: #707070;
+  background-color: #98a0a8;
+  color: #ffffff;
+  border-color: transparent;
 }
 .navbar-custom .navbar-nav > .open > a .caret,
 .navbar-custom .navbar-nav > .open > a:hover .caret,
@@ -227,8 +232,8 @@
 }
 
 .navbar-wrapper {
-	border: 1px solid black;
-	border-radius: 3px;
+	border: 2px solid black;
+	border-radius: 5px;
 }
 
 .navbar {

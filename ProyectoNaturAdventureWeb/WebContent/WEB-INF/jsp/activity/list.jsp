@@ -34,7 +34,7 @@
 	                	<td>${activity.duration}</td>
 	                	<td>${activity.minPartakers}</td>
 	                	<td>${activity.maxPartakers}</td>
-						<td><img src="data:image/jpeg;base64,${activity.pictureString}" width="100" height="70"></td>
+						<td><img src="data:image/jpeg;base64,${activity.pictureString}" width="50" height="50"></td>
 	                	<td><a href="update/${activity.codActivity}.html"><span class="glyphicon glyphicon-pencil"></span></a>
 	                	<td><a href="delete/${activity.codActivity}.html" onclick="return confirm('¿Estás seguro de que quieres borrar la actividad?');"><span class="glyphicon glyphicon-trash"></span></a>
 						<td><a href="addSpecializedInstructor/${activity.codActivity}.html">Añadir monitor especializado</a></td>
