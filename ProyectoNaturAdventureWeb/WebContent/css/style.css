@@ -1,6 +1,7 @@
 
 .error {
 	color: red;
+	margin-top: 5px;
 }
 
 .loggeduser { 
@@ -121,6 +122,10 @@
 
 .info-visible {
 	display: inherit;
+}
+
+.floatLeft {
+	float: left;
 }
 
 .navbar {

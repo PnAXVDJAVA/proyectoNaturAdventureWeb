@@ -7,6 +7,6 @@ function checkPasswords() {
 	   		}
 	   		var divPwd = document.getElementById( "checkPasswords" );
 	   		divPwd.innerHTML = "Las contraseñas no son iguales";
-	   		divPwd.className = "visible";
+	   		divPwd.className = "error";
 	   		return false;
 }

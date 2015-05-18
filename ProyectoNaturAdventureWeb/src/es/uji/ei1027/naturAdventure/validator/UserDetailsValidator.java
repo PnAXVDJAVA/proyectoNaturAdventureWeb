@@ -29,7 +29,7 @@ public class UserDetailsValidator implements Validator {
 		
 		String username = user.getUsername();
 		if (username.trim().equals(""))
-			error.rejectValue("userDetails.username", "Falta username", "Introduce un username");
+			error.rejectValue("userDetails.username", "Falta username", "Introduce un nombre de usuario");
 		else {
 			try {				
 				userDetailsDao.getUser( username );

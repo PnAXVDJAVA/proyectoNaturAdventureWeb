@@ -10,15 +10,6 @@ public class Customer implements Profile {
 	private long telephone;
 	private String username;
 	
-	public Customer() {
-		this.nif = null;
-		this.name = null;
-		this.firstSurname = null;
-		this.secondSurname = null;
-		this.email = null;
-		this.telephone = -1;
-	}
-	
 	@Override
 	public String getNif() {
 		return nif;

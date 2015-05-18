@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+
 import es.uji.ei1027.naturAdventure.dao.InstructorDao;
 import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
 import es.uji.ei1027.naturAdventure.domain.Instructor;
@@ -22,6 +23,7 @@ import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 import es.uji.ei1027.naturAdventure.validator.InstructorValidator;
 import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
+import es.uji.ei1027.naturAdventure.validator.UserDetailsValidator;
 
 
 @Controller
@@ -30,6 +32,7 @@ public class InstructorController {
 	
 	private InstructorDao instructorDao;
 	private UserDetailsDao userDetailsDao;
+	private UserDetailsValidator userDetailsValidator;
 	
 	@Autowired
 	public void setInstructorDao( InstructorDao instructorDao ) {
@@ -39,6 +42,11 @@ public class InstructorController {
 	@Autowired
 	public void setUserDetailsDao( UserDetailsDao udd ) {
 		this.userDetailsDao = udd;
+	}
+	
+	@Autowired
+	public void setUserDetailsValidator( UserDetailsValidator udv) {
+		this.userDetailsValidator = udv;
 	}
 	
 	@RequestMapping("/list")
@@ -74,7 +82,8 @@ public class InstructorController {
 		}
 		
 		InstructorValidator validator = new InstructorValidator();
-		validator.validate(instructorUser.getInstructor(), bindingResult);
+		validator.validate(instructorUser.getInstructor(), bindingResult );
+		this.userDetailsValidator.validate( instructorUser.getUserDetails() ,  bindingResult  );
 		
 		if( bindingResult.hasErrors() ) {
 			return "instructor/add";

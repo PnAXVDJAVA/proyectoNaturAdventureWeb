@@ -17,18 +17,6 @@ public class Activity {
 	String pictureString;
 	List<Instructor> specializedInstructors;
 	
-	public Activity() {
-		this.codActivity = -1;
-		this.name = null;
-		this.description = null;
-		this.pricePerPerson = -1;
-		this.duration = -1;
-		this.maxPartakers = -1;
-		this.minPartakers = -1;
-		this.level = null;
-		this.specializedInstructors = null;
-	}
-	
 	public int getCodActivity() {
 		return codActivity;
 	}

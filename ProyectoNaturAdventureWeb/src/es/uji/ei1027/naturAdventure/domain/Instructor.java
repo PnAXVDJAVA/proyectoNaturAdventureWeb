@@ -24,28 +24,12 @@ public class Instructor implements Profile {
 	private List<Activity> activities;
 	public static final int ROLE = 1;
 	
-	private int dayOfBirth;
-	private int monthOfBirth;
-	private int yearOfBirth;
+	private Integer dayOfBirth;
+	private Integer monthOfBirth;
+	private Integer yearOfBirth;
 	
 	public Instructor() {
-		this.nif = null;
-		this.name = null;
-		this.firstSurname = null;
-		this.secondSurname = null;
-		this.address = null;
-		this.telephone = -1;
 		this.dateOfBirth = null;
-		this.email = null;
-		this.bankAccount = null;
-		this.userID = null;
-		this.degrees = null;
-		this.bookings = null;
-		this.activities = null;
-		this.dateOfBirthString = null;
-		this.dayOfBirth = -1;
-		this.monthOfBirth = -1;
-		this.yearOfBirth = -1;
 	}
 
 	public String getNif() {
@@ -218,27 +202,27 @@ public class Instructor implements Profile {
 		return this.nif.equals( other.getNif() );
 	}
 
-	public int getDayOfBirth() {
+	public Integer getDayOfBirth() {
 		return dayOfBirth;
 	}
 
-	public void setDayOfBirth(int dayOfBirth) {
+	public void setDayOfBirth(Integer dayOfBirth) {
 		this.dayOfBirth = dayOfBirth;
 	}
 
-	public int getMonthOfBirth() {
+	public Integer getMonthOfBirth() {
 		return monthOfBirth;
 	}
 
-	public void setMonthOfBirth(int monthOfBirth) {
+	public void setMonthOfBirth(Integer monthOfBirth) {
 		this.monthOfBirth = monthOfBirth;
 	}
 
-	public int getYearOfBirth() {
+	public Integer getYearOfBirth() {
 		return yearOfBirth;
 	}
 
-	public void setYearOfBirth(int yearOfBirth) {
+	public void setYearOfBirth(Integer yearOfBirth) {
 		this.yearOfBirth = yearOfBirth;
 	}
 	

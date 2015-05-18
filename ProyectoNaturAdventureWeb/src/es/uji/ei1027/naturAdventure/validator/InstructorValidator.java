@@ -7,7 +7,7 @@ import es.uji.ei1027.naturAdventure.domain.Instructor;
 
 public class InstructorValidator implements Validator {
 
-	private final int[] meses31dias = {4, 6, 9, 11};
+	private final int[] meses30dias = {4, 6, 9, 11};
 	
 	@Override
 	public boolean supports(Class<?> cls) {
@@ -34,28 +34,53 @@ public class InstructorValidator implements Validator {
 			errors.rejectValue("instructor.telephone", "Incorrecto", "Introduce un número de telefono correcto");
 		
 		//comprobamos que la fecha de nacimiento sea correcta
-		int day = instructor.getDayOfBirth();
-		int month = instructor.getMonthOfBirth();
-		int year = instructor.getYearOfBirth();
 		
-		if (day <= 0)
+		Integer day = instructor.getDayOfBirth();
+		Integer month = instructor.getMonthOfBirth();
+		Integer year = instructor.getYearOfBirth();
+		
+		if( day == null ) {
 			errors.rejectValue("instructor.dayOfBirth", "Positivo", "Introduce un día correcto");
-		if (month <= 0)
-			errors.rejectValue("instructor.monthOfBirth", "Positivo", "Introduce un mes correcto");
-		if (year < 1900)
-			errors.rejectValue("instructor.yearOfBirth", "Positivo", "Introduce un año correcto");
-		if (day > 31)
+		}
+		else if (day <= 0) {
+			errors.rejectValue("instructor.dayOfBirth", "Positivo", "Introduce un día correcto");
+		}
+		else if (day > 31) {
 			errors.rejectValue("instructor.dayOfBirth", "Mes sol 31 dias", "El mes solo tiene 31 dias");
-		if (month > 12)
+		}
+		else if( month == null ) {
+			errors.rejectValue("instructor.monthOfBirth", "Positivo", "Introduce un mes correcto");
+		}
+		else if (month <= 0) {
+			errors.rejectValue("instructor.monthOfBirth", "Positivo", "Introduce un mes correcto");
+		}
+		else if (month > 12) {
 			errors.rejectValue("instructor.monthOfBirth", "Solo 12 meses", "El año solo tiene 12 meses");
-		if (year > (1900 + new Date().getYear())) 
-			errors.rejectValue("instructor.yearOfBirth", "Maximo año posible", "Introduce un año correcto (inferior al actual)");
-		for (int i = 0; i < meses31dias.length; i++) {
-			if (meses31dias[i] == month) {
-				if (day == 31)
-					errors.rejectValue("instructor.dayOfBirth", "Mes con 30 dias", "El mes solo tiene 30 dias");
+		}
+		else if( ( month == 2 && day > 29 ) ) {
+			errors.rejectValue("instructor.dayOfBirth", "Mes con 30 dias", "Día inválido para el mes seleccionado");
+		}
+			
+		else if( day == 31 ) {
+			for ( int i = 0; i < meses30dias.length; i++ ) {
+				if ( meses30dias[i] == month ) {
+					errors.rejectValue("instructor.dayOfBirth", "Mes con 30 dias", "Día inválido para el mes seleccionado");
+				}
 			}
 		}
+		else if( year == null ) {
+			errors.rejectValue("instructor.yearOfBirth", "Positivo", "Introduce un año correcto");
+		}
+
+		else if (year < 1900) {
+			errors.rejectValue("instructor.yearOfBirth", "Positivo", "Introduce un año correcto");
+		}
+
+		else if ( year > ( 1900 + new Date().getYear() ) ) {
+			errors.rejectValue("instructor.yearOfBirth", "Maximo año posible", "Introduce un año correcto");
+		}
+
+		
 		if (instructor.getEmail().trim().equals(""))
 			errors.rejectValue("instructor.email", "Falta email", "Introduce un email");
 		if (instructor.getBankAccount().length() < 24 || instructor.getBankAccount().length() > 24) 
