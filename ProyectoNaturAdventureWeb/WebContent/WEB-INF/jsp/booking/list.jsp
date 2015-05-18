@@ -50,7 +50,6 @@
 		</div>
 		
 		<a href="add.html">Añadir reserva</a>
-		<a href="send.html">Enviar email con PDF</a>
 	
 </jsp:body>
 </t:paginabasica>

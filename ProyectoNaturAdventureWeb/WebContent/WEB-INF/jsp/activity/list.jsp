@@ -46,8 +46,6 @@
 		</div>
 		
 		<a href="add.html">Añadir actividad</a><br>
-		<a href="fileUpload.html">Subir imagen</a><br>
-		<a href="add2.html">Añadir actividad 2</a><br>
 		
 	
 </jsp:body>

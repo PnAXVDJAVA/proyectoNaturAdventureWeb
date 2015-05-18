@@ -33,7 +33,7 @@
 	</bean>
 	
 	<!-- Fitxer de Propietats JDBC, localització relativa al classpath -->
-	<context:property-placeholder location="classpath:jdbc.properties2"/>
+	<context:property-placeholder location="classpath:jdbc.properties"/>
 	
 	<!--  ******************************************************************  -->
 	
@@ -47,7 +47,6 @@
 	<bean id="userDao" class="es.uji.ei1027.naturAdventure.dao.GenericUserDao"/>
 	<bean id="userDetailsDao" class="es.uji.ei1027.naturAdventure.dao.UserDetailsDao"/>
 	<bean id="customerDao" class="es.uji.ei1027.naturAdventure.dao.CustomerDao"/>
-	<bean id="imagenDao" class="es.uji.ei1027.naturAdventure.dao.ImagenDao"/>
 	
 	<context:component-scan base-package="es.uji.ei1027.naturAdventure.validator" />
 	<bean id="userDetailsValidator" class="es.uji.ei1027.naturAdventure.validator.UserDetailsValidator"/>
