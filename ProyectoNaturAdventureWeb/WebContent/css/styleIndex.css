@@ -108,39 +108,62 @@
 }
 .headerBackground {
 	width-max: 125%;
-	height: 250px;
+	/*height: 250px;*/
+	height: 270px;
 	background: url("../images/header2.jpg") no-repeat 100%;
 	/*opacity: 0.9;*/
 	
 }
 .titlePage {
-	height:50%;
+	text-align: center;
+	font-family: 'Skranji', cursive;
+	
+	font-size: 90px;
+	color: #cecece;
+	margin: 0px;
+	text-stroke: 2px black;
+	-webkit-text-stroke: 2px black;
+	-moz-text-stroke: 2px black;
+	-o-text-stroke: 2px black;
+	-ms-text-stroke: 2px black;
+	
+	text-shadow: 2px 3px 1px black;
+	-webkit-text-shadow: 2px 3px 1px black;
+	-moz-text-shadow: 2px 3px 1px black;
+	-o-text-shadow: 2px 3px 1px black;
+	-ms-text-shadow: 2px 3px 1px black;
+	/*
+	font-family: 'Londrina Solid', cursive;
 	text-align: center;
 	color: #cecece;
 	margin: 0px;
 	font-size: 80px;
 	font-style: italic;
-	font-weight: 900;
+	font-weight: 400;
 	position: relative;
-	font-family: 'Myriad Pro', 'Myriad', helvetica, arial, sans-serif;
+	font-family: 'Chicle', cursive;
+	/*font-family: 'Myriad Pro', 'Myriad', helvetica, arial, sans-serif;*/
+	
+	/*
+	
 	letter-spacing: -3px;
 	text-stroke: 2px black;
 	-webkit-text-stroke: 2px black;
 	-moz-text-stroke: 2px black;
 	-o-text-stroke: 2px black;
 	-ms-text-stroke: 2px black;
+	
 	text-shadow: 2px 2px 2px black;
 	-webkit-text-shadow: 2px 2px 2px black;
 	-moz-text-shadow: 2px 2px 2px black;
 	-o-text-shadow: 2px 2px 2px black;
-	-ms-text-shadow: 2px 2px 2px black;
+	-ms-text-shadow: 2px 2px 2px black;*/
 }
-
 
 .iconPage {
 	background: url("../images/icon.png") no-repeat 100%;
 	background-position: center;
-	padding-top: 148px;
+	padding-top: 150px;
 	text-align: center;
 	
 	filter: drop-shadow(2px 2px 0 black) drop-shadow(-2px -2px 0 black);

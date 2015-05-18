@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepickr.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepickr.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleIndex.css">
+		<link href='http://fonts.googleapis.com/css?family=Londrina+Solid|Skranji:700' rel='stylesheet' type='text/css'>
 		
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
