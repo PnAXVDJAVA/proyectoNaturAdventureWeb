@@ -113,6 +113,7 @@
 	
 }
 .titlePage {
+	height:50%;
 	text-align: center;
 	color: #cecece;
 	margin: 0px;
@@ -127,8 +128,11 @@
 	text-shadow: 2px 2px 2px black;
 }
 
+
 .iconPage {
-	padding-top: 20px;
+	background: url("../images/icon.png") no-repeat 100%;
+	background-position: center;
+	padding-top: 148px;
 	text-align: center;
     -webkit-filter: drop-shadow(2px 2px 2px black) drop-shadow(2px 2px 2px black);
 	filter: drop-shadow(2px 2px 0 black) drop-shadow(-2px -2px 0 black);

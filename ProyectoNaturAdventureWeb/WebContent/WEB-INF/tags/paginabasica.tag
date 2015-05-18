@@ -30,7 +30,7 @@
 	</head>
 	<body>
 	    <header class="headerBackground">
-	    	<div class="iconPage"><img src="images/icon.png"></div>
+	    	<div class="iconPage"></div>
 	        <div class="titlePage">NaturAdventure</div>
 	    </header>
 	    <t:navegacion />
