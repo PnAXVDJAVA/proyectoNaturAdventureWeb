@@ -84,7 +84,7 @@
 					</d:choose>
 				</c:when>
 				<c:otherwise>
-					<li><a href="${pageContext.request.contextPath}/index.jsp">Nuestras actividades</a></li>
+					<li><a href="${pageContext.request.contextPath}/activity/customerList.html">Nuestras actividades</a></li>
 					<li></li>
 				</c:otherwise>
 				</c:choose>
