@@ -13,6 +13,8 @@ public class Activity {
 	int maxPartakers;
 	int minPartakers;
 	Level level;
+	byte [] picture;
+	String pictureString;
 	List<Instructor> specializedInstructors;
 	
 	public Activity() {
@@ -91,6 +93,22 @@ public class Activity {
 		this.level = level;
 	}
 	
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+
+	public String getPictureString() {
+		return pictureString;
+	}
+
+	public void setPictureString(String pictureString) {
+		this.pictureString = pictureString;
+	}
+
 	public void setSpecializedInstructors(  List<Instructor> list ) {
 		this.specializedInstructors = list;
 	}

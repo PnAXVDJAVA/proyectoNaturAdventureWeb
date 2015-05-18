@@ -1,5 +1,6 @@
 package es.uji.ei1027.naturAdventure.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,10 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.itextpdf.text.pdf.codec.Base64;
 
 import es.uji.ei1027.naturAdventure.dao.ActivityDao;
 import es.uji.ei1027.naturAdventure.dao.InstructorDao;
 import es.uji.ei1027.naturAdventure.domain.Activity;
+import es.uji.ei1027.naturAdventure.domain.ActivityPicture;
+import es.uji.ei1027.naturAdventure.domain.ActivityWithPicture;
 import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.Level;
 import es.uji.ei1027.naturAdventure.domain.Roles;
@@ -41,10 +47,16 @@ public class ActivityController {
 		this.instructorDao = instructorDao;
 	}
 	
+	
 	@RequestMapping("/list")
 	public String listActivities( Model model, HttpSession session ) {
 		if( checkAuthentification( session, Roles.ADMIN.getLevel()) ) {			
-			model.addAttribute( "activities", activityDao.getActivities() );
+			List<Activity> activities = activityDao.getActivities();
+			for( Activity activity: activities ) {
+				String encoded = Base64.encodeBytes( activity.getPicture() );
+				activity.setPictureString( encoded );
+			}			
+			model.addAttribute( "activities", activities );
 			return "activity/list";
 		}
 		model.addAttribute( "user", new UserDetails() );
@@ -52,25 +64,47 @@ public class ActivityController {
 		return "login";
 	}
 	
+	@RequestMapping(value="/customerList")
+	public String listCustomerActivities( Model model ) {
+		List<Activity> activities = activityDao.getActivities();
+		for( Activity activity: activities ) {
+			String encoded = Base64.encodeBytes( activity.getPicture() );
+			activity.setPictureString( encoded );
+		}
+		model.addAttribute( "activities", activities );
+		return "activity/customerList";
+	}
+	
 	@RequestMapping(value="/add")
 	public String addActivity( Model model, HttpSession session ) {
 		if( checkAuthentification( session, Roles.ADMIN.getLevel()) ) {		
-			model.addAttribute( "activity" , new Activity() );
+			model.addAttribute( "activity" , new ActivityWithPicture() );
 			model.addAttribute( "levels", Level.getStringValues() );
 			return "activity/add";
 		}
 		model.addAttribute( "user", new UserDetails() );
-		session.setAttribute( "nextURL", "/activity/add.html" );
+		session.setAttribute( "nextURL", "/activity/add2.html" );
 		return "login";
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String processAddSubmit( Model model, @ModelAttribute("activity") Activity activity, BindingResult bindingResult, HttpSession session ) {
+	public String processAddSubmit( Model model, @ModelAttribute("activity") ActivityWithPicture activityWithPicture, BindingResult bindingResult, HttpSession session ) {
 		if( !checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/activity/add.html" );
 			return "login";
 		}
+		
+		Activity activity = activityWithPicture.getActivity();
+		ActivityPicture picture = activityWithPicture.getActivityPicture();
+		MultipartFile file = picture.getFile();
+		try {
+			activity.setPicture( file.getBytes() );
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		ActivityValidator validator = new ActivityValidator();
 		validator.validate(activity, bindingResult);
 		
@@ -84,7 +118,11 @@ public class ActivityController {
 	@RequestMapping(value="/update/{codActivity}")
 	public String updateActivity( Model model, @PathVariable int codActivity, HttpSession session ) {
 		if( checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
-			model.addAttribute( "activity", activityDao.getActivity( codActivity ) );
+			Activity activity = activityDao.getActivity( codActivity );
+			ActivityWithPicture activityWithPicture = new ActivityWithPicture();
+			activityWithPicture.setActivity( activity );
+			activityWithPicture.setActivityPicture( new ActivityPicture() );
+			model.addAttribute( "activity", activityWithPicture );
 			model.addAttribute( "levels", Level.getStringValues() );
 			return "activity/update";
 		}
@@ -94,7 +132,7 @@ public class ActivityController {
 	}
 	
 	@RequestMapping(value="/update/{codActivity}", method=RequestMethod.POST)
-	public String processUpdateSubmit( Model model, @PathVariable int codActivity, @ModelAttribute("activity") Activity activity, BindingResult bindingResult, HttpSession session ) {
+	public String processUpdateSubmit( Model model, @PathVariable int codActivity, @ModelAttribute("activity") ActivityWithPicture activityWithPicture, BindingResult bindingResult, HttpSession session ) {
 		if( !checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/activity/update/" + codActivity + ".html" );
@@ -103,6 +141,30 @@ public class ActivityController {
 		if( bindingResult.hasErrors() ) {
 			return "activity/update";
 		}
+		
+		Activity activity = activityWithPicture.getActivity();
+		ActivityPicture activityPicture = activityWithPicture.getActivityPicture();
+		if( activityPicture != null ) {
+			MultipartFile file = activityPicture.getFile();
+			if( !file.isEmpty() ) {
+				try {
+					activity.setPicture( file.getBytes() );
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else {
+				Activity oldActivity = activityDao.getActivity( codActivity );
+				byte [] picture = oldActivity.getPicture();
+				activity.setPicture( picture );
+			}
+		}
+		else {
+			Activity oldActivity = activityDao.getActivity( codActivity );
+			byte [] picture = oldActivity.getPicture();
+			activity.setPicture( picture );
+		}
+		
 		activity.setCodActivity( codActivity );
 		activityDao.updateActivity( activity );
 		return "redirect:../list.html";
@@ -160,11 +222,7 @@ public class ActivityController {
 		return "redirect:addSpecializedInstructor/" + codActivity + ".html";
 	}
 	
-	@RequestMapping(value="/customerList")
-	public String listCustomerActivities( Model model ) {
-		model.addAttribute( "activities", activityDao.getActivities() );
-		return "activity/customerList";
-	}
+	
 	
 	private boolean checkAuthentification( HttpSession session, int securityLevel ) {
 		UserDetails user = (UserDetails) session.getAttribute( "user" );

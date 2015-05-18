@@ -7,55 +7,61 @@
 	
 	<h2>Nueva actividad</h2>
 	    <form:form method="post" modelAttribute="activity" role="form" class="form form-horizontal"
-	     accept-charset="utf-8">
+	     accept-charset="utf-8" enctype="multipart/form-data">
 				
 				<div class="form-group">
-	                <form:label path="name" class="control-label col-sm-2">Nombre: </form:label>
+	                <form:label path="activity.name" class="control-label col-sm-2">Nombre: </form:label>
 	                <div class="col-xs-3">
-	                	<form:input path="name" class="form-control"/>
+	                	<form:input path="activity.name" class="form-control"/>
 	                </div>
-	                <form:errors path="name" cssClass="error" />
-	                <form:label path="description" class="control-label col-sm-2">Descripción: </form:label>
+	                <form:errors path="activity.name" cssClass="error" />
+	                <form:label path="activity.description" class="control-label col-sm-2">Descripción: </form:label>
 	                <div class="col-xs-3">
-	                	<form:input path="description" class="form-control"/>
+	                	<form:input path="activity.description" class="form-control"/>
 	            	</div>
-	            	<form:errors path="description" cssClass="error" />
+	            	<form:errors path="activity.description" cssClass="error" />
 	            </div>
 	            	            
 				<div class="form-group">
-	                <form:label path="pricePerPerson" class="control-label col-sm-2">Precio por persona: </form:label>
+	                <form:label path="activity.pricePerPerson" class="control-label col-sm-2">Precio por persona: </form:label>
 	                <div class="col-xs-3">
-	                	<form:input path="pricePerPerson" class="form-control"/>
+	                	<form:input path="activity.pricePerPerson" class="form-control"/>
 	           		</div>
 	           	</div>
 				<div class="form-group">
-	                <form:label path="duration" class="control-label col-sm-2">Duración: </form:label>
+	                <form:label path="activity.duration" class="control-label col-sm-2">Duración: </form:label>
 	                <div class="col-xs-3">
-	                	<form:input path="duration" class="form-control"/>
+	                	<form:input path="activity.duration" class="form-control"/>
 	                </div>
-	                <form:errors path="duration" cssClass="error" />
+	                <form:errors path="activity.duration" cssClass="error" />
 	          	</div>
 				<div class="form-group">
-	                <form:label path="minPartakers" class="control-label col-sm-2">Mín. núm. participantes: </form:label>
+	                <form:label path="activity.minPartakers" class="control-label col-sm-2">Mín. núm. participantes: </form:label>
 	                <div class="col-xs-3">
-	                	<form:input path="minPartakers" class="form-control"/>
+	                	<form:input path="activity.minPartakers" class="form-control"/>
 	                </div>
-	                <form:errors path="minPartakers" cssClass="error" />
+	                <form:errors path="activity.minPartakers" cssClass="error" />
 	                
-	                <form:label path="maxPartakers" class="control-label col-sm-2">Máx. núm. participantes: </form:label>
+	                <form:label path="activity.maxPartakers" class="control-label col-sm-2">Máx. núm. participantes: </form:label>
 	                <div class="col-xs-3">
-	                	<form:input path="maxPartakers" class="form-control"/>
+	                	<form:input path="activity.maxPartakers" class="form-control"/>
 	                </div>
-	                <form:errors path="maxPartakers" cssClass="error" />
+	                <form:errors path="activity.maxPartakers" cssClass="error" />
 	            </div>
 				<div class="form-group">
-	                <form:label path="level" class="control-label col-sm-2">Nivel: </form:label>
+	                <form:label path="activity.level" class="control-label col-sm-2">Nivel: </form:label>
 	                <div class="col-xs-3">
-	                	<form:select path="level" class="form-control">
+	                	<form:select path="activity.level" class="form-control">
 	                		<form:options items="${levels}" />
 	                	</form:select>
 	                </div>		              
-	                <form:errors path="level" cssClass="error" />
+	                <form:errors path="activity.level" cssClass="error" />
+	            </div>
+	            <div class="form-group">
+	            	<form:label path="activityPicture.file" class="control-label col-sm-2">Foto: </form:label>
+	            	<div class="col-xs-3">
+	                	<form:input type="file" path="activityPicture.file" name="file"/>
+	                </div>
 	            </div>
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-10">
