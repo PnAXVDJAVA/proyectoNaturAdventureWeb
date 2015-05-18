@@ -29,11 +29,11 @@
 		<section class="sectionRight">
 			<section class="sectionImg">
 				<div id="imgs" class="normal" >
-					<img id="15" class="izqOculta" src="images/15.jpg">
-					<img id="16" class="izq" src="images/16.jpg">
-					<img id="1" class="centro" src="images/1.jpg">
-					<img id="2" class="der" src="images/2.jpg">
-					<img id="3" class="derOculta" src="images/3.jpg">
+					<img id="15" class="slider izqOculta" src="images/slider/15.jpg">
+					<img id="16" class="slider izq" src="images/slider/16.jpg">
+					<img id="1" class="slider centro" src="images/slider/1.jpg">
+					<img id="2" class="slider der" src="images/slider/2.jpg">
+					<img id="3" class="slider derOculta" src="images/slider/3.jpg">
 				</div>
 			</section>
 		</section>

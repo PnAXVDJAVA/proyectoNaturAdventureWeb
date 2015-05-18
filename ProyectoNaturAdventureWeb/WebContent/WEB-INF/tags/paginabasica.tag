@@ -30,8 +30,8 @@
 	</head>
 	<body>
 	    <header class="headerBackground">
-	    	
-	        <h1 class="titleHeader">NaturAdventure</h1>
+	    	<div class="iconPage"><img src="images/icon.png"></div>
+	        <div class="titlePage">NaturAdventure</div>
 	    </header>
 	    <t:navegacion />
 	    <div class="container">

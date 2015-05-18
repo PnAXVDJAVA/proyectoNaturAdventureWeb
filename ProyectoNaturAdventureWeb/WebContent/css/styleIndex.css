@@ -99,16 +99,48 @@
     overflow: hidden;
 }
 
+.brilloHeader {
+	filter: brightness(80%);
+	-webkit-filter: brightness(80%);
+	-moz-filter: brightness(80%);
+	-o-filter: brightness(80%);
+	-ms-filter: brightness(80%);
+}
 .headerBackground {
-	margin:0px;
-	height: 100px;
-	background: url("../images/header2.png") no-repeat 100%;
+	height: 250px;
+	background: url("../images/header.png") no-repeat 100%;
+	/*opacity: 0.9;*/
+	
 }
-.titleHeader {
-	font-size: 50px;
-	color: white;
-	font-weight: bold;
+.titlePage {
+	text-align: center;
+	color: #cecece;
+	margin: 0px;
+	font-size: 80px;
+	font-style: italic;
+	font-weight: 900;
+	position: relative;
+	font-family: 'Myriad Pro', 'Myriad', helvetica, arial, sans-serif;
+	letter-spacing: -3px;
+	-webkit-text-stroke: 2px black;
+	
+	text-shadow: 2px 2px 2px black;
 }
+
+.iconPage {
+	padding-top: 20px;
+	text-align: center;
+    -webkit-filter: drop-shadow(2px 2px 2px black) drop-shadow(2px 2px 2px black);
+	filter: drop-shadow(2px 2px 0 black) drop-shadow(-2px -2px 0 black);
+    /*
+    
+    filter: brightness(40%);
+	-webkit-filter: brightness(20%);
+	-moz-filter: brightness(80%);
+	-o-filter: brightness(80%);
+	-ms-filter: brightness(80%);*/
+}
+
 
 
 
