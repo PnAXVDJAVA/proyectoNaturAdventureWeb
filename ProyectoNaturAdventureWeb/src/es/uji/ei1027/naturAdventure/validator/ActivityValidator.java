@@ -18,20 +18,20 @@ public class ActivityValidator implements Validator{
 		Activity activity = (Activity) obj;
 		
 		if (activity.getName().trim().equals(""))
-			errors.rejectValue("name", "Obligatorio", "Introduce un nombre");
+			errors.rejectValue("activity.name", "Obligatorio", "Introduce un nombre");
 		if (activity.getDescription().trim().equals(""))
-			errors.rejectValue("description", "Obligatorio", "Introduce una descripción");
+			errors.rejectValue("activity.description", "Obligatorio", "Introduce una descripción");
 		if (activity.getPricePerPerson() < 0.0) 
-			errors.rejectValue("pricePerPerson", "Mayor que 0", "Introduce un precio correcto");
+			errors.rejectValue("activity.pricePerPerson", "Mayor que 0", "Introduce un precio correcto");
 		if (activity.getDuration() < 0)
-			errors.rejectValue("duration", "Mayor que 0", "Introduce una duración correcta");
+			errors.rejectValue("activity.duration", "Mayor que 0", "Introduce una duración correcta");
 		if (activity.getMaxPartakers() < 0) 
-			errors.rejectValue("maxPartakers", "Mayor que 0", "Introduce una cantidad correcta");
+			errors.rejectValue("activity.maxPartakers", "Mayor que 0", "Introduce una cantidad correcta");
 		if (activity.getMinPartakers() < 0) 
-			errors.rejectValue("minPartakers", "Mayor que 0", "Introduce una cantidad correcta");
+			errors.rejectValue("activity.minPartakers", "Mayor que 0", "Introduce una cantidad correcta");
 		if (activity.getMinPartakers() > activity.getMaxPartakers()) 
-			errors.rejectValue("minPartakers", "Max >= Min", "El mínimo de participantes tiene que ser menor o igual que el máximo de participantes");
+			errors.rejectValue("activity.minPartakers", "Max >= Min", "El mínimo de participantes tiene que ser menor o igual que el máximo de participantes");
 		if (activity.getLevel().equals(Level.Elige))
-			errors.rejectValue("level", "Elige Nivel", "Elige un nivel de dificultad");
+			errors.rejectValue("activity.level", "Elige Nivel", "Elige un nivel de dificultad");
 	}
 }
