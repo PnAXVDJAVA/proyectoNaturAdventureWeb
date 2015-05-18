@@ -107,8 +107,9 @@
 	-ms-filter: brightness(80%);
 }
 .headerBackground {
+	width-max: 125%;
 	height: 250px;
-	background: url("../images/header.png") no-repeat 100%;
+	background: url("../images/header2.jpg") no-repeat 100%;
 	/*opacity: 0.9;*/
 	
 }
