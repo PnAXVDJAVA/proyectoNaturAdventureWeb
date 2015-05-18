@@ -11,7 +11,8 @@
 
 <!-- <nav class="navbar navbar-default navbar-fixed-top"> -->
 
-<nav class="navbar navbar-inverse">
+<div class="navbar-wrapper">
+<nav class="navbar navbar-custom">
 	<div class="navbar-padding">
 	<!--<div class="container">-->
 		<div class="navbar-header">
@@ -93,3 +94,4 @@
 	<!--</div>-->
 	</div>
 </nav>
+</div>
