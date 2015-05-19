@@ -14,7 +14,7 @@
 				    <div class="clear"></div>
 		        	<div class="col-md-3">	
 			            	<form:input path="username" class="form-control"
-			            			placeHolder="Nombre de usuario" />	
+			            			placeHolder="Introduce tu nombre de usuario" />	
 			       	</div>
 			       	<div class="col-md-5">
 		           			<form:errors path="username" cssClass="error" />
@@ -28,7 +28,7 @@
 		            <div class="clear"></div>
 		            <div class="col-md-3">
 		            	<form:password path="password" class="form-control" id="password"
-		            				placeHolder="Contraseña"/>
+		            				placeHolder="Introduce tu contraseña"/>
 		            </div>
 		            <div class="col-md-5">
 		            	<form:errors path="password" cssClass="error" /> 
@@ -36,7 +36,7 @@
 		        </div>	
 		        <div class="clear"></div>
 		        <div class="col-md-offset-1">
-		        	<button type="submit" class="btn btn-default">Login</button>
+		        	<button type="submit" class="btn btn-custom">Login</button>
 		        </div>   
 		    </form:form>
 </jsp:body>

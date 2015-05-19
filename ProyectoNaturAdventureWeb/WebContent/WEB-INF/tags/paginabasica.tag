@@ -20,6 +20,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepickr.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleIndex.css">
 		<link href='http://fonts.googleapis.com/css?family=Londrina+Solid|Skranji:700' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans|Roboto' rel='stylesheet' type='text/css'>
 		
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
@@ -28,21 +29,28 @@
 		<script src="${pageContext.request.contextPath}/js/datepickr.js"></script>
 		<script src="${pageContext.request.contextPath}/js/functionIndex.js"></script>
 		
+		<script type="text/javascript">
+			$('#nav').affix({
+			});
+		</script>
+		
 	</head>
 	<body>
-	    <header class="headerBackground">
-	    	<div class="iconPage"></div>
-	        <div class="titlePage">NaturAdventure</div>
-	    </header>
-	    <t:navegacion />
-	    <div class="container">
-	        <jsp:doBody />
+		<div class="body-wrapper">
+		    <header class="headerBackground">
+		    	<div class="iconPage"></div>
+		        <div class="titlePage">NaturAdventure</div>
+		    </header>
+		    <t:navegacion />
+		    <div class="container">
+		        <jsp:doBody />
+		    </div>
+		    <footer>
+		    <hr>
+		    <p class="text-muted centered">
+		    	EI1027 - Diseño e Implementación de Sistemas de Información
+		    </p>
+		    </footer>
 	    </div>
-	    <footer>
-	    <hr>
-	    <p class="text-muted centered">
-	    	EI1027 - Diseño e Implementación de Sistemas de Información
-	    </p>
-	    </footer>
 	</body>
 </html>

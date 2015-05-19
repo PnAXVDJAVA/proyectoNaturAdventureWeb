@@ -10,7 +10,7 @@
 </c:when>
 <c:otherwise>
 <ul class="nav navbar-nav navbar-right">
-	<li class="auth">Autenticado como: <span class="username">${user.username}</span></li>
+	<li class="auth">Autenticado como:  <span class="username">${user.username}</span></li>
 	<li><a class="no-padding" href="${pageContext.request.contextPath}/logout.html"><span class="glyphicon glyphicon-log-out"></span>   Salir</a></li>
 </ul>
 </c:otherwise>

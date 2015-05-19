@@ -137,9 +137,9 @@
 	            <div class="form-group">
 	            	<div class="col-xs-2"></div>
 		            <div class="col-xs-4">	            
-		            	<button type="submit" class="btn btn-default btn-padding">Registrar</button>
-		            	<button type="reset" class="btn btn-default btn-padding">Limpiar</button>
-		            	<input type="button" class="btn btn-default btn-padding" value="Cancelar" onclick="history.back(-1)"/>
+		            	<button type="submit" class="btn btn-custom btn-padding">Registrar</button>
+		            	<button type="reset" class="btn btn-custom btn-padding">Limpiar</button>
+		            	<input type="button" class="btn btn-custom btn-padding" value="Cancelar" onclick="history.back(-1)"/>
 		    		</div>
 	    		</div>
 	    </form:form>

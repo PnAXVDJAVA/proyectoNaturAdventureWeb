@@ -11,7 +11,7 @@
 
 <!-- <nav class="navbar navbar-default navbar-fixed-top"> -->
 
-<div class="navbar-wrapper">
+<div class="navbar-wrapper" data-spy="affix" data-offset-top="270" id="nav">
 <nav class="navbar navbar-custom">
 	<div class="navbar-padding">
 	<!--<div class="container">-->
@@ -21,7 +21,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">NaturAdventure</a> 
+	      <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><span class="glyphicon glyphicon-home"></span>   Inicio</a> 
 		</div>
 		<div class="navbar-collapse collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
@@ -30,7 +30,7 @@
 					<d:choose>
 					<d:when test='${role == 2}'>
 						<li class="dropdown">
-							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de actividades
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Actividades
 							<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" role="menu">
@@ -39,7 +39,7 @@
 							</ul>
 						</li>
 						<li class="dropdown">
-							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de monitores 
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Monitores 
 							<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" role="menu">
@@ -53,7 +53,7 @@
 							</ul>
 						</li>
 						<li class="dropdown">
-							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de clientes
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Clientes
 							<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" role="menu">
@@ -62,7 +62,7 @@
 							</ul>
 						</li>
 						<li class="dropdown">
-							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Gestión de reservas
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Reservas
 							<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" role="menu">
