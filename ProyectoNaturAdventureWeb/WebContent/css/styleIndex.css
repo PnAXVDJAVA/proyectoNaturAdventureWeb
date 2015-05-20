@@ -79,17 +79,23 @@
 }
 
 .sectionText {
-	padding-top: 20px
 	float: left;
 	width: 50%;
 	text-align: justify;
     text-justify: inter-word;
 }
+
 .sectionRight {
 	width: 50%;
-	float:right;
+	float: right;
 	margin: auto;
-	padding: 70px 0px 0px 70px;
+	padding: 100px 0px 0px 70px;
+}
+
+.sectionText p {
+	padding-top: 12px;
+	font-size: 19px;
+	font-style: italic;
 }
 
 .sectionImg {
