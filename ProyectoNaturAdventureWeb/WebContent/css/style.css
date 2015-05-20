@@ -1,7 +1,10 @@
 
 .error {
-	color: red;
-	margin-top: 5px;
+	color: #C22C51;
+	border: 1px solid #C22C51;
+	border-radius: 4px;
+	padding: 8px;
+	background-color: #E498AB;
 }
 
 .loggeduser { 
@@ -128,8 +131,16 @@
 	float: left;
 }
 
-.body-wrapper {
-	padding: 2px;
+.login-wrapper {
+	border: 1px solid #D0DED6;
+	border-radius: 4px;
+	width: 60%;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+.pwd-forget {
+	padding-top: 5px;
 }
 
 .navbar {
@@ -137,9 +148,9 @@
 }
 
 .navbar-custom {
-  background-color: #1ACA5B;
+  background-color: #92E7B6;
   border-color: #868f99;
-  font-family: 'Open Sans', sans-serif;
+  /*font-family: 'Open Sans', sans-serif;*/
 }
 .navbar-custom .navbar-brand {
   color: #0a0a0a;
@@ -198,7 +209,7 @@
 .navbar-custom .navbar-nav > .open > a,
 .navbar-custom .navbar-nav > .open > a:hover,
 .navbar-custom .navbar-nav > .open > a:focus {
-  background-color: #388A56;
+  background-color: #4DC981;
   color: #ffffff;
   border-color: transparent;
 }
@@ -242,8 +253,9 @@
 }
 
 .navbar-wrapper {
-	border: 1px solid black;
-	/*border-radius: 5px;*/
+	/*border: 1px solid black;*/
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
 }
 
 .navbar {
@@ -259,16 +271,15 @@
 }
 
 .btn-custom {
-  background-color: #1ACA5B;
-  border-color: #1ACA5B;
-  color: white;
+  background-color: #4DC981;
+  border-color: #4DC981;
 }
 .btn-custom:hover,
 .btn-custom:focus,
 .btn-custom:active,
 .btn-custom.active {
-  background-color: #17b351;
-  border-color: #149d47;
+  background-color: #3bc273;
+  border-color: #35ae68;
 }
 .btn-custom.disabled:hover,
 .btn-custom.disabled:focus,
@@ -282,7 +293,8 @@ fieldset[disabled] .btn-custom:hover,
 fieldset[disabled] .btn-custom:focus,
 fieldset[disabled] .btn-custom:active,
 fieldset[disabled] .btn-custom.active {
-  background-color: #1ACA5B;
-  border-color: #1ACA5B;
+  background-color: #4DC981;
+  border-color: #4DC981;
 }
+
 

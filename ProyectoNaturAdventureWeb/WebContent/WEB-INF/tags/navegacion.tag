@@ -13,7 +13,7 @@
 
 <div class="navbar-wrapper" data-spy="affix" data-offset-top="270" id="nav">
 <nav class="navbar navbar-custom">
-	<div class="navbar-padding">
+	<div class="container">
 	<!--<div class="container">-->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">

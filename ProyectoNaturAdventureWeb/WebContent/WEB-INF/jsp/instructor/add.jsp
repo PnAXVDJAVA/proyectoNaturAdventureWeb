@@ -87,7 +87,7 @@
 		                	<form:input path="instructor.telephone" class="form-control"/>
 		           		</div>
 	           		</div>
-	           		<div class="col-xs-3">
+	           		<div class="col-xs-4">
 	                	<form:errors path="instructor.telephone" cssClass="error" />
 	           		</div>
 	           		<div class="clear"></div>
@@ -137,7 +137,7 @@
 		                	<form:input path="instructor.bankAccount" class="form-control"/>
 		           		</div>
 	           		</div>
-	           		<div class="col-xs-3">
+	           		<div class="col-xs-4">
 	                	<form:errors path="instructor.bankAccount" cssClass="error" />
 	           		</div>
 	           		<div class="clear"></div>
@@ -187,9 +187,9 @@
 	            <div class="form-group">
 	            	<div class="col-xs-2"></div>
 		            <div class="col-xs-4">	            
-		            	<button type="submit" class="btn btn-default btn-padding">Añadir monitor</button>
-		            	<button type="reset" class="btn btn-default btn-padding">Limpiar</button>
-		            	<input type="button" class="btn btn-default btn-padding" value="Cancelar" onclick="history.back(-1)"/>
+		            	<button type="submit" class="btn btn-custom btn-padding">Añadir monitor</button>
+		            	<button type="reset" class="btn btn-custom btn-padding">Limpiar</button>
+		            	<input type="button" class="btn btn-custom btn-padding" value="Cancelar" onclick="history.back(-1)"/>
 		    		</div>
 	    		</div>
 	    </form:form>

@@ -110,14 +110,14 @@
 .headerBackground {
 	width-max: 125%;
 	height: 270px;
-	background: url("../images/header3.jpg") no-repeat 100%;
+	background: url("../images/header2.jpg") no-repeat 100%;
 	
 }
 .titlePage {
 	text-align: center;
 	font-family: 'Skranji', cursive;
 	
-	font-size: 90px;
+	font-size: 80px;
 	color: #cecece;
 	margin: 0px;
     text-shadow:

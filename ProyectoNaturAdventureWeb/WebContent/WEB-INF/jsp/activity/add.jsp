@@ -126,10 +126,11 @@
 	           	</div>
 
 				<div class="form-group">
-					<div class="col-sm-offset-4 col-sm-10">
-	                	<button type="submit" class="btn btn-default btn-padding">Añadir actividad</button>
-		            	<button type="reset" class="btn btn-default btn-padding">Limpiar</button>
-		            	<input type="button" class="btn btn-default btn-padding" value="Cancelar" onclick="history.back(-1)"/>	                
+					<div class="col-xs-3"></div>
+					<div class="col-xs-6">
+	                	<button type="submit" class="btn btn-custom btn-padding">Añadir actividad</button>
+		            	<button type="reset" class="btn btn-custom btn-padding">Limpiar</button>
+		            	<input type="button" class="btn btn-custom btn-padding" value="Cancelar" onclick="history.back(-1)"/>	                
 					</div>
 				</div>
 	    </form:form>

@@ -4,17 +4,18 @@
 <t:paginabasica title="Login">
 <jsp:body>
 <h2>Acceso</h2>
+			<section>
 		    <form:form method="post" modelAttribute="user"
 		        action="${pageContext.request.contextPath}/login.html" role="form" class="form form-horizontal">
 		        
 		        <div class="form-group">
 			        <div class="col-md-5">
-				        <form:label path="username">Nombre de usuario:</form:label>
+				        <form:label path="username">Nombre de usuario</form:label>
 				    </div>
 				    <div class="clear"></div>
-		        	<div class="col-md-3">	
+		        	<div class="col-md-4">	
 			            	<form:input path="username" class="form-control"
-			            			placeHolder="Introduce tu nombre de usuario" />	
+			            			placeHolder="Usuario" />	
 			       	</div>
 			       	<div class="col-md-5">
 		           			<form:errors path="username" cssClass="error" />
@@ -23,21 +24,22 @@
 		        <div class="clear"></div>
 		        <div class="form-group">
 		        	<div class="col-md-5">
-		           		<form:label path="password" for="password">Contraseña:</form:label>
+		           		<form:label path="password" for="password">Contraseña</form:label>
 		            </div>
 		            <div class="clear"></div>
-		            <div class="col-md-3">
+		            <div class="col-md-4">
 		            	<form:password path="password" class="form-control" id="password"
-		            				placeHolder="Introduce tu contraseña"/>
+		            				placeHolder="Contraseña"/>
 		            </div>
 		            <div class="col-md-5">
 		            	<form:errors path="password" cssClass="error" /> 
 		            </div>
 		        </div>	
 		        <div class="clear"></div>
-		        <div class="col-md-offset-1">
-		        	<button type="submit" class="btn btn-custom">Login</button>
-		        </div>   
+		        <button type="submit" class="btn btn-custom col-md-2">Acceder</button>
+		    	<a href="#" class="col-md-3 pwd-forget">¿Olvidaste tu contraseña?</a>
 		    </form:form>
+
+		    </section>
 </jsp:body>
 </t:paginabasica>
