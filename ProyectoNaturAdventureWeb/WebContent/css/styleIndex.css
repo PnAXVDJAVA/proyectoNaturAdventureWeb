@@ -79,6 +79,7 @@
 }
 
 .sectionText {
+	padding-top: 20px
 	float: left;
 	width: 50%;
 	text-align: justify;
