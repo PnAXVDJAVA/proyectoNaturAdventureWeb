@@ -33,7 +33,7 @@
 							<p>Máximo número de participantes: ${activity.maxPartakers}</p>
 						</div>
 						<div class="info-hidden-image">
-							<img src="data:image/jpeg;base64,${activity.pictureString}" width="200" height="200">
+							<img src="data:image/jpeg;base64,${activity.pictureString}" width="150" height="150">
 						</div>
 						
 						<div class="clear"></div>
