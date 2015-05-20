@@ -69,11 +69,11 @@
 	                	<form:label path="customer.telephone" class="control-label">Teléfono: </form:label>
 	                </div>
 	                <div class="col-xs-4">
-		                <div class="col-lg-8">
+		                <div class="col-lg-10">
 		                	<form:input path="customer.telephone" class="form-control"/>
 		           		</div>
 	           		</div>
-	           		<div class="col-xs-3">
+	           		<div class="col-xs-4">
 	                	<form:errors path="customer.telephone" cssClass="error" />
 	           		</div>
 	           		<div class="clear"></div>
@@ -113,6 +113,7 @@
 	                <div class="col-xs-4">
 		                <div class="col-lg-8">
 		                	<form:input type="password" path="userDetails.password" class="form-control" id="password"/>
+
 		           		</div>
 	           		</div>
 	           		<div class="col-xs-3">
@@ -130,7 +131,7 @@
 		           		</div>
 	           		</div>
 	           		<div class="col-xs-3">
-	                	<div id="checkPasswords" class="error"></div>
+	                	<div id="checkPasswords" class="hidden"></div>
 	           		</div>
 	           		<div class="clear"></div>
 	           	</div>

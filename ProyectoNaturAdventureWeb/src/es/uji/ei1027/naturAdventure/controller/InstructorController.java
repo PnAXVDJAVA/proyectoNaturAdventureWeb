@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+
 import es.uji.ei1027.naturAdventure.dao.InstructorDao;
 import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
 import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.InstructorUserDetailsModel;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
+import es.uji.ei1027.naturAdventure.validator.InstructorUpdateValidator;
 import es.uji.ei1027.naturAdventure.validator.InstructorValidator;
 import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
 import es.uji.ei1027.naturAdventure.validator.UserDetailsValidator;
@@ -121,11 +123,14 @@ public class InstructorController {
 			session.setAttribute( "nextURL", "/instructor/update/" + instructor.getNif() + ".html" );
 			return "login";
 		}
+		InstructorUpdateValidator validator = new InstructorUpdateValidator();
+		validator.validate( instructor, bindingResult );
+		
 		if( bindingResult.hasErrors() ) {
 			return "instructor/update";
 		}
 		instructorDao.updateInstructor( instructor );
-		return "redirect:../list.html";
+		return "redirect:../../index.jsp";
 	}
 	
 	@RequestMapping(value="/delete/{nif}")
