@@ -110,17 +110,28 @@
 }
 
 .button-book-activity {
-	float: right;
-	padding-top: 110px;
-	padding-right: 20px;
+	text-align: right;
+	padding: 10px 20px 10px 0px;
 }
 
-.activity-info-left {
+.activity-info-left{
 	float: left;
+	padding-left: 15px;
 }
 
 .info-hidden {
 	display: none;
+}
+
+.info-hidden-text  {
+	float: left;
+	padding-left: 15px;
+ }
+ 
+.info-hidden-image {
+	float: right;
+	border: 1px solid black;
+	padding-right: 20px;
 }
 
 .info-visible {

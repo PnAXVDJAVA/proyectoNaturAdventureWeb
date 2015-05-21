@@ -25,15 +25,22 @@
 					<div class="clear"></div>
 					
 					<div class="info-hidden"  id="${activity.codActivity}">
+						<div class="info-hidden-text">
+							<p>Descripción: ${activity.description}</p>
+							<p>Nivel: ${activity.level}</p>
+							<p>Duracion: ${activity.duration}</p>
+							<p>Mínimo número de participantes: ${activity.minPartakers}</p>
+							<p>Máximo número de participantes: ${activity.maxPartakers}</p>
+						</div>
+						<div class="info-hidden-image">
+							<img src="data:image/jpeg;base64,${activity.pictureString}" width="150" height="150">
+						</div>
+						
+						<div class="clear"></div>
 						<div class="button-book-activity">
 							<button onClick="document.location.href='${pageContext.request.contextPath}/booking/book/${activity.codActivity}.html'"  class="btn btn-default">Reservar actividad</button>
 						</div>
-						<p>Descripción: ${activity.description}</p>
-						<p>Nivel: ${activity.level}</p>
-						<p>Duracion: ${activity.duration}</p>
-						<p>Mínimo número de participantes: ${activity.minPartakers}</p>
-						<p>Máximo número de participantes: ${activity.maxPartakers}</p>
-						<img src="data:image/jpeg;base64,${activity.pictureString}" width="200" height="200">
+						
 					</div>
 				</div>
 			
