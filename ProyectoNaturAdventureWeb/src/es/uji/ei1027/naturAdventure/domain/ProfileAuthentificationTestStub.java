@@ -63,18 +63,6 @@ public class ProfileAuthentificationTestStub implements Profile {
 	}
 
 	@Override
-	public void setTelephone(long telephone) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public long getTelephone() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void setUsername(String username) {
 		// TODO Auto-generated method stub
 		
@@ -82,6 +70,18 @@ public class ProfileAuthentificationTestStub implements Profile {
 
 	@Override
 	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTelephone(String telephone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getTelephone() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -34,7 +34,7 @@ public class CustomerDao implements LoginDao {
 			customer.setFirstSurname( rs.getString( "firstSurname" ) );
 			customer.setSecondSurname( rs.getString( "secondSurname" ) );
 			customer.setEmail( rs.getString( "email" ) );
-			customer.setTelephone( rs.getInt( "telephone" ) );
+			customer.setTelephone( rs.getString( "telephone" ) );
 			customer.setUsername( rs.getString( "userid" ) );
 			return customer;
 		}

@@ -17,8 +17,8 @@ public interface Profile {
 	public void setEmail( String email );
 	public String getEmail();
 	
-	public void setTelephone( long telephone );
-	public long getTelephone();
+	public void setTelephone( String telephone );
+	public String getTelephone();
 	
 	public void setUsername( String username );
 	public String getUsername();

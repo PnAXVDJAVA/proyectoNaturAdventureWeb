@@ -33,7 +33,7 @@ public class InstructorDao implements LoginDao {
 			instructor.setFirstSurname( rs.getString( "firstSurname" ) );
 			instructor.setSecondSurname( rs.getString( "secondSurname" ) );
 			instructor.setAddress( rs.getString( "address" ) );
-			instructor.setTelephone( rs.getInt( "telephone" ) );
+			instructor.setTelephone( rs.getString( "telephone" ) );
 			instructor.setDateOfBirth( rs.getDate( "dateofbirth" ) );
 			instructor.setEmail( rs.getString( "email" ) );
 			instructor.setBankAccount( rs.getString( "bankaccount" ) );
@@ -61,7 +61,7 @@ public class InstructorDao implements LoginDao {
 		instructor.setDateOfBirth( dateService.getDate() );
 		this.jdbcTemplate.update( "INSERT INTO Instructor ( nif, name, firstsurname, secondsurname, address, telephone, dateofbirth, email, bankaccount, userid ) "
 								+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", instructor.getNif(), instructor.getName(), instructor.getFirstSurname(), 
-								instructor.getSecondSurname(), instructor.getAddress(), (int) instructor.getTelephone(), instructor.getDateOfBirth(), instructor.getEmail(), 
+								instructor.getSecondSurname(), instructor.getAddress(), instructor.getTelephone(), instructor.getDateOfBirth(), instructor.getEmail(), 
 								instructor.getBankAccount(), instructor.getUserID() );
 	}
 	
@@ -70,7 +70,7 @@ public class InstructorDao implements LoginDao {
 				instructor.getYearOfBirth() );
 		instructor.setDateOfBirth( dateService.getDate() );
 		this.jdbcTemplate.update( "UPDATE Instructor SET name = ?, firstsurname = ?, secondsurname = ?, address = ?, telephone = ?, dateofbirth = ?, email = ?, bankaccount = ? WHERE nif = ?",
-									instructor.getName(), instructor.getFirstSurname(), instructor.getSecondSurname(), instructor.getAddress(), (int) instructor.getTelephone(), instructor.getDateOfBirth(), 
+									instructor.getName(), instructor.getFirstSurname(), instructor.getSecondSurname(), instructor.getAddress(), instructor.getTelephone(), instructor.getDateOfBirth(), 
 									instructor.getEmail(), instructor.getBankAccount(), instructor.getNif() );
 	}
 	

@@ -21,6 +21,7 @@ import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 import es.uji.ei1027.naturAdventure.service.Authentification;
 import es.uji.ei1027.naturAdventure.validator.CustomerValidator;
+import es.uji.ei1027.naturAdventure.validator.CustomerUpdateValidator;
 import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
 import es.uji.ei1027.naturAdventure.validator.UserDetailsValidator;
 
@@ -107,6 +108,10 @@ public class CustomerController {
 			session.setAttribute( "nextURL", "/customer/update/" + nif + ".html" );
 			return "login";
 		}
+		
+		CustomerUpdateValidator cuValidator = new CustomerUpdateValidator();
+		cuValidator.validate( customer , bindingResult );
+		
 		if( bindingResult.hasErrors() ) {
 			return "customer/update";
 		}
