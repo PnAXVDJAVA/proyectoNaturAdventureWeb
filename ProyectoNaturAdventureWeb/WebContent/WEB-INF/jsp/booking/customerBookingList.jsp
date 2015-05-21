@@ -12,30 +12,38 @@
 			<table class="table table-striped">
 		
 				<tr>
-					<th>Fecha de reserva</th>
 					<th>Fecha propuesta</th>
-					<th>Hora de comienzo</th>
-					<th>Núm. participantes</th>
-					<th>Estado</th>
 					<th>Código de la actividad</th>
+					<th>Estado</th>
 				</tr>
 				
 				<c:forEach items="${bookings}" var="booking">
+				<c:set var="status" scope="request" value='${booking.status}'/>
 				
 					<tr>
-	                	<td>${booking.bookingDate}</td>
-						<td>${booking.proposalPerformingDate}</td>
-	                	<td>${booking.startHour}</td>
-	                	<td>${booking.numPartakers}</td>
-	                	<td>${booking.status}</td>
+						<td>${booking.proposalPerformingDateString}</td>
 	                	<td>${booking.codActivity}</td>
+	                	<td>
+	                		<c:choose>
+	                			<c:when test='${status == "pending" }'>
+	                				<span class="orange">${booking.status}</span>
+	                			</c:when>
+	                			<c:when test='${status == "accepted" }'>
+	                				<span class="green">${booking.status}</span>
+	                			</c:when>
+	                			<c:when test='${status == "denied" }'>
+	                				<span class="red">${booking.status}</span>
+	                			</c:when>
+	                		</c:choose>
+	                	</td>
+	                	<td><a href="${pageContext.request.contextPath}/booking/customerBookingDetails/${booking.codBooking}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a></td>	                	
 					</tr>
 				
 				</c:forEach>
 		
 			</table>
 		</div>
-	
+			
 </jsp:body>
 </t:paginabasica>
 
