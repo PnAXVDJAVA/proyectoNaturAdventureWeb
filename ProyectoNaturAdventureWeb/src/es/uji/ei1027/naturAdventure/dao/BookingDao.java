@@ -72,7 +72,7 @@ public class BookingDao {
 	}
 	
 	public List<Booking> getBookings() {
-		return this.jdbcTemplate.query( "SELECT * FROM Booking", new BookingMapper() );
+		return this.jdbcTemplate.query( "SELECT * FROM Booking ORDER BY proposalPerformingDate", new BookingMapper() );
 	}
 	
 	public Booking getBooking( int codBooking ) {

@@ -21,17 +21,7 @@ public class Booking {
 	private List<Instructor> assignedInstructors;
 	
 	public Booking() {
-		this.codBooking = -1;
-		this.proposalPerformingDate = null;
-		this.numPartakers = -1;
-		this.bookingDate = null;
-		this.customerNif = null;
-		this.startHour = null;
-		this.codActivity = -1;
-		this.status = null;
-		this.assignedInstructors = null;
-		this.proposalPerformingDateString = null;
-		this.bookingDateString = null;
+		this.numPartakers = 1;
 	}
 
 	public int getCodBooking() {
@@ -45,16 +35,10 @@ public class Booking {
 	public Date getProposalPerformingDate() {
 		return proposalPerformingDate;
 	}
-
-/*	public void setProposalPerformingDate(Date proposalPerformingDate) {
-		this.proposalPerformingDate = proposalPerformingDate;
-		java.util.Date utilDate = new java.util.Date( this.proposalPerformingDate.getTime() );
-		this.proposalPerformingDateString = utilDate.toString();
-	}*/
 	
 	public void setProposalPerformingDate( Date proposalPerformingDate ) {
 		this.proposalPerformingDate = proposalPerformingDate;
-		SimpleDateFormat format = new SimpleDateFormat( "MMMMM d, yyyy" );
+		SimpleDateFormat format = new SimpleDateFormat( "d/M/yyyy" );
 		this.proposalPerformingDateString = format.format( this.proposalPerformingDate );
 	}
 	
@@ -65,8 +49,32 @@ public class Booking {
 	public void setProposalPerformingDateString( String date ) {
 		this.proposalPerformingDateString = date;
 		try {
-			this.proposalPerformingDate = new Date( new SimpleDateFormat( "MMM d, yyyy" ).parse( date ).getTime() );
+			this.proposalPerformingDate = new Date( new SimpleDateFormat( "d/M/yyyy" ).parse( date ).getTime() );
 		} catch (ParseException e) {
+			//
+		}
+	}
+	
+	public Date getBookingDate() {
+		return bookingDate;
+	}
+
+	public void setBookingDate(Date bookingDate) {
+		this.bookingDate = bookingDate;
+		SimpleDateFormat format = new SimpleDateFormat( "d/M/yyyy" );
+		this.bookingDateString = format.format( this.bookingDate );
+	}
+	
+	public String getBookingDateString() {
+		return this.bookingDateString;
+	}
+	
+	public void setBookingDateString( String bookingDate ) {
+		this.bookingDateString = bookingDate;
+		try {
+			this.bookingDate = new Date( new SimpleDateFormat( "d/M/yyyy" ).parse( bookingDate ).getTime() );
+		}
+		catch( ParseException e ) {
 			//
 		}
 	}
@@ -77,24 +85,6 @@ public class Booking {
 
 	public void setNumPartakers(int numPartakers) {
 		this.numPartakers = numPartakers;
-	}
-
-	public Date getBookingDate() {
-		return bookingDate;
-	}
-
-	public void setBookingDate(Date bookingDate) {
-		this.bookingDate = bookingDate;
-		this.bookingDateString = bookingDate.toString();
-	}
-	
-	public String getBookingDateString() {
-		return this.bookingDateString;
-	}
-	
-	public void setBookingDateString( String bookingDate ) {
-		this.bookingDateString = bookingDate;
-		this.bookingDate = Date.valueOf( bookingDate );
 	}
 
 	public String getCustomerNif() {

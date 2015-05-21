@@ -18,10 +18,7 @@ public class CustomerValidator implements Validator {
 		
 		Customer customer = (Customer) obj;
 		
-		if (customer.getNif().trim().equals(""))
-			errors.rejectValue("customer.nif", "Campo vacío", "Introduce tu NIF");
-		
-		else if (customer.getNif().length() < 9 || customer.getNif().length() > 9)
+		if ( !RegularExpression.matches( customer.getNif() , RegularExpression.NIF_RE ) )
 			errors.rejectValue("customer.nif", "Campo vacío", "Introduce correctamente el NIF");
 		
 		if (customer.getName().trim().equals(""))

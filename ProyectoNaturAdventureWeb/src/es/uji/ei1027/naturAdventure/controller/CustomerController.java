@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.uji.ei1027.naturAdventure.dao.BookingDao;
 import es.uji.ei1027.naturAdventure.dao.CustomerDao;
 import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
 import es.uji.ei1027.naturAdventure.domain.Customer;
@@ -32,6 +33,7 @@ public class CustomerController {
 	private CustomerDao customerDao;
 	private UserDetailsDao userDetailsDao;
 	private UserDetailsValidator userDetailsValidator;
+	private BookingDao bookingDao;
 	
 	@Autowired
 	public void setCustomerDao( CustomerDao customerDao ) {
@@ -46,6 +48,11 @@ public class CustomerController {
 	@Autowired
 	public void setUserDetailsValidator( UserDetailsValidator userDetailsValidator ) {
 		this.userDetailsValidator = userDetailsValidator;
+	}
+	
+	@Autowired
+	public void setBookingDao( BookingDao bookingDao ) {
+		this.bookingDao = bookingDao;
 	}
 	
 	@RequestMapping("/list")
@@ -163,6 +170,18 @@ public class CustomerController {
 		}
 		userDetailsDao.updateUser( user, Roles.CUSTOMER.getLevel() );
 		return "redirect:../../index.jsp";
+	}
+	
+	@RequestMapping(value="/customerDetails/{nif}")
+	public String showCustomerDetails( @PathVariable String nif, Model model, HttpSession session ) {
+		if( !Authentification.checkAuthentificationByNif( session, Roles.CUSTOMER.getLevel() , nif) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "customer/customerDetails/" + nif + ".html" );
+			return "login";
+		}
+		model.addAttribute( "customer", customerDao.getCustomer( nif ) );
+		model.addAttribute( "bookings", bookingDao.getCustomerBookings( nif ) );
+		return "customer/customerDetails";
 	}
 	
 }

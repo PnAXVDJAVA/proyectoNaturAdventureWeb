@@ -3,12 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="d"%>
 <t:paginabasica title="Gestión de actividades">
 <jsp:body>
 		
 		<h2>Lista de actividades</h2>
 		
 		<c:forEach items="${activities}" var="activity">
+		<d:set var="picture" scope="request" value='${activity.pictureString}'/>
+		
 		
 			<div class="activity-container" id="activity${activity.codActivity}">
 				
@@ -33,12 +36,19 @@
 							<p>Máximo número de participantes: ${activity.maxPartakers}</p>
 						</div>
 						<div class="info-hidden-image">
-							<img src="data:image/jpeg;base64,${activity.pictureString}" width="150" height="150">
+							<d:choose>
+								<d:when test='${picture != ""}'>
+									<img src="data:image/jpeg;base64,${picture}" width="150" height="150">
+								</d:when>
+								<d:otherwise>
+									No hay foto de la actividad
+								</d:otherwise>
+							</d:choose>
 						</div>
 						
 						<div class="clear"></div>
 						<div class="button-book-activity">
-							<button onClick="document.location.href='${pageContext.request.contextPath}/booking/book/${activity.codActivity}.html'"  class="btn btn-default">Reservar actividad</button>
+							<button onClick="document.location.href='${pageContext.request.contextPath}/booking/book/${activity.codActivity}.html'"  class="btn btn-custom">Reservar actividad</button>
 						</div>
 						
 					</div>

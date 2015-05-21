@@ -15,13 +15,13 @@ import es.uji.ei1027.naturAdventure.service.RegularExpression;
 
 
 @RunWith( Parameterized.class )
-public class TelephoneRETest {
+public class RegularExpressionsTest {
 	
 	private String str;
 	private boolean expectedResult;
 	private String regularExpression;
 	
-	public TelephoneRETest(  String str, boolean expectedResult, String regularExpression ) {
+	public RegularExpressionsTest(  String str, boolean expectedResult, String regularExpression ) {
 		this.str = str;
 		this.expectedResult = expectedResult;
 		this.regularExpression = regularExpression;
@@ -37,9 +37,10 @@ public class TelephoneRETest {
 				{ "+500 954556817", true , RegularExpression.TELEPHONE_RE },
 				{ "+34 954556817", true , RegularExpression.TELEPHONE_RE },
 				{ "+500 954556817", true , RegularExpression.TELEPHONE_RE },
-				{ "(+34) 954556817", true , RegularExpression.TELEPHONE_RE },
+				{ "+500954556817", false , RegularExpression.TELEPHONE_RE },
 				{ "(+34) 954556817", true , RegularExpression.TELEPHONE_RE },
 				{ "(+500) 954556817", true , RegularExpression.TELEPHONE_RE },
+				{ "(+500)954556817", true, RegularExpression.TELEPHONE_RE },
 				{ "154556817", true , RegularExpression.TELEPHONE_RE },
 				{ "254556817", true , RegularExpression.TELEPHONE_RE },
 				{ "12254556817", true , RegularExpression.TELEPHONE_RE },
@@ -62,6 +63,17 @@ public class TelephoneRETest {
 				{ "d@gmail.com", false, RegularExpression.EMAIL_RE },
 				{ "d.d@gmail.com", true, RegularExpression.EMAIL_RE },
 				{ "david@gmail.com", true, RegularExpression.EMAIL_RE },
+				
+				{ "20488603L", true, RegularExpression.NIF_RE },
+				{ "2048860L", false, RegularExpression.NIF_RE },
+				{ "204886031", false, RegularExpression.NIF_RE },
+				{ "204886031L", false, RegularExpression.NIF_RE },
+				{ "2048860LL", false, RegularExpression.NIF_RE },
+				{ "X04886031", true, RegularExpression.NIF_RE },
+				{ "X048860312", false, RegularExpression.NIF_RE },
+				{ "X0488603", false, RegularExpression.NIF_RE },
+				{ "X0488601L", true, RegularExpression.NIF_RE }
+
 		});
 	}
 	

@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+
 import es.uji.ei1027.naturAdventure.dao.InstructorDao;
 import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
 import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.InstructorUserDetailsModel;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
+import es.uji.ei1027.naturAdventure.service.Authentification;
 import es.uji.ei1027.naturAdventure.validator.InstructorUpdateValidator;
 import es.uji.ei1027.naturAdventure.validator.InstructorValidator;
 import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
@@ -53,7 +55,7 @@ public class InstructorController {
 	
 	@RequestMapping("/list")
 	public String listInstructors( Model model, HttpSession session ) {
-		if( checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {			
+		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {			
 			model.addAttribute( "instructors", instructorDao.getInstructors() );
 			return "instructor/list";
 		}
@@ -65,7 +67,7 @@ public class InstructorController {
 	
 	@RequestMapping(value="/add")
 	public String addInstructor( Model model, HttpSession session ) {
-		if( checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
 			model.addAttribute( "instructorUser", new InstructorUserDetailsModel() );
 			return "instructor/add";	
 		}
@@ -77,7 +79,7 @@ public class InstructorController {
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String processAddSubmit( @ModelAttribute("instructorUser") InstructorUserDetailsModel instructorUser,
 			BindingResult bindingResult, HttpSession session, Model model ) {
-		if( !checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/instructor/add.html" );
 			return "login";
@@ -107,7 +109,7 @@ public class InstructorController {
 	
 	@RequestMapping(value="/update/{nif}")
 	public String updateInstructor( Model model, @PathVariable String nif, HttpSession session ) {
-		if( checkAuthentificationByNif( session, Roles.INSTRUCTOR.getLevel(), nif ) ) {
+		if( Authentification.checkAuthentificationByNif( session, Roles.INSTRUCTOR.getLevel(), nif ) ) {
 			model.addAttribute( "instructor" , instructorDao.getInstructor( nif ) );
 			return "instructor/update";
 		}
@@ -118,7 +120,7 @@ public class InstructorController {
 	
 	@RequestMapping(value="/update/{nif}", method=RequestMethod.POST)
 	public String processUpdateSubmit( @PathVariable String nif, @ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult, HttpSession session, Model model ) {
-		if( !checkAuthentificationByNif( session, Roles.INSTRUCTOR.getLevel(), nif ) ) {
+		if( !Authentification.checkAuthentificationByNif( session, Roles.INSTRUCTOR.getLevel(), nif ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/instructor/update/" + instructor.getNif() + ".html" );
 			return "login";
@@ -135,7 +137,7 @@ public class InstructorController {
 	
 	@RequestMapping(value="/delete/{nif}")
 	public String deleteInstructor( @PathVariable String nif, HttpSession session, Model model ) {
-		if( !checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/instructor/delete/" + nif + ".html" );
 			return "login";
@@ -147,7 +149,7 @@ public class InstructorController {
 	
 	@RequestMapping(value="/changePwd/{username}")
 	public String changePassword( Model model, @PathVariable String username, HttpSession session ) {
-		if( checkAuthentificationByUsername( session, Roles.INSTRUCTOR.getLevel(), username ) ) {
+		if( Authentification.checkAuthentificationByUsername( session, Roles.INSTRUCTOR.getLevel(), username ) ) {
 			UserDetails user = userDetailsDao.getUser( username );
 			user.setPassword( null );
 			model.addAttribute( "user" , user );
@@ -161,7 +163,7 @@ public class InstructorController {
 	@RequestMapping(value="/changePwd/{username}", method=RequestMethod.POST)
 	public String processChangePwdSubmit( @PathVariable String username, Model model, @ModelAttribute("user") UserDetails user, 
 											BindingResult bindingResult, HttpSession session ) {
-		if( !checkAuthentificationByUsername( session, Roles.INSTRUCTOR.getLevel(), username ) ) {
+		if( !Authentification.checkAuthentificationByUsername( session, Roles.INSTRUCTOR.getLevel(), username ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/instructor/changePwd/" +user.getUsername() + ".html" );
 			return "login";
@@ -174,32 +176,5 @@ public class InstructorController {
 		userDetailsDao.updateUser( user, Roles.INSTRUCTOR.getLevel() );
 		return "redirect:../../index.jsp";
 	}
-	
-	private boolean checkAuthentification( HttpSession session, int securityLevel ) {
-		UserDetails user = (UserDetails) session.getAttribute( "user" );
-		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && user.getRole() < securityLevel ) ) {
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean checkAuthentificationByUsername( HttpSession session, int securityLevel, String username ) {
-		UserDetails user = (UserDetails) session.getAttribute( "user" );
-		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( user.getRole() < securityLevel || !user.getUsername().equals( username ) ) ) ) {
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean checkAuthentificationByNif( HttpSession session, int securityLevel, String nif ) {
-		UserDetails user = (UserDetails) session.getAttribute( "user" );
-		Instructor instructor = (Instructor) session.getAttribute( "profile" );
-		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( user.getRole() < securityLevel || !instructor.getNif().equals( nif ) ) ) ) {
-			return false;
-		}
-		return true;
-	}
-	
-	
 
 }

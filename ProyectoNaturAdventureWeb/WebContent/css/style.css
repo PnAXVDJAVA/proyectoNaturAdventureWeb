@@ -1,4 +1,16 @@
 
+.orange {
+	color: orange;
+}
+
+.green {
+	color: green;
+}
+
+.red {
+	color:red;
+}
+
 .error {
 	color: #C22C51;
 	border: 1px solid #C22C51;
@@ -152,6 +164,10 @@
 
 .pwd-forget {
 	padding-top: 5px;
+}
+
+.detail-row {
+	padding: 5px;
 }
 
 .navbar {

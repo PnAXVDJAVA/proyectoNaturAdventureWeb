@@ -25,12 +25,13 @@
 }
 
 .datepickr-calendar .datepickr-months {
-	background-color: #f6af3a;
-	border: 1px solid #e78f08;
+	/*background-color: #f6af3a;*/
+	background-color: #92E7B6;
+	border: 1px solid #92E7B6;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
-	color: #fff;
+	color: black;
 	padding: 2px;
 	text-align: center;
     font-size: 120%;

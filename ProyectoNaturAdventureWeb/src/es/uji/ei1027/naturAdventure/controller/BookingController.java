@@ -201,6 +201,17 @@ public class BookingController {
 		return "redirect:../list.html";
 	}
 	
+	@RequestMapping("/bookingDetails/{codBooking}")
+	public String showBookingDetails( @PathVariable int codBooking, HttpSession session, Model model ) {
+		if( !Authentification.checkAuthentification( session, Roles.CUSTOMER.getLevel() ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "booking/bookingDetails/" + codBooking + ".html" );
+			return "login";
+		}
+		model.addAttribute( "booking", bookingDao.getBooking( codBooking ) );
+		return "booking/bookingDetails";
+	}
+	
 	@RequestMapping("/send")
 	public String send() {
 		bookingDao.sendPdf();

@@ -12,11 +12,7 @@
 			<table class="table table-striped">
 		
 				<tr>
-					<th>Código</th>
-					<th>Fecha de reserva</th>
 					<th>Fecha propuesta</th>
-					<th>Hora de comienzo</th>
-					<th>Núm. participantes</th>
 					<th>NIF del cliente</th>
 					<th>Código de la actividad</th>
 					<th>Estado</th>
@@ -26,31 +22,30 @@
 				<c:set var="status" scope="request" value='${booking.status}'/>
 				
 					<tr>
-						<td>${booking.codBooking}</td>
-	                	<td>${booking.bookingDate}</td>
-						<td>${booking.proposalPerformingDate}</td>
-	                	<td>${booking.startHour}</td>
-	                	<td>${booking.numPartakers}</td>
-	                	<td>${booking.customerNif}</td>
+						<td>${booking.proposalPerformingDateString}</td>
+	                	<td><a href="${pageContext.request.contextPath}/customer/customerDetails/${booking.customerNif}.html">${booking.customerNif}</a></td>
 	                	<td>${booking.codActivity}</td>
-	                	<td>${booking.status}</td>
-	                	<td><a href="update/${booking.codBooking}.html">Edita</a>
-	                	<td><a href="delete/${booking.codBooking}.html">Borra</a>
-	                	<c:choose>
-	                		<c:when test='${status == "pending"}'>	           
-	                			<td><a href="accept/${booking.codBooking}.html"><span class="glyphicon glyphicon-ok"></span>  Aceptar</a>
-	                			<td><a href="deny/${booking.codBooking}.html" onclick="return confirm('¿Estás seguro de que quieres rechazar la reserva? Se enviará en email de rechazo al cliente que la solicitó.');"><span class="glyphicon glyphicon-remove"></span>  Rechazar</a></td>
-							</c:when>
-						</c:choose>
+	                	<td>
+	                		<c:choose>
+	                			<c:when test='${status == "pending" }'>
+	                				<span class="orange">${booking.status}</span>
+	                			</c:when>
+	                			<c:when test='${status == "accepted" }'>
+	                				<span class="green">${booking.status}</span>
+	                			</c:when>
+	                			<c:when test='${status == "denied" }'>
+	                				<span class="red">${booking.status}</span>
+	                			</c:when>
+	                		</c:choose>
+	                	</td>
+	                	<td><a href="${pageContext.request.contextPath}/booking/bookingDetails/${booking.codBooking}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a></td>	                	
 					</tr>
 				
 				</c:forEach>
 		
 			</table>
 		</div>
-		
-		<a href="add.html">Añadir reserva</a>
-	
+			
 </jsp:body>
 </t:paginabasica>
 

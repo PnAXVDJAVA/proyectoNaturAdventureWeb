@@ -42,6 +42,7 @@ public class AuthentificationNifTest {
 	public static Collection<Object[]> datos() {
 		return Arrays.asList( new Object[][] {
 			//No afecta el nif
+			//-1 implica que el rol es null (no hay una sesión iniciada)
 			{ -1, "12345", Roles.ADMIN.getLevel(), "12345", false },
 			{ -1, "12345", Roles.INSTRUCTOR.getLevel(), "12345", false },
 			{ -1, "12345", Roles.CUSTOMER.getLevel(), "12345", false },
@@ -57,11 +58,19 @@ public class AuthentificationNifTest {
 			//Afecta el nif
 			{ Roles.CUSTOMER.getLevel(), null, Roles.CUSTOMER.getLevel(), "12345", false },
 			{ Roles.INSTRUCTOR.getLevel(), null, Roles.INSTRUCTOR.getLevel(), "12345", false },
-			{ Roles.ADMIN.getLevel(), null, Roles.ADMIN.getLevel(), "12345", false },
-			{ Roles.CUSTOMER.getLevel(), "12345", Roles.ADMIN.getLevel(), "12345", false },
+			{ Roles.ADMIN.getLevel(), null, Roles.ADMIN.getLevel(), "12345", true },
+			{ Roles.ADMIN.getLevel(), null, Roles.INSTRUCTOR.getLevel(), "12345", true },
+			{ Roles.ADMIN.getLevel(), null, Roles.CUSTOMER.getLevel(), "12345", true },
+			{ Roles.CUSTOMER.getLevel(), "12345", Roles.ADMIN.getLevel(), "12346", false },
+			{ Roles.CUSTOMER.getLevel(), "12345", Roles.INSTRUCTOR.getLevel(), "12346", false },
 			{ Roles.CUSTOMER.getLevel(), "12345", Roles.CUSTOMER.getLevel(), "12346", false },
 			{ Roles.INSTRUCTOR.getLevel(), "12345", Roles.INSTRUCTOR.getLevel(), "12346", false },
+			{ Roles.INSTRUCTOR.getLevel(), "12345", Roles.ADMIN.getLevel(), "12346", false },
+			{ Roles.INSTRUCTOR.getLevel(), "12345", Roles.CUSTOMER.getLevel(), "12346", false },
 			{ Roles.ADMIN.getLevel(), "12345", Roles.ADMIN.getLevel(), "12346", true },
+			{ Roles.ADMIN.getLevel(), "12345", Roles.INSTRUCTOR.getLevel(), "12346", true },
+			{ Roles.ADMIN.getLevel(), "12345", Roles.CUSTOMER.getLevel(), "12346", true },
+
 		});
 	}
 	

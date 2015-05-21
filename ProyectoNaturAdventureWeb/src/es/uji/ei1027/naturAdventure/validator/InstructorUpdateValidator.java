@@ -1,9 +1,12 @@
 package es.uji.ei1027.naturAdventure.validator;
 
 import java.util.Date;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
 import es.uji.ei1027.naturAdventure.domain.Instructor;
+import es.uji.ei1027.naturAdventure.service.RegularExpression;
 
 public class InstructorUpdateValidator implements Validator {
 
@@ -20,17 +23,19 @@ public class InstructorUpdateValidator implements Validator {
 		
 		Instructor instructor = (Instructor) obj;
 		
-		if (instructor.getNif().trim().equals(""))
-			errors.rejectValue("nif", "Campo vacío", "Introduce tu NIF");
-		else if (instructor.getNif().length() < 9 || instructor.getNif().length() > 9)
+		if ( !RegularExpression.matches( instructor.getNif() ,  RegularExpression.NIF_RE ) )
 			errors.rejectValue("nif", "Campo vacío", "Introduce correctamente el NIF");
+		
 		if (instructor.getName().trim().equals(""))
 			errors.rejectValue("name", "Campo vacío", "Introduce tu nombre");
+		
 		if (instructor.getFirstSurname().trim().equals(""))
 			errors.rejectValue("firstSurname", "Campo vacío", "Introduce tu apellido");
+		
 		if (instructor.getAddress().trim().equals(""))
 			errors.rejectValue("address", "Campo vacío", "Introduce tu dirección");
-		if ((String.valueOf(instructor.getTelephone()).length() > 9 || String.valueOf(instructor.getTelephone()).length() < 9))
+		
+		if ( !RegularExpression.matches( instructor.getTelephone() ,  RegularExpression.TELEPHONE_RE ) )
 			errors.rejectValue("telephone", "Incorrecto", "Introduce un número de telefono correcto");
 		
 		//comprobamos que la fecha de nacimiento sea correcta
@@ -79,10 +84,10 @@ public class InstructorUpdateValidator implements Validator {
 		else if ( year > ( 1900 + new Date().getYear() ) ) {
 			errors.rejectValue("yearOfBirth", "Maximo año posible", "Introduce un año correcto");
 		}
-
 		
-		if (instructor.getEmail().trim().equals(""))
-			errors.rejectValue("email", "Falta email", "Introduce un email");
+		if ( !RegularExpression.matches( instructor.getEmail() ,  RegularExpression.EMAIL_RE ) )
+			errors.rejectValue("email", "Falta email", "Introduce una dirección de correo correcta");
+		
 		if (instructor.getBankAccount().length() < 24 || instructor.getBankAccount().length() > 24) 
 			errors.rejectValue("bankAccount", "Cuenta incorrecta", "Introduce una cuenta bancaria correcta");
 	}

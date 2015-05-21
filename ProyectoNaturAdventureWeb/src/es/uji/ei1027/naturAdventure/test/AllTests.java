@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ AuthentificationNifTest.class, AuthentificationTest.class,
-		AuthentificationUsernameTest.class, DateServiceStringTest.class })
+		AuthentificationUsernameTest.class, DateServiceStringTest.class, RegularExpressionsTest.class })
 public class AllTests {
 
 }

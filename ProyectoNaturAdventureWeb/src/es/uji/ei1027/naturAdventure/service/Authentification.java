@@ -27,7 +27,7 @@ public class Authentification {
 	public static boolean checkAuthentificationByNif( HttpSession session, int securityLevel, String nif ) {
 		UserDetails user = (UserDetails) session.getAttribute( "user" );
 		Profile profile= ( Profile ) session.getAttribute( "profile" );
-		if( user == null || profile == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( user.getRole() != securityLevel || !profile.getNif().equals( nif ) ) ) ) {
+		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && ( profile == null | user.getRole() != securityLevel || !profile.getNif().equals( nif ) ) ) ) {
 			return false;
 		}
 		return true;
