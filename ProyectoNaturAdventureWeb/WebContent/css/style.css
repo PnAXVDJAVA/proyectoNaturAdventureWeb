@@ -69,6 +69,10 @@
 	width: 90%;
 }
 
+.myHr {
+	border: 1px solid #c0c0c0;
+}
+
 .negrita {
 	font-weight: bold;
 }

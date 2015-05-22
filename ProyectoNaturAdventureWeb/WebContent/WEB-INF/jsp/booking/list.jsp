@@ -14,7 +14,7 @@
 				<tr>
 					<th>Fecha propuesta</th>
 					<th>NIF del cliente</th>
-					<th>Código de la actividad</th>
+					<th>Nombre de la actividad</th>
 					<th>Estado</th>
 				</tr>
 				
@@ -24,7 +24,7 @@
 					<tr>
 						<td>${booking.proposalPerformingDateString}</td>
 	                	<td><a href="${pageContext.request.contextPath}/customer/customerDetails/${booking.customerNif}.html">${booking.customerNif}</a></td>
-	                	<td>${booking.codActivity}</td>
+	                	<td><a href="${pageContext.request.contextPath}/activity/activityDetails/${booking.codActivity}.html">${booking.activityName}</a></td>
 	                	<td>
 	                		<c:choose>
 	                			<c:when test='${status == "pending" }'>

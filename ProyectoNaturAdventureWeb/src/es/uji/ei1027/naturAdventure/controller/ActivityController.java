@@ -27,6 +27,7 @@ import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.Level;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
+import es.uji.ei1027.naturAdventure.service.Authentification;
 import es.uji.ei1027.naturAdventure.service.ListsDifference;
 import es.uji.ei1027.naturAdventure.validator.ActivityValidator;
 
@@ -50,7 +51,7 @@ public class ActivityController {
 	
 	@RequestMapping("/list")
 	public String listActivities( Model model, HttpSession session ) {
-		if( checkAuthentification( session, Roles.ADMIN.getLevel()) ) {			
+		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {			
 			List<Activity> activities = activityDao.getActivities();
 			for( Activity activity: activities ) {
 				String encoded = Base64.encodeBytes( activity.getPicture() );
@@ -77,7 +78,7 @@ public class ActivityController {
 	
 	@RequestMapping(value="/add")
 	public String addActivity( Model model, HttpSession session ) {
-		if( checkAuthentification( session, Roles.ADMIN.getLevel()) ) {		
+		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {		
 			model.addAttribute( "activity" , new ActivityWithPicture() );
 			model.addAttribute( "levels", Level.getStringValues() );
 			return "activity/add";
@@ -89,7 +90,7 @@ public class ActivityController {
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String processAddSubmit( Model model, @ModelAttribute("activity") ActivityWithPicture activityWithPicture, BindingResult bindingResult, HttpSession session ) {
-		if( !checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/activity/add.html" );
 			return "login";
@@ -121,7 +122,7 @@ public class ActivityController {
 	
 	@RequestMapping(value="/update/{codActivity}")
 	public String updateActivity( Model model, @PathVariable int codActivity, HttpSession session ) {
-		if( checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
+		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
 			Activity activity = activityDao.getActivity( codActivity );
 			ActivityWithPicture activityWithPicture = new ActivityWithPicture();
 			activityWithPicture.setActivity( activity );
@@ -137,7 +138,7 @@ public class ActivityController {
 	
 	@RequestMapping(value="/update/{codActivity}", method=RequestMethod.POST)
 	public String processUpdateSubmit( Model model, @PathVariable int codActivity, @ModelAttribute("activity") ActivityWithPicture activityWithPicture, BindingResult bindingResult, HttpSession session ) {
-		if( !checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL", "/activity/update/" + codActivity + ".html" );
 			return "login";
@@ -176,7 +177,7 @@ public class ActivityController {
 	
 	@RequestMapping(value="/delete/{codActivity}")
 	public String deleteActivity( Model model, @PathVariable int codActivity, HttpSession session ) {
-		if( checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
+		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
 			Activity activity = new Activity();
 			activity.setCodActivity( codActivity );
 			activityDao.deleteActivity(activity);
@@ -189,7 +190,7 @@ public class ActivityController {
 	
 	@RequestMapping(value="/addSpecializedInstructor/{codActivity}")
 	public String addSpecializedInstructor( Model model, @PathVariable int codActivity, HttpSession session ) {
-		if( checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
 			//Creamos el modelo para la vista, calculando los monitores añadidos a esa actividad
 			//y los que quedan disponibles por añadir
 			refreshSpecializedInstructorModel( model, codActivity );
@@ -203,37 +204,42 @@ public class ActivityController {
 	@RequestMapping(value="/addsp.html")
 	public String specializedInstructorAdded( @RequestParam("nif") String nif, @RequestParam("codActivity") int codActivity,
 												Model model, HttpSession session ) {
-		if( !checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
 			model.addAttribute( "user", new UserDetails() );
-			session.setAttribute( "nextURL", "/activity/addSpecializedInstructor/" + codActivity + ".html" );
+			session.setAttribute( "nextURL", "/activity/activityDetails/" + codActivity + ".html" );
 			return "login";
 		}
 		activityDao.addSpecializedInstructor( codActivity, nif );
 		refreshSpecializedInstructorModel( model, codActivity );
-		return "redirect:addSpecializedInstructor/" + codActivity + ".html";
+		return "redirect:activityDetails/" + codActivity + ".html";
 	}
 	
 	@RequestMapping(value="/rmsp.html")
 	public String specializedInstructorRemoved( @RequestParam("nif") String nif, @RequestParam("codActivity") int codActivity, 
 												Model model, HttpSession session ) {
-		if( !checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
 			model.addAttribute( "user", new UserDetails() );
-			session.setAttribute( "nextURL", "/activity/addSpecializedInstructor/" + codActivity + ".html" );
+			session.setAttribute( "nextURL", "/activity/activityDetails/" + codActivity + ".html" );
 			return "login";
 		}
 		activityDao.removeSpecializedInstructor( codActivity, nif );
 		refreshSpecializedInstructorModel( model, codActivity );
-		return "redirect:addSpecializedInstructor/" + codActivity + ".html";
+		return "redirect:activityDetails/" + codActivity + ".html";
 	}
 	
-	
-	
-	private boolean checkAuthentification( HttpSession session, int securityLevel ) {
-		UserDetails user = (UserDetails) session.getAttribute( "user" );
-		if( user == null || ( user.getRole() != Roles.ADMIN.getLevel() && user.getRole() < securityLevel ) ) {
-			return false;
+	@RequestMapping(value="/activityDetails/{codActivity}")
+	public String showActivityDetails( @PathVariable int codActivity, HttpSession session, Model model ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/activity/activityDetails/" + codActivity + ".html" );
+			return "login";
 		}
-		return true;
+		Activity activity = activityDao.getActivity( codActivity );
+		String encoded = Base64.encodeBytes( activity.getPicture() );
+		activity.setPictureString( encoded );
+		model.addAttribute( activity );
+		refreshSpecializedInstructorModel( model, codActivity );
+		return "activity/activityDetails";
 	}
 	
 	//refactorizar

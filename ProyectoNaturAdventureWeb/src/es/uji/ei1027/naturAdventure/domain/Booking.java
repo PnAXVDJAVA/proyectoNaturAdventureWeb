@@ -18,6 +18,7 @@ public class Booking {
 	private BookingStatus status;
 	private int codActivity;
 	private String customerNif;
+	private String activityName;
 	private List<Instructor> assignedInstructors;
 	
 	public Booking() {
@@ -119,6 +120,14 @@ public class Booking {
 		this.codActivity = codActivity;
 	}
 	
+	public String getActivityName() {
+		return activityName;
+	}
+
+	public void setActivityName(String activityName) {
+		this.activityName = activityName;
+	}
+
 	public List<Instructor> getAssignedInstructors() {	
 		return this.assignedInstructors;
 	}

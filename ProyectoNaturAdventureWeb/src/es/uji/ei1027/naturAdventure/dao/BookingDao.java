@@ -67,16 +67,18 @@ public class BookingDao {
 			booking.setCodActivity( rs.getInt( "codActivity" ) );
 			booking.setStartHour( StartHour.getOpcion( rs.getString( "startHour" ) ) );
 			booking.setStatus( BookingStatus.getOpcion( rs.getString( "status" ) ) );
+			booking.setActivityName( rs.getString( "name" ) );
 			return booking;
 		}
 	}
 	
 	public List<Booking> getBookings() {
-		return this.jdbcTemplate.query( "SELECT * FROM Booking ORDER BY proposalPerformingDate", new BookingMapper() );
+		//return this.jdbcTemplate.query( "SELECT * FROM Booking ORDER BY proposalPerformingDate", new BookingMapper() );
+		return this.jdbcTemplate.query( "SELECT b.*, a.name FROM Booking AS b JOIN Activity AS a USING (codActivity) ORDER BY b.proposalPerformingDate", new BookingMapper() );
 	}
 	
 	public Booking getBooking( int codBooking ) {
-		return this.jdbcTemplate.queryForObject( "SELECT * FROM Booking WHERE codBooking = ?" ,  new Object[] { codBooking }, new BookingMapper() );
+		return this.jdbcTemplate.queryForObject( "SELECT b.*, a.name FROM Booking AS b JOIN Activity AS a USING (codActivity) WHERE b.codBooking = ?" ,  new Object[] { codBooking }, new BookingMapper() );
 	}
 	
 	public void addBooking( Booking booking ) {

@@ -13,39 +13,18 @@
 			<table class="table table-striped">
 			
 				<tr>
-					<th>Código</th>
 					<th>Nombre</th>
-					<th>Descripción</th>
 					<th>Precio por persona</th>
 					<th>Nivel</th>
-					<th>Duración</th>
-					<th>Min. número de participantes</th>
-					<th>Max. número de participantes</th>
-					<th>Foto</th>
 				</tr>
 				
 				<c:forEach items="${activities}" var="activity">
 					<d:set var="picture" scope="request" value='${activity.pictureString}'/>
 					<tr>
-						<td>${activity.codActivity}</td>
 						<td>${activity.name}</td>
-	                	<td>${activity.description}</td>
-	                	<td>${activity.pricePerPerson}</td>
+	                	<td>${activity.pricePerPerson} €</td>
 	                	<td>${activity.level}</td>
-	                	<td>${activity.duration}</td>
-	                	<td>${activity.minPartakers}</td>
-	                	<td>${activity.maxPartakers}</td>
-	                	<d:choose>
-	                		<d:when test='${picture != ""}'>
-								<td><img src="data:image/jpeg;base64,${picture}" width="50" height="50"></td>
-	                		</d:when>
-	                		<d:otherwise>
-	                			<td>No hay foto de la actividad</td>
-	                		</d:otherwise>
-	                	</d:choose>
-	                	<td><a href="update/${activity.codActivity}.html"><span class="glyphicon glyphicon-pencil"></span></a>
-	                	<td><a href="delete/${activity.codActivity}.html" onclick="return confirm('¿Estás seguro de que quieres borrar la actividad?');"><span class="glyphicon glyphicon-trash"></span></a>
-						<td><a href="addSpecializedInstructor/${activity.codActivity}.html">Añadir monitor especializado</a></td>
+	                	<td><a href="${pageContext.request.contextPath}/activity/activityDetails/${activity.codActivity}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a></td>	                	
 					</tr>
 				
 				</c:forEach>
