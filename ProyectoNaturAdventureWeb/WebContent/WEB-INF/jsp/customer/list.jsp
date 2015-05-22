@@ -23,9 +23,7 @@
 						<td>${customer.nif}</td>
 						<td>${customer.name}</td>
 	                	<td>${customer.username}</td>
-	                	<td><a href="update/${customer.nif}.html"><span class="glyphicon glyphicon-pencil"></span></a>
-	                	<td><a href="delete/${customer.nif}.html" onclick="return confirm('¿Estás seguro de que quieres borrar el cliente?');"><span class="glyphicon glyphicon-trash"></span></a>
-						<td><a href="customerDetails/${customer.nif}.html">Más detalles</a>
+						<td><a href="${pageContext.request.contextPath}/customer/customerDetails/${customer.nif}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a>
 					</tr>
 				
 				</c:forEach>

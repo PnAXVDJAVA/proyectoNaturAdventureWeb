@@ -87,6 +87,62 @@
 		</div>
 		
 		<div class="right">
+		
+			<p>Lista de <span class="negrita">monitores asignados</span> a la reserva:</p>
+			
+			<c:choose>
+				<c:when test='${not empty assignedInstructors}'>
+					<div class="table-responsive adapter">
+							<table class="table table-striped">
+								<tr>
+									<th>NIF</th>
+									<th>Nombre</th>
+								</tr>
+								<c:forEach items="${assignedInstructors}" var="assignedInstructor">
+									<tr>
+										<td>${assignedInstructor.nif}</td>
+										<td>${assignedInstructor.name}</td>
+										<td><a href="${pageContext.request.contextPath}/instructor/instructorDetails/${addedInstructor.nif}.html"><span class="glyphicon glyphicon-info-sign"></span>  Detalles monitor</a></td>
+										<td><a href="${pageContext.request.contextPath}/booking/removeInstructor.html?nif=${assignedInstructor.nif}&codBooking=${codBooking}"><span class="glyphicon glyphicon-remove"></span>  Borrar monitor</a>
+									</tr>
+								</c:forEach>
+							</table>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<span class="red">No hay monitores asignados.</span>
+				</c:otherwise>
+			</c:choose>
+			
+			<hr class="myHr">
+			
+			<p>Lista de <span class="negrita">monitores disponibles</span>: </p>
+			<c:choose>
+				<c:when test='${not empty availableInstructors}'>
+					<div class="table-responsive adapter">
+						<table class="table table-striped">
+						
+							<tr>
+								<th>NIF</th>
+								<th>Nombre</th>
+							</tr>
+							
+							<c:forEach items="${availableInstructors}" var="availableInstructor">
+								<tr>
+									<td>${availableInstructor.nif}</td>
+									<td>${availableInstructor.name}</td>
+									<td><a href="${pageContext.request.contextPath}/instructor/instructorDetails/${addedInstructor.nif}.html"><span class="glyphicon glyphicon-info-sign"></span>  Detalles monitor</a></td>
+									<td><a href="${pageContext.request.contextPath}/booking/assignInstructor.html?nif=${availableInstructor.nif}&codBooking=${codBooking}"><span class="glyphicon glyphicon-plus"></span>  Añadir monitor</a></td>
+								</tr>
+							</c:forEach>
+					
+						</table>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<span class="red">No hay monitores disponibles.</span>
+				</c:otherwise>
+			</c:choose>
 			
 		</div>
 	    

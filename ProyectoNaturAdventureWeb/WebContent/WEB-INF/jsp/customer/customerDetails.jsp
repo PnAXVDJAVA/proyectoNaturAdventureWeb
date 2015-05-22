@@ -42,6 +42,9 @@
 		    </div>
 		    <div class="formgroup detail-row">
 			    <div class="col-sm-5"><a href="${pageContext.request.contextPath}/customer/update/${customer.nif}.html"><span class="glyphicon glyphicon-pencil"></span>  Editar datos</a></div>
+		    	<div class="clear"></div>
+		    </div>
+		    <div class="formgroup detail-row">
 			    <div class="col-sm-5"><a href="${pageContext.request.contextPath}/customer/delete/${customer.nif}.html" onclick="return confirm('¿Estás seguro de que quieres borrar el cliente?');"><span class="glyphicon glyphicon-trash"></span>  Eliminar cliente</a></div>
 		    	<div class="clear"></div>
 		    </div>
@@ -77,13 +80,7 @@
 			                			</c:when>
 		                			</c:choose>
 			                	</td>
-			                	<td><a href="${pageContext.request.contextPath}/booking/bookingDetails/${booking.codBooking}.html">Más detalles</a></td>
-			                	<c:choose>
-			                		<c:when test='${status == "pending"}'>	           
-			                			<td><a href="${pageContext.request.contextPath}/booking/accept/${booking.codBooking}.html"><span class="glyphicon glyphicon-ok"></span>  Aceptar</a>
-			                			<td><a href="${pageContext.request.contextPath}/booking/deny/${booking.codBooking}.html" onclick="return confirm('¿Estás seguro de que quieres rechazar la reserva? Se enviará en email de rechazo al cliente que la solicitó.');"><span class="glyphicon glyphicon-remove"></span>  Rechazar</a></td>
-									</c:when>
-								</c:choose>
+			                	<td><a href="${pageContext.request.contextPath}/booking/bookingDetails/${booking.codBooking}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a></td>
 							</tr>
 					</c:forEach>
 				</table>

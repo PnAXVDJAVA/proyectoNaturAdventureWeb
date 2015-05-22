@@ -21,7 +21,7 @@
 						<tr>
 							<td>${assignedInstructor.nif}</td>
 							<td>${assignedInstructor.name}</td>
-							<td><a href="../removeInstructor.html?nif=${assignedInstructor.nif}&codBooking=${codBooking}"><span class="glyphicon glyphicon-remove"></span>  Borrar monitor</a>
+							<td><a href="${pageContext.request.contextPath}/booking/removeInstructor.html?nif=${assignedInstructor.nif}&codBooking=${codBooking}"><span class="glyphicon glyphicon-remove"></span>  Borrar monitor</a>
 						</tr>
 					</c:forEach>
 				</table>
@@ -43,7 +43,7 @@
 						<tr>
 							<td>${availableInstructor.nif}</td>
 							<td>${availableInstructor.name}</td>
-							<td><a href="../assignInstructor.html?nif=${availableInstructor.nif}&codBooking=${codBooking}"><span class="glyphicon glyphicon-plus"></span>  Añadir monitor</a></td>
+							<td><a href="${pageContext.request.contextPath}/booking/assignInstructor.html?nif=${availableInstructor.nif}&codBooking=${codBooking}"><span class="glyphicon glyphicon-plus"></span>  Añadir monitor</a></td>
 						</tr>
 					</c:forEach>
 			
@@ -52,7 +52,7 @@
 	</div>
 	
 	<div class="clear">
-		<button onClick="document.location.href='../confirmBooking/${codBooking}.html'" class="btn btn-default">Aceptar reserva</button>
+		<button onClick="document.location.href='${pageContext.request.contextPath}/booking/confirmBooking/${codBooking}.html'" class="btn btn-default">Aceptar reserva</button>
 	</div>
 	
 

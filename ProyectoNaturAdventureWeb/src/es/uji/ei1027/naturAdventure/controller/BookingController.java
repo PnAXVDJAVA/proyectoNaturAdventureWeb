@@ -169,7 +169,7 @@ public class BookingController {
 		}
 		bookingDao.assignInstructor( codBooking, nif );
 		refreshAssignInstructorModel( model, codBooking );
-		return "redirect:accept/" + codBooking + ".html";
+		return "redirect:bookingDetails/" + codBooking + ".html";
 	}
 	
 	@RequestMapping("/removeInstructor.html")
@@ -182,7 +182,7 @@ public class BookingController {
 		}
 		bookingDao.removeAssignedInstructor( codBooking, nif );
 		refreshAssignInstructorModel( model, codBooking );
-		return "redirect:accept/" + codBooking + ".html";
+		return "redirect:bookingDetails/" + codBooking + ".html";
 	}
 	
 	@RequestMapping("/confirmBooking/{codBooking}")
@@ -209,6 +209,7 @@ public class BookingController {
 			return "login";
 		}
 		model.addAttribute( "booking", bookingDao.getBooking( codBooking ) );
+		refreshAssignInstructorModel( model, codBooking );
 		return "booking/bookingDetails";
 	}
 	
