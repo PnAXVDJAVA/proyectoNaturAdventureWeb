@@ -5,50 +5,112 @@
 <t:paginabasica title="Gestión de reservas">
 <jsp:body>
 	
-	<h2>Nueva reserva</h2>
+		<h2>Nueva reserva</h2>
 		<div class="left">
 			<h3>Datos de la reserva</h3>
 		    <form:form method="post" modelAttribute="booking" role="form" class="form form-horizontal">
-		        <div class="form-group">
-		                <form:label path="proposalPerformingDateString" class="control-label col-sm-2">Fecha propuesta: </form:label>
-		                <div class="col-xs-6">
-			                <form:input path="proposalPerformingDateString" id="calendar-input" class="form-control" readonly="true"/>
-			               
-		               	</div>
-		               	<div class="col-xs-3">
-		               		 <span class="calendar-icon glyphicon glyphicon-calendar"></span>
-		               	</div>
-		               	<form:errors path="proposalPerformingDateString" cssClass="error" />
-		       	</div>           
-				<div class="form-group">
-		                <form:label path="numPartakers" class="control-label col-sm-2">Núm. participantes: </form:label>
-		                <div class="col-xs-6">
-		                	<form:input path="numPartakers" class="form-control" />
+			    <div class="form-group">
+						<div class="col-xs-4">
+		                	<form:label path="proposalPerformingDateString" class="control-label">Fecha propuesta: </form:label>
 		                </div>
-		        </div>	          
+		                <div class="col-xs-5">
+			                <div class="col-lg-8">
+			                	<form:input path="proposalPerformingDateString" id="calendar-input" class="form-control" readonly="true"/>
+			           		</div>
+			           		<div class="col-lg-3">
+		               			<span class="calendar-icon glyphicon glyphicon-calendar"></span>
+		               		</div>
+		           		</div>
+		           		<div class="col-xs-3">
+		                	<form:errors path="proposalPerformingDateString" cssClass="error" />
+		           		</div>
+		           		<div class="clear"></div>
+		        </div>
 		        <div class="form-group">
-		                <form:label path="startHour" class="control-label col-sm-2">Hora de comienzo:</form:label>
-		                <div class="col-xs-6">
+					<div class="col-xs-4">
+	                	<form:label path="numPartakers" class="control-label">Núm. participantes: </form:label>
+	                </div>
+	                <div class="col-xs-5">
+		                <div class="col-lg-8">
+		                	<form:input path="numPartakers" class="form-control"/>
+		           		</div>
+	           		</div>
+	           		<div class="col-xs-3">
+	                	<form:errors path="numPartakers" cssClass="error" />
+	           		</div>
+	           		<div class="clear"></div>
+	           	</div> 
+	           	<div class="form-group">
+					<div class="col-xs-4">
+	                	<form:label path="startHour" class="control-label">Hora de comienzo: </form:label>
+	                </div>
+	                <div class="col-xs-5">
+		                <div class="col-lg-8">
 		                	<form:select path="startHour" class="form-control">
 		                		<form:option value="NONE" label="Elige"/>
 		                		<form:options items="${hours}" />
 		                	</form:select>
-		                </div>
-		        </div>
-				<div class="form-group">
-		                <div class="col-sm-offset-2 col-sm-10">	            
-			            	<button type="submit" class="btn btn-default">Realizar reserva</button>
-			            	<button type="reset" class="btn btn-default">Limpiar</button>
-			            	<input type="button" class="btn btn-default" value="Cancelar" onclick="history.back(-1)"/>
-			    		</div>
-				</div>
+		           		</div>
+	           		</div>
+	           		<div class="col-xs-3">
+	                	<form:errors path="startHour" cssClass="error" />
+	           		</div>
+	           		<div class="clear"></div>
+	           	</div>
+	           	<div class="form-group">
+	            	<div class="col-xs-4"></div>
+		            <div class="col-xs-8">	            
+		            	<button type="submit" class="btn btn-custom btn-padding">Siguiente</button>
+		            	<button type="reset" class="btn btn-custom btn-padding">Limpiar</button>
+		            	<input type="button" class="btn btn-custom btn-padding" value="Cancelar" onclick="history.back(-1)"/>
+		    		</div>
+	    		</div>
+
 		    </form:form>
 	    </div>
 	    
 	    <div class="right">
 	    	<h3>Datos de la actividad</h3>
-	    	<p><span class="negrita">Nombre:</span> ${activity.name}</p>
-	    	<p><span class="negrita">Descripción:</span> ${activity.description}</p>
+	    	<div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Nombre: </span></div>
+		    	<div class="col-sm-5">${activity.name}</div>
+		    	<div class="clear"></div>
+		    </div>
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Descripción: </span></div>
+		    	<div class="col-sm-5">${activity.description}</div>
+		    	<div class="clear"></div>
+		    </div>
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Descripción: </span></div>
+		    	<div class="col-sm-5">${activity.description}</div>
+		    	<div class="clear"></div>
+		    </div>
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Precio por persona: </span></div>
+		    	<div class="col-sm-5">${activity.pricePerPerson} €</div>
+		    	<div class="clear"></div>
+		    </div>
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Duración: </span></div>
+		    	<div class="col-sm-5">${activity.duration} minutos</div>
+		    	<div class="clear"></div>
+		    </div>
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Mín. núm. participantes: </span></div>
+		    	<div class="col-sm-5">${activity.minPartakers}</div>
+		    	<div class="clear"></div>
+		    </div>
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Máx. núm. participantes: </span></div>
+		    	<div class="col-sm-5">${activity.maxPartakers}</div>
+		    	<div class="clear"></div>
+		    </div>
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Nivel de dificultad: </span></div>
+		    	<div class="col-sm-5">${activity.level}</div>
+		    	<div class="clear"></div>
+		    </div>
 	    </div>
 	    
 	    <script>

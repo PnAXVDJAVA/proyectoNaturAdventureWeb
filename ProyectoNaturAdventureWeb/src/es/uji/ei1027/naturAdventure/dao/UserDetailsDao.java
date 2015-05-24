@@ -67,4 +67,9 @@ public class UserDetailsDao {
 		this.jdbcTemplate.update( "UPDATE User_details SET password = ?, role = ? WHERE userid = ?", user.getPassword(), user.getRole(), user.getUsername() );
 	}
 	
+	public void updatePassword( String user, String password ) {
+		String encryptedPassword = this.passwordEncryptor.encryptPassword( password );
+		this.jdbcTemplate.update( "UPDATE User_details SET password = ? WHERE userid = ?", encryptedPassword, user );
+	}
+	
 }

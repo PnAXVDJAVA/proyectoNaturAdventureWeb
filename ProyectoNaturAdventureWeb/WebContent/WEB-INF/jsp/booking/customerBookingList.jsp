@@ -13,7 +13,7 @@
 		
 				<tr>
 					<th>Fecha propuesta</th>
-					<th>Código de la actividad</th>
+					<th>Nombre de la actividad</th>
 					<th>Estado</th>
 				</tr>
 				
@@ -22,7 +22,7 @@
 				
 					<tr>
 						<td>${booking.proposalPerformingDateString}</td>
-	                	<td>${booking.codActivity}</td>
+	                	<td>${booking.activityName}</td>
 	                	<td>
 	                		<c:choose>
 	                			<c:when test='${status == "pending" }'>

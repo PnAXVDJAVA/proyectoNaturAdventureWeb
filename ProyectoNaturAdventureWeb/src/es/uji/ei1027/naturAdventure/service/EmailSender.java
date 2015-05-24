@@ -18,7 +18,7 @@ import es.uji.ei1027.naturAdventure.domain.Profile;
 
 public class EmailSender {
 	
-	public static void sendEmail( EmailType emailType, Profile profile, Booking booking, Activity activity ) {
+	public static void sendEmail( EmailType emailType, Profile profile, Booking booking, Activity activity, String password ) {
 		String messageBody = "";
 		String messageSubject = "";
 		switch( emailType ) {
@@ -33,6 +33,10 @@ public class EmailSender {
 			case accept:
 				messageBody = getAcceptMessageBody( profile, booking, activity );
 				messageSubject = getAcceptMessageSubject( activity.getName());
+				break;
+			case pwdRecovery:
+				messageBody = getPwdRecoveryBody( profile, password );
+				messageSubject = getPwdRecoverySubject();
 				break;
 		}
 		sendEmail( messageBody, messageSubject,  profile.getEmail() );
@@ -133,6 +137,22 @@ public class EmailSender {
 		return msgBody;
 	}
 	
+	private static String getPwdRecoveryBody( Profile profile, String newPwd ) {
+		String nombre = profile.getName();
+		String username = profile.getUsername();
+		
+		String msgBody = "Hola " + nombre + ":\n"
+				+ "Hemos recibido una solicitud de recuperación de contraseña tu cuenta de NaturAdventure.\n"
+				+ "En base a ello, hemos cambiado la contraseña de tu cuenta. Los nuevos datos de tu cuenta son:\n"
+				+ "\t-Nombre de usuario: " + username + "\n"
+				+ "\t-Nueva contraseña: " + newPwd + "\n"
+				+ "Para cualquier duda no dudes en contactar con nosotros.\n"
+				+ "Un saludo.\n"
+				+ "---------------------------------------\n"
+				+ "El equipo de NaturAdventure.";
+		return msgBody;
+	}
+	
 	private static String getBookMessageSubject( String activityName ) {
 		return "Reserva de actividad " + activityName + "en NaturAdventure";
 	}
@@ -144,5 +164,10 @@ public class EmailSender {
 	private static String getAcceptMessageSubject( String activityName ) {
 		return "Confirmación de reserva de actividad " + activityName + " en NaturAdventure";
 	}
+	
+	private static String getPwdRecoverySubject() {
+		return "Solicitud de recuperación de contraseña en NaturAdventure";
+	}
+	
 
 }

@@ -87,7 +87,7 @@
 		                	<form:input path="customer.email" class="form-control"/>
 		           		</div>
 	           		</div>
-	           		<div class="col-xs-3">
+	           		<div class="col-xs-4">
 	                	<form:errors path="customer.email" cssClass="error" />
 	           		</div>
 	           		<div class="clear"></div>

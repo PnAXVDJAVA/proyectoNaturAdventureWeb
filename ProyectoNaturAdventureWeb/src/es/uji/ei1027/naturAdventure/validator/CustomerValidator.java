@@ -1,12 +1,22 @@
 package es.uji.ei1027.naturAdventure.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import es.uji.ei1027.naturAdventure.dao.CustomerDao;
 import es.uji.ei1027.naturAdventure.domain.Customer;
 import es.uji.ei1027.naturAdventure.service.RegularExpression;
 
 public class CustomerValidator implements Validator {
+	
+	private CustomerDao customerDao;
+	
+	@Autowired
+	public void setCustomerDao( CustomerDao customerDao ) {
+		this.customerDao = customerDao;
+	}
 
 	@Override
 	public boolean supports(Class<?> arg0) {
@@ -17,6 +27,14 @@ public class CustomerValidator implements Validator {
 	public void validate(Object obj, Errors errors) {
 		
 		Customer customer = (Customer) obj;
+		
+		try {
+			this.customerDao.getCustomer( customer.getNif() );
+			errors.rejectValue("customer.nif", "NIF registrado", "NIF ya registrado en el sistema");
+		}
+		catch( EmptyResultDataAccessException e ) {
+			//
+		}
 		
 		if ( !RegularExpression.matches( customer.getNif() , RegularExpression.NIF_RE ) )
 			errors.rejectValue("customer.nif", "Campo vacío", "Introduce correctamente el NIF");

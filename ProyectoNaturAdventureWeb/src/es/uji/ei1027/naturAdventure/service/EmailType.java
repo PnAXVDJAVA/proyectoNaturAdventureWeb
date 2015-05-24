@@ -4,7 +4,8 @@ public enum EmailType {
 	
 	book,
 	deny,
-	accept;
+	accept,
+	pwdRecovery;
 	
 	public static EmailType getOpcion( String type ) {
 		return valueOf( type );

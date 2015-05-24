@@ -50,6 +50,8 @@
 	
 	<context:component-scan base-package="es.uji.ei1027.naturAdventure.validator" />
 	<bean id="userDetailsValidator" class="es.uji.ei1027.naturAdventure.validator.UserDetailsValidator"/>
+	<bean id="customerValidator" class="es.uji.ei1027.naturAdventure.validator.CustomerValidator"/>
+	<bean id="bookingValidator" class="es.uji.ei1027.naturAdventure.validator.BookingValidator"/>
 	
 	<context:component-scan base-package="es.uji.ei1027.naturAdventure.service" />
 	<bean id="codeGetter" class="es.uji.ei1027.naturAdventure.service.CodeGetter"/>

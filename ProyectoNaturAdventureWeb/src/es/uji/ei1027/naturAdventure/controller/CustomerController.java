@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +20,14 @@ import es.uji.ei1027.naturAdventure.dao.CustomerDao;
 import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
 import es.uji.ei1027.naturAdventure.domain.Customer;
 import es.uji.ei1027.naturAdventure.domain.CustomerUserDetailsModel;
+import es.uji.ei1027.naturAdventure.domain.PasswordRecoveryDetails;
+import es.uji.ei1027.naturAdventure.domain.Profile;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 import es.uji.ei1027.naturAdventure.service.Authentification;
+import es.uji.ei1027.naturAdventure.service.EmailSender;
+import es.uji.ei1027.naturAdventure.service.EmailType;
+import es.uji.ei1027.naturAdventure.service.RandomString;
 import es.uji.ei1027.naturAdventure.validator.CustomerValidator;
 import es.uji.ei1027.naturAdventure.validator.CustomerUpdateValidator;
 import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
@@ -32,8 +39,9 @@ public class CustomerController {
 
 	private CustomerDao customerDao;
 	private UserDetailsDao userDetailsDao;
-	private UserDetailsValidator userDetailsValidator;
 	private BookingDao bookingDao;
+	private UserDetailsValidator userDetailsValidator;
+	private CustomerValidator customerValidator;
 	
 	@Autowired
 	public void setCustomerDao( CustomerDao customerDao ) {
@@ -46,14 +54,20 @@ public class CustomerController {
 	}
 	
 	@Autowired
+	public void setBookingDao( BookingDao bookingDao ) {
+		this.bookingDao = bookingDao;
+	}
+	
+	@Autowired
 	public void setUserDetailsValidator( UserDetailsValidator userDetailsValidator ) {
 		this.userDetailsValidator = userDetailsValidator;
 	}
 	
 	@Autowired
-	public void setBookingDao( BookingDao bookingDao ) {
-		this.bookingDao = bookingDao;
+	public void setCustomerValidator( CustomerValidator customerValidator ) {
+		this.customerValidator = customerValidator;
 	}
+	
 	
 	@RequestMapping("/list")
 	public String listCustomers( Model model, HttpSession session ) {
@@ -76,8 +90,7 @@ public class CustomerController {
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String processAddSubmit( Model model, @ModelAttribute("customerUser") CustomerUserDetailsModel customerUDM, BindingResult bindingResult, HttpSession session ) {
 		
-		CustomerValidator userValidator = new CustomerValidator();
-		userValidator.validate(customerUDM.getCustomer(), bindingResult);
+		this.customerValidator.validate(customerUDM.getCustomer(), bindingResult);
 		userDetailsValidator.validate(customerUDM.getUserDetails(), bindingResult);
 		
 		if( bindingResult.hasErrors() ) {
@@ -182,6 +195,44 @@ public class CustomerController {
 		model.addAttribute( "customer", customerDao.getCustomer( nif ) );
 		model.addAttribute( "bookings", bookingDao.getCustomerBookings( nif ) );
 		return "customer/customerDetails";
+	}
+	
+	@RequestMapping(value="/pwdRecovery")
+	public String pwdRecovery( Model model ) {
+		model.addAttribute( "pwdRecoveryDetails", new PasswordRecoveryDetails() );
+		return "customer/pwdRecovery";
+	}
+	
+	@RequestMapping(value="/pwdRecovery", method=RequestMethod.POST)
+	public String pwdRecoverySubmit( Model model, @ModelAttribute("pwdRecoveryDetails") PasswordRecoveryDetails pwdRecoveryDetails, BindingResult bindingResult ) {
+		
+		if( bindingResult.hasErrors() ) {
+			return "customer/pwdRecovery";
+		}
+		
+		Profile profile = null;
+		try {
+			profile = customerDao.getProfileByUsername( pwdRecoveryDetails.getUsername() );
+		}
+		catch( EmptyResultDataAccessException e ) {
+			model.addAttribute( "recoveryResult", false );
+			return "customer/pwdRecoveryResult";
+		}
+		
+		String rightEmail = profile.getEmail();
+		
+		if( !rightEmail.equals( pwdRecoveryDetails.getEmail() ) ) {
+			model.addAttribute( "recoveryResult", false );
+			return "customer/pwdRecoveryResult";
+		}
+		
+		String newPwd = RandomString.randomString();
+		
+		this.userDetailsDao.updatePassword( profile.getUsername() , newPwd );
+		EmailSender.sendEmail( EmailType.pwdRecovery , profile, null, null, newPwd );
+		
+		model.addAttribute( "recoveryResult", true );
+		return "customer/pwdRecoveryResult";
 	}
 	
 }

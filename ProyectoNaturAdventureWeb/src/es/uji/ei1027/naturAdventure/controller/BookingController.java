@@ -31,6 +31,7 @@ import es.uji.ei1027.naturAdventure.service.DateService;
 import es.uji.ei1027.naturAdventure.service.EmailSender;
 import es.uji.ei1027.naturAdventure.service.EmailType;
 import es.uji.ei1027.naturAdventure.service.ListsDifference;
+import es.uji.ei1027.naturAdventure.validator.BookingValidator;
 
 @Controller
 @RequestMapping("/booking")
@@ -40,6 +41,7 @@ public class BookingController {
 	private ActivityDao activityDao;
 	private CustomerDao customerDao;
 	private InstructorDao instructorDao;
+	private BookingValidator bookingValidator;
 	
 	@Autowired
 	public void setBookingDao( BookingDao bookingDao ) {
@@ -59,6 +61,11 @@ public class BookingController {
 	@Autowired
 	public void setInstructorDao( InstructorDao instructorDao  ) {
 		this.instructorDao = instructorDao;
+	}
+	
+	@Autowired
+	public void setBookingValidator( BookingValidator bookingValidator ) {
+		this.bookingValidator = bookingValidator;
 	}
 	
 	@RequestMapping("/list")
@@ -105,18 +112,23 @@ public class BookingController {
 			session.setAttribute( "nextURL", "/booking/book/" + codActivity + ".html" );
 			return "login";
 		}
+		
+		booking.setCodActivity( codActivity );
+		model.addAttribute( "activity", this.activityDao.getActivity( codActivity ) );
+		
+		this.bookingValidator.validate( booking ,  bindingResult );
+		
 		if( bindingResult.hasErrors() ) {
 			return "booking/book";
 		}
 		Profile profile = ( Profile ) session.getAttribute( "profile" );
 		String customerNif = profile.getNif();
 		booking.setCustomerNif( customerNif );
-		booking.setCodActivity( codActivity );
 		booking.setBookingDate( DateService.getTodaysDate() );
 		booking.setStatus( BookingStatus.pending );
 		bookingDao.addBooking( booking );
 		Activity activity = activityDao.getActivity( codActivity );
-		EmailSender.sendEmail( EmailType.book,  profile, booking, activity );
+		EmailSender.sendEmail( EmailType.book,  profile, booking, activity, null );
 		return "redirect:../customerBookingList/" + profile.getNif() + ".html";
 	}
 	
@@ -144,7 +156,7 @@ public class BookingController {
 		bookingDao.updateBooking( booking );
 		Activity activity = activityDao.getActivity( booking.getCodActivity() );
 		Profile profile = customerDao.getCustomer( booking.getCustomerNif() );
-		EmailSender.sendEmail( EmailType.deny, profile, booking, activity );
+		EmailSender.sendEmail( EmailType.deny, profile, booking, activity, null );
 		return "redirect:../list.html";
 	}
 	
@@ -197,7 +209,7 @@ public class BookingController {
 		bookingDao.updateBooking( booking );
 		Activity activity = activityDao.getActivity( booking.getCodActivity() );
 		Profile profile = customerDao.getCustomer( booking.getCustomerNif() );
-		EmailSender.sendEmail( EmailType.accept, profile, booking, activity );
+		EmailSender.sendEmail( EmailType.accept, profile, booking, activity, null );
 		return "redirect:../list.html";
 	}
 	
