@@ -42,14 +42,18 @@
 		        <div class="titlePage">NaturAdventure</div>
 		    </header>
 		    <t:navegacion />
+		    <t:help />
 		    <div class="container">
 		        <jsp:doBody />
 		    </div>
 		    <footer>
-		    <hr>
-		    <p class="text-muted centered">
-		    	EI1027 - Diseño e Implementación de Sistemas de Información
-		    </p>
+			    <hr>
+			    <div class="text-muted centered">
+				    	<p>EI1027 - Diseño e Implementación de Sistemas de Información</p>
+				    	<p><a href="#"><span class="glyphicon glyphicon-comment"></span>  Sugerencias, quejas, dudas</a></p>
+						<p><a href="#"><span class="glyphicon glyphicon-phone"></span>  Contacto</a></p>
+			    </div>
+			    <div class="height-nav"></div>
 		    </footer>
 	    </div>
 	</body>

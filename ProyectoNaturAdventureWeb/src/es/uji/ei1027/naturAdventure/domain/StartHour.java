@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum StartHour {
-
+	
+	Elige,
 	morning,  //08:00 - 12:00
 	afternoon, //12:00 - 20:00
 	night;  //20:00 - 24:00

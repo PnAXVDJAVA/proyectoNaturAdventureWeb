@@ -7,6 +7,7 @@ import org.springframework.validation.Validator;
 import es.uji.ei1027.naturAdventure.dao.ActivityDao;
 import es.uji.ei1027.naturAdventure.domain.Activity;
 import es.uji.ei1027.naturAdventure.domain.Booking;
+import es.uji.ei1027.naturAdventure.domain.StartHour;
 
 public class BookingValidator implements Validator {
 	
@@ -31,6 +32,14 @@ public class BookingValidator implements Validator {
 		
 		if( ! ( ( activity.getMinPartakers() <= booking.getNumPartakers() ) && ( booking.getNumPartakers() <= activity.getMaxPartakers() ) ) ) {
 			errors.rejectValue("numPartakers", "Num. part. invalido", "Número de participantes inválido");
+		}
+				
+		if( booking.getProposalPerformingDateString() == "" ) {
+			errors.rejectValue("proposalPerformingDateString", "Fecha vacia", "Hay que introducir una fecha");
+		}
+		
+		if( booking.getStartHour().equals( StartHour.Elige ) ) {
+			errors.rejectValue("startHour", "Elegir hora", "Hay que elegir una hora");
 		}
 		
 	}

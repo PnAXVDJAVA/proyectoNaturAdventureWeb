@@ -6,14 +6,15 @@
 <jsp:body>
 	
 		<h2>Nueva reserva</h2>
-		<div class="left">
+		<div class="book-left">
 			<h3>Datos de la reserva</h3>
-		    <form:form method="post" modelAttribute="booking" role="form" class="form form-horizontal">
+		    <form:form method="post" modelAttribute="booking" role="form" class="form form-horizontal" 
+		    action="${pageContext.request.contextPath}/booking/confirmBooking/${activity.codActivity}.html">
 			    <div class="form-group">
-						<div class="col-xs-4">
+						<div class="col-xs-3">
 		                	<form:label path="proposalPerformingDateString" class="control-label">Fecha propuesta: </form:label>
 		                </div>
-		                <div class="col-xs-5">
+		                <div class="col-xs-4">
 			                <div class="col-lg-8">
 			                	<form:input path="proposalPerformingDateString" id="calendar-input" class="form-control" readonly="true"/>
 			           		</div>
@@ -21,44 +22,43 @@
 		               			<span class="calendar-icon glyphicon glyphicon-calendar"></span>
 		               		</div>
 		           		</div>
-		           		<div class="col-xs-3">
+		           		<div class="col-xs-4">
 		                	<form:errors path="proposalPerformingDateString" cssClass="error" />
 		           		</div>
 		           		<div class="clear"></div>
 		        </div>
 		        <div class="form-group">
-					<div class="col-xs-4">
+					<div class="col-xs-3">
 	                	<form:label path="numPartakers" class="control-label">Núm. participantes: </form:label>
 	                </div>
-	                <div class="col-xs-5">
+	                <div class="col-xs-4">
 		                <div class="col-lg-8">
 		                	<form:input path="numPartakers" class="form-control"/>
 		           		</div>
 	           		</div>
-	           		<div class="col-xs-3">
+	           		<div class="col-xs-4">
 	                	<form:errors path="numPartakers" cssClass="error" />
 	           		</div>
 	           		<div class="clear"></div>
 	           	</div> 
 	           	<div class="form-group">
-					<div class="col-xs-4">
+					<div class="col-xs-3">
 	                	<form:label path="startHour" class="control-label">Hora de comienzo: </form:label>
 	                </div>
-	                <div class="col-xs-5">
+	                <div class="col-xs-4">
 		                <div class="col-lg-8">
 		                	<form:select path="startHour" class="form-control">
-		                		<form:option value="NONE" label="Elige"/>
 		                		<form:options items="${hours}" />
 		                	</form:select>
 		           		</div>
 	           		</div>
-	           		<div class="col-xs-3">
+	           		<div class="col-xs-4">
 	                	<form:errors path="startHour" cssClass="error" />
 	           		</div>
 	           		<div class="clear"></div>
 	           	</div>
 	           	<div class="form-group">
-	            	<div class="col-xs-4"></div>
+	            	<div class="col-xs-3"></div>
 		            <div class="col-xs-8">	            
 		            	<button type="submit" class="btn btn-custom btn-padding">Siguiente</button>
 		            	<button type="reset" class="btn btn-custom btn-padding">Limpiar</button>
@@ -69,21 +69,11 @@
 		    </form:form>
 	    </div>
 	    
-	    <div class="right">
+	    <div class="book-right">
 	    	<h3>Datos de la actividad</h3>
 	    	<div class="formgroup detail-row">
 		    	<div class="col-sm-5"><span class="negrita">Nombre: </span></div>
-		    	<div class="col-sm-5">${activity.name}</div>
-		    	<div class="clear"></div>
-		    </div>
-		    <div class="formgroup detail-row">
-		    	<div class="col-sm-5"><span class="negrita">Descripción: </span></div>
-		    	<div class="col-sm-5">${activity.description}</div>
-		    	<div class="clear"></div>
-		    </div>
-		    <div class="formgroup detail-row">
-		    	<div class="col-sm-5"><span class="negrita">Descripción: </span></div>
-		    	<div class="col-sm-5">${activity.description}</div>
+		    	<div class="col-sm-6">${activity.name}</div>
 		    	<div class="clear"></div>
 		    </div>
 		    <div class="formgroup detail-row">

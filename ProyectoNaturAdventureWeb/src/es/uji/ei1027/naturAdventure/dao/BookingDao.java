@@ -100,7 +100,7 @@ public class BookingDao {
 	}
 	
 	public List<Booking> getCustomerBookings( String nif ) {
-		return this.jdbcTemplate.query( "SELECT b.*, a.name FROM Booking AS b JOIN Activity AS a USING (codActivity) WHERE b.customerNif = ?", new Object[] { nif }, new BookingMapper() );
+		return this.jdbcTemplate.query( "SELECT b.*, a.name FROM Booking AS b JOIN Activity AS a USING (codActivity) WHERE b.customerNif = ? ORDER BY b.proposalPerformingDate", new Object[] { nif }, new BookingMapper() );
 	}
 	
 	public void assignInstructor( int codBooking, String instructorNif ) {

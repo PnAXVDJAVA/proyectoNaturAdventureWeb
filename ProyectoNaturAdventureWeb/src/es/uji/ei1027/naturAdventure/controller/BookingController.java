@@ -97,6 +97,9 @@ public class BookingController {
 			session.setAttribute( "nextURL", "/booking/book/" + codActivity + ".html" );
 			return "login";
 		}
+		
+		session.setAttribute( "contadorReserva" , 1 );
+		
 		Booking booking = new Booking();
 		model.addAttribute( "booking", booking );
 		model.addAttribute( "activity", this.activityDao.getActivity( codActivity ) );
@@ -104,16 +107,18 @@ public class BookingController {
 		return "booking/book";
 	}
 	
-	@RequestMapping(value="/book/{codActivity}", method=RequestMethod.POST)
-	public String processAddSubmit( Model model, @PathVariable int codActivity, @ModelAttribute("booking") Booking booking, 
-									BindingResult bindingResult, HttpSession session ) {
+	@RequestMapping(value="/confirmBooking/{codActivity}", method=RequestMethod.POST)
+	public String confirmBooking( Model model, @PathVariable int codActivity, @ModelAttribute("booking") Booking booking, 
+			BindingResult bindingResult, HttpSession session ) {
+		
 		if( !Authentification.checkAuthentification( session, Roles.CUSTOMER.getLevel()) ) {
 			model.addAttribute( "user", new UserDetails() );
-			session.setAttribute( "nextURL", "/booking/book/" + codActivity + ".html" );
+			session.setAttribute( "nextURL", "/booking/confirmBooking/" + codActivity + ".html" );
 			return "login";
 		}
 		
 		booking.setCodActivity( codActivity );
+		booking.setBookingDate( DateService.getTodaysDate() );
 		model.addAttribute( "activity", this.activityDao.getActivity( codActivity ) );
 		
 		this.bookingValidator.validate( booking ,  bindingResult );
@@ -121,15 +126,65 @@ public class BookingController {
 		if( bindingResult.hasErrors() ) {
 			return "booking/book";
 		}
+		
+		int contador = (int) session.getAttribute( "contadorReserva" );
+
+		if( contador > 1 ) {
+			contador = 1;
+		}
+		else if( contador != 1 ) {
+			return "redirect:../../index.jsp";
+		}
+		contador++;
+		session.setAttribute( "contadorReserva" , contador );
+		
+		return "booking/confirmBooking";
+	}
+	
+	@RequestMapping(value="/acceptBooking/{codActivity}")
+	public String acceptBooking( Model model, @PathVariable int codActivity, @ModelAttribute("booking") Booking booking, 
+									BindingResult bindingResult, HttpSession session ) {
+		if( !Authentification.checkAuthentification( session, Roles.CUSTOMER.getLevel()) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/booking/book/" + codActivity + ".html" );
+			return "login";
+		}
+		
+		int contador = (int) session.getAttribute( "contadorReserva" );
+		if( contador != 2 ) {
+			return "redirect:../../index.jsp";
+		}
+		contador++;
+		session.setAttribute( "contadorReserva" , contador );
+				
+		booking.setCodActivity( codActivity );
+		
 		Profile profile = ( Profile ) session.getAttribute( "profile" );
 		String customerNif = profile.getNif();
 		booking.setCustomerNif( customerNif );
-		booking.setBookingDate( DateService.getTodaysDate() );
 		booking.setStatus( BookingStatus.pending );
 		bookingDao.addBooking( booking );
 		Activity activity = activityDao.getActivity( codActivity );
 		EmailSender.sendEmail( EmailType.book,  profile, booking, activity, null );
-		return "redirect:../customerBookingList/" + profile.getNif() + ".html";
+		return "redirect:../bookingAccepted.html";
+	}
+	
+	@RequestMapping("/bookingAccepted")
+	public String bookingAccepted( Model model, HttpSession session ) {
+				
+		if( !Authentification.checkAuthentification( session, Roles.CUSTOMER.getLevel()) ) {
+			model.addAttribute( "user", new UserDetails() );
+			return "login";
+		}
+		
+		int contador = (int) session.getAttribute( "contadorReserva" );
+		if( contador != 3 ) {
+			return "redirect:../index.jsp";
+		}
+		contador = 0;
+		session.setAttribute( "contadorReserva" , contador );
+		
+		return "booking/bookingAccepted";
 	}
 	
 	@RequestMapping(value="/delete/{codBooking}")
