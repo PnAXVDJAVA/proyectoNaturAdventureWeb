@@ -17,7 +17,7 @@
 	<p>&nbsp;&nbsp;&nbsp;&nbsp;Escuela Superior de Tecnología y Ciencias Experimentales (ESTCE), Universitat Jaume I (UJI)</p>
 	<p>&nbsp;&nbsp;&nbsp;&nbsp;Av. Vicent Sos Baynat, s/n, 12071, Castellón de la Plana, España</p>
 	<br>
-	<p>O, si lo prefieres, puedes contactar con nosotros a través de <a href="${pageContext.request.contextPath}/info/sugerencias.html">
+	<p>O, si lo prefieres, puedes contactar con nosotros a través de <a href="${pageContext.request.contextPath}/suggestion/add.html">
 	 este formulario</a> para cualquier duda o sugerencia.</p>
 
 </jsp:body>

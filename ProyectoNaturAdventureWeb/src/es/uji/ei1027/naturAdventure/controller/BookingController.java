@@ -31,7 +31,6 @@ import es.uji.ei1027.naturAdventure.service.DateService;
 import es.uji.ei1027.naturAdventure.service.EmailSender;
 import es.uji.ei1027.naturAdventure.service.EmailType;
 import es.uji.ei1027.naturAdventure.service.ListsDifference;
-import es.uji.ei1027.naturAdventure.validator.BookingUpdateValidator;
 import es.uji.ei1027.naturAdventure.validator.BookingValidator;
 
 @Controller
@@ -43,7 +42,6 @@ public class BookingController {
 	private CustomerDao customerDao;
 	private InstructorDao instructorDao;
 	private BookingValidator bookingValidator;
-	private BookingUpdateValidator bookingUpdateValidator;
 	
 	@Autowired
 	public void setBookingDao( BookingDao bookingDao ) {
@@ -68,11 +66,6 @@ public class BookingController {
 	@Autowired
 	public void setBookingValidator( BookingValidator bookingValidator ) {
 		this.bookingValidator = bookingValidator;
-	}
-	
-	@Autowired
-	public void setBookingUpdateValidator( BookingUpdateValidator bookingUpdateValidator ) {
-		this.bookingUpdateValidator = bookingUpdateValidator;
 	}
 	
 	@RequestMapping("/list")

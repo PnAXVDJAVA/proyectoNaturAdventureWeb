@@ -63,6 +63,12 @@
 	margin: 10px;
 }
 
+.btn-padding-no-left {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
 .left {
 	margin-top: 30px;
 	width: 50%;
@@ -206,6 +212,16 @@
 	font-size: 15px;
 	padding-top: 20px;
 	padding-right: 20px;
+}
+
+.div-message-wrapper {
+	width: 500px;
+	word-wrap: break-word;
+}
+
+.div-message-wrapper-inside {
+	width: 500px;
+	overflow: auto;
 }
 
 .height-nav {

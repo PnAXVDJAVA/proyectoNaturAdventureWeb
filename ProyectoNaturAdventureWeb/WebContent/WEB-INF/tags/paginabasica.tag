@@ -50,7 +50,7 @@
 			    <hr>
 			    <div class="text-muted centered">
 				    	<p>EI1027 - Diseño e Implementación de Sistemas de Información</p>
-				    	<p><a href="${pageContext.request.contextPath}/info/sugerencias.html"><span class="glyphicon glyphicon-comment"></span>  Sugerencias, quejas, dudas</a></p>
+				    	<p><a href="${pageContext.request.contextPath}/suggestion/add.html"><span class="glyphicon glyphicon-comment"></span>  Sugerencias, quejas, dudas</a></p>
 						<p><a href="${pageContext.request.contextPath}/info/contact.html"><span class="glyphicon glyphicon-phone-alt"></span>  Contacto</a></p>
 			    </div>
 			    <div class="height-nav"></div>

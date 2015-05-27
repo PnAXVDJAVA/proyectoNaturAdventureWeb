@@ -11,7 +11,7 @@
 
 <!-- <nav class="navbar navbar-default navbar-fixed-top"> -->
 
-<div class="navbar-wrapper" data-spy="affix" data-offset-top="270" id="nav">
+<div class="navbar-wrapper" id="nav">
 <nav class="navbar navbar-custom">
 	<div class="container">
 	<!--<div class="container">-->
@@ -67,6 +67,14 @@
 							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="${pageContext.request.contextPath}/booking/list.html">Listar reservas</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">Sugerencias
+							<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="${pageContext.request.contextPath}/suggestion/list.html">Listar sugerencias</a></li>
 							</ul>
 						</li>
 					</d:when>

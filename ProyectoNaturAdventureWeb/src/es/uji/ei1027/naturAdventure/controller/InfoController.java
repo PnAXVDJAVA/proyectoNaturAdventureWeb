@@ -12,9 +12,4 @@ public class InfoController {
 		return "info/contact";
 	}
 	
-	@RequestMapping("/sugerencias")
-	public String sugerencias() {
-		return "info/sugerencias";
-	}
-	
 }
