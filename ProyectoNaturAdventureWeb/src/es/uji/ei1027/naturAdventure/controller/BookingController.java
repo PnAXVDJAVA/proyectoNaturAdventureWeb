@@ -31,6 +31,7 @@ import es.uji.ei1027.naturAdventure.service.DateService;
 import es.uji.ei1027.naturAdventure.service.EmailSender;
 import es.uji.ei1027.naturAdventure.service.EmailType;
 import es.uji.ei1027.naturAdventure.service.ListsDifference;
+import es.uji.ei1027.naturAdventure.validator.BookingUpdateValidator;
 import es.uji.ei1027.naturAdventure.validator.BookingValidator;
 
 @Controller
@@ -42,6 +43,7 @@ public class BookingController {
 	private CustomerDao customerDao;
 	private InstructorDao instructorDao;
 	private BookingValidator bookingValidator;
+	private BookingUpdateValidator bookingUpdateValidator;
 	
 	@Autowired
 	public void setBookingDao( BookingDao bookingDao ) {
@@ -66,6 +68,11 @@ public class BookingController {
 	@Autowired
 	public void setBookingValidator( BookingValidator bookingValidator ) {
 		this.bookingValidator = bookingValidator;
+	}
+	
+	@Autowired
+	public void setBookingUpdateValidator( BookingUpdateValidator bookingUpdateValidator ) {
+		this.bookingUpdateValidator = bookingUpdateValidator;
 	}
 	
 	@RequestMapping("/list")
@@ -199,6 +206,51 @@ public class BookingController {
 		return "redirect:../list.html";
 	}
 	
+	@RequestMapping(value="/update/{codBooking}")
+	public String updateBooking( Model model, @PathVariable int codBooking, HttpSession session ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ){
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/booking/update/" + codBooking + ".html" );
+			return "login";
+		}
+		Booking booking = bookingDao.getBooking( codBooking );
+		model.addAttribute( "booking", booking );
+		model.addAttribute( "hours", StartHour.getStringValues() );
+		List<Activity> activityList = activityDao.getActivities();
+		model.addAttribute( "activityList", activityList );
+		model.addAttribute( "activityName", booking.getActivityName() );
+		return "booking/update";
+	}
+	
+	@RequestMapping(value="/update/{codBooking}", method=RequestMethod.POST)
+	public String processUpdateSubmit( @PathVariable int codBooking, HttpSession session, Model model, 
+										@ModelAttribute("booking") Booking booking, BindingResult bindingResult ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ){
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/booking/update/" + codBooking + ".html" );
+			return "login";
+		}
+		
+		Booking newBooking = this.bookingDao.getBooking( codBooking );
+		newBooking.setProposalPerformingDateString( booking.getProposalPerformingDateString() );
+		newBooking.setNumPartakers( booking.getNumPartakers() );
+		newBooking.setStartHour( booking.getStartHour() );
+		newBooking.setCodActivity( booking.getCodActivity() );
+		
+		List<Activity> activityList = activityDao.getActivities();
+		model.addAttribute( "activityList", activityList );
+		model.addAttribute( "activityName", newBooking.getActivityName() );
+		
+		this.bookingValidator.validate( newBooking ,  bindingResult );
+				
+		if( bindingResult.hasErrors() ) {
+			return "booking/update";
+		}
+		
+		bookingDao.updateBooking( newBooking );
+		return "redirect:../list.html";
+	}
+	
 	@RequestMapping("/deny/{codBooking}")
 	public String denyBooking( @PathVariable int codBooking, Model model, HttpSession session ) {
 		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ){
@@ -215,7 +267,7 @@ public class BookingController {
 		return "redirect:../list.html";
 	}
 	
-	@RequestMapping("/accept/{codBooking}")
+	/*@RequestMapping("/accept/{codBooking}")
 	public String acceptBooking( @PathVariable int codBooking, Model model, HttpSession session ) {
 		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ){
 			model.addAttribute( "user", new UserDetails() );
@@ -224,7 +276,7 @@ public class BookingController {
 		}
 		refreshAssignInstructorModel( model, codBooking );
 		return "booking/accept";
-	}
+	}*/
 	
 	@RequestMapping("/assignInstructor.html")
 	public String instructorAssigned( @RequestParam("nif") String nif, @RequestParam("codBooking") int codBooking,
@@ -252,7 +304,7 @@ public class BookingController {
 		return "redirect:bookingDetails/" + codBooking + ".html";
 	}
 	
-	@RequestMapping("/confirmBooking/{codBooking}")
+	/*@RequestMapping("/confirmBooking/{codBooking}")
 	public String confirmBooking( @PathVariable int codBooking,  HttpSession session, Model model ) {
 		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ){
 			model.addAttribute( "user", new UserDetails() );
@@ -266,7 +318,7 @@ public class BookingController {
 		Profile profile = customerDao.getCustomer( booking.getCustomerNif() );
 		EmailSender.sendEmail( EmailType.accept, profile, booking, activity, null );
 		return "redirect:../list.html";
-	}
+	}*/
 	
 	@RequestMapping("/bookingDetails/{codBooking}")
 	public String showBookingDetails( @PathVariable int codBooking, HttpSession session, Model model ) {

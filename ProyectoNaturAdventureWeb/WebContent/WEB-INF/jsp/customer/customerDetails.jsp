@@ -44,6 +44,10 @@
 			    <div class="col-sm-5"><a href="${pageContext.request.contextPath}/customer/update/${customer.nif}.html"><span class="glyphicon glyphicon-pencil"></span>  Editar datos</a></div>
 		    	<div class="clear"></div>
 		    </div>
+		     <div class="formgroup detail-row">
+			    <div class="col-sm-5"><a href="${pageContext.request.contextPath}/customer/changePwd/${customer.username}.html"><span class="glyphicon glyphicon-cog"></span>  Cambiar contraseña</a></div>
+		    	<div class="clear"></div>
+		    </div>
 		    <div class="formgroup detail-row">
 			    <div class="col-sm-5"><a href="${pageContext.request.contextPath}/customer/delete/${customer.nif}.html" onclick="return confirm('¿Estás seguro de que quieres borrar el cliente?');"><span class="glyphicon glyphicon-trash"></span>  Eliminar cliente</a></div>
 		    	<div class="clear"></div>

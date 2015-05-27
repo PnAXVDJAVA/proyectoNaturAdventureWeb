@@ -17,6 +17,16 @@
 	border-radius: 4px;
 	padding: 8px;
 	background-color: #E498AB;
+	text-align: center;
+}
+
+.mouse {
+	cursor: pointer;
+}
+
+.gray-border {
+	border: 1px solid gray;
+	border-radius: 4px;
 }
 
 .loggeduser { 

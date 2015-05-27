@@ -32,7 +32,7 @@
 			</table>
 		</div>
 		
-		<a href="add.html">Añadir actividad</a><br>
+		<a href="add.html"><span class="glyphicon glyphicon-plus"></span>  Añadir actividad</a><br>
 		
 	
 </jsp:body>

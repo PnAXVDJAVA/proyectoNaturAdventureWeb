@@ -31,7 +31,7 @@
 			</table>
 		</div>
 		
-		<a href="add.html">Añadir cliente</a>
+		<a href="add.html"><span class="glyphicon glyphicon-plus"></span>  Añadir cliente</a>
 	
 </jsp:body>
 </t:paginabasica>

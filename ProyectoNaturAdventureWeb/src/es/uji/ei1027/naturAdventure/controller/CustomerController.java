@@ -138,7 +138,7 @@ public class CustomerController {
 		customerDao.updateCustomer( customer );
 		UserDetails user = ( UserDetails ) session.getAttribute( "user" );
 		if( user.getRole() == Roles.ADMIN.getLevel() ) {
-			return "redirect:../list.html";
+			return "redirect:../customerDetails/" + nif + ".html";
 		}
 		return "redirect:../../index.jsp";
 	}

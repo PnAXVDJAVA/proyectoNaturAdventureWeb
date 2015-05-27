@@ -47,8 +47,8 @@
 		    </div>
 		    
 		    <div class="formgroup detail-row">
-		    	<div class="col-sm-5"><span class="negrita">Código de la actividad:</span></div>
-		    	<div class="col-sm-5">${booking.codActivity}</div>
+		    	<div class="col-sm-5"><span class="negrita">Nombre de la actividad:</span></div>
+		    	<div class="col-sm-5"><a href="${pageContext.request.contextPath}/activity/activityDetails/${booking.codActivity}.html">${booking.activityName}</a></div>
 		    	<div class="clear"></div>
 		    </div>
 		    
@@ -70,11 +70,22 @@
 		    	<div class="clear"></div>
 		    </div>
 		    
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><a href="${pageContext.request.contextPath}/booking/update/${booking.codBooking}.html"><span class="glyphicon glyphicon-pencil"></span>  Editar datos</a></div>
+		    	<div class="clear"></div>
+		    </div>
+		    
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><a href="${pageContext.request.contextPath}/booking/delete/${booking.codBooking}.html" onclick="return confirm('¿Estás seguro de que quieres borrar la reserva?');"><span class="glyphicon glyphicon-trash"></span>  Eliminar reserva</a></div>
+		    	<div class="clear"></div>
+		    </div>
+		    
 		    <c:choose>
 	           <c:when test='${status == "pending"}'>
 				    <div class="formgroup detail-row">
+				    	<hr class="myHr">
 				    	<div class="col-sm-5">
-				    		<a href="${pageContext.request.contextPath}/booking/accept/${booking.codBooking}.html"><span class="glyphicon glyphicon-ok"></span>  Aceptar reserva</a>
+				    		<a href="${pageContext.request.contextPath}/booking/confirmBooking/${booking.codBooking}.html" onclick="return confirm('¿Estás seguro de que quieres aceptar la reserva? Se enviará en email de aceptación al cliente que la solicitó.');"><span class="glyphicon glyphicon-ok"></span>  Aceptar reserva</a>
 				    	</div>
 				    	
 				    	<div class="col-sm-5">

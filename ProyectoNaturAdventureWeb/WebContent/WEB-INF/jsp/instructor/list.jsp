@@ -46,7 +46,7 @@
 			</table>
 		</div>
 		
-		<a href="add.html">Añadir monitor</a>
+		<a href="add.html"><span class="glyphicon glyphicon-plus"></span>  Añadir monitor</a>
 </jsp:body>
 </t:paginabasica>
 
