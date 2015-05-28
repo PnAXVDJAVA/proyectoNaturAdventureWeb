@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 
-public class GenericUserDao implements UserDao {
+public class GenericUserDao {
 	
 	private UserDetailsDao userDetailsDao;
 	
@@ -18,7 +18,6 @@ public class GenericUserDao implements UserDao {
 		this.userDetailsDao = udd;
 	}
 
-	@Override
 	public UserDetails loadByUsername(String username, String password) {
 		boolean encontrado = false;
 		UserDetails foundUser = null;
@@ -44,7 +43,6 @@ public class GenericUserDao implements UserDao {
 		}
 	}
 
-	@Override
 	public Collection<UserDetails> listAllUsers() {
 		Collection<UserDetails> usersList = new LinkedList<>();
 		List<UserDetails> usersListDao = userDetailsDao.getUsers();

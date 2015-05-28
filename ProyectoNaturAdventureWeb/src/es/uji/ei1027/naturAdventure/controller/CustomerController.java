@@ -1,6 +1,8 @@
 package es.uji.ei1027.naturAdventure.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -229,7 +231,10 @@ public class CustomerController {
 		String newPwd = RandomString.randomString();
 		
 		this.userDetailsDao.updatePassword( profile.getUsername() , newPwd );
-		EmailSender.sendEmail( EmailType.pwdRecovery , profile, null, null, newPwd );
+		Map<String, Object> objetos = new HashMap<String, Object>();
+		objetos.put( "profile" , profile );
+		objetos.put( "newPwd" , newPwd );
+		EmailSender.sendEmail( EmailType.pwdRecovery , objetos );
 		
 		model.addAttribute( "recoveryResult", true );
 		return "customer/pwdRecoveryResult";

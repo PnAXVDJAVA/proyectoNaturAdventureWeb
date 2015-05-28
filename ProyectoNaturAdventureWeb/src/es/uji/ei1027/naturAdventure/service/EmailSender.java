@@ -1,6 +1,7 @@
 package es.uji.ei1027.naturAdventure.service;
 
 
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -18,30 +19,43 @@ import es.uji.ei1027.naturAdventure.domain.Profile;
 
 public class EmailSender {
 	
-	public static void sendEmail( EmailType emailType, Profile profile, Booking booking, Activity activity, String password ) {
+	public static void sendEmail( EmailType emailType, Map<String,Object> objetos ) {
 		String messageBody = "";
 		String messageSubject = "";
+		Activity activity = null;
+		Profile profile = null;
 		switch( emailType ) {
 			case book:
-				messageBody = getBookMessageBody( profile, booking, activity );
+				messageBody = getBookMessageBody( objetos );
+				activity = ( Activity ) objetos.get( "activity" );
 				messageSubject = getBookMessageSubject( activity.getName() );
+				profile = ( Profile ) objetos.get( "profile" );
 				break;
 			case deny:
-				messageBody = getDenyMessageBody( profile, booking, activity );
+				messageBody = getDenyMessageBody( objetos );
+				activity = ( Activity ) objetos.get( "activity" );
 				messageSubject = getDenyMessageSubject( activity.getName() );
+				profile = ( Profile ) objetos.get( "profile" );
 				break;
 			case accept:
-				messageBody = getAcceptMessageBody( profile, booking, activity );
+				messageBody = getAcceptMessageBody( objetos );
+				activity = ( Activity ) objetos.get( "activity" );
 				messageSubject = getAcceptMessageSubject( activity.getName());
+				String [] emails = ( String [] ) objetos.get( "instructorEmails" );
+				String instructorMessageBody = getInstructorMessageBody( objetos );
+				String instructorMessageSubject = getInstructorMessageSubject( objetos );
+				sendMultipleEmails( instructorMessageBody , instructorMessageSubject, emails );
 				break;
 			case pwdRecovery:
-				messageBody = getPwdRecoveryBody( profile, password );
+				messageBody = getPwdRecoveryBody( objetos );
 				messageSubject = getPwdRecoverySubject();
 				break;
 		}
+		profile = ( Profile ) objetos.get( "profile" );
 		sendEmail( messageBody, messageSubject,  profile.getEmail() );
 	}
 	
+
 	private static void sendEmail( String messageBody, String messageSubject, String email ) {
 		
 		final String username = "naturadventure.xvd@gmail.com";
@@ -73,7 +87,50 @@ public class EmailSender {
 		}
 	}
 	
-	private static String getBookMessageBody( Profile profile, Booking booking, Activity activity) {
+	private static void sendMultipleEmails( String messageBody, String messageSubject, String [] emails ) {
+		
+		final String username = "naturadventure.xvd@gmail.com";
+		final String password = "xavivaleriudavid";
+		
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		
+		Session session = Session.getDefaultInstance( props, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication( username, password );
+			}
+		} );
+		
+		try {
+			Message msg = new MimeMessage( session );
+			msg.setFrom( new InternetAddress( username ) );
+			String addresses = "";
+			for( int i = 0; i < emails.length; i++ ) {
+				if( i != emails.length - 1 ) {
+					addresses += emails[i] + ",";					
+				}
+				else {
+					addresses += emails[i];
+				}
+			}
+			msg.setRecipients( Message.RecipientType.CC , InternetAddress.parse( addresses ) );
+			msg.setSubject( messageSubject );
+			msg.setText( messageBody );
+			
+			Transport.send( msg );
+		}
+		catch( MessagingException e ) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static String getBookMessageBody( Map<String,Object> objetos ) {
+		Profile profile = ( Profile ) objetos.get( "profile" );
+		Booking booking = ( Booking ) objetos.get( "booking" );
+		Activity activity = ( Activity ) objetos.get( "activity" );
 		String nombre = profile.getName();
 		String fecha = booking.getProposalPerformingDateString();
 		int numParticipantes = booking.getNumPartakers();
@@ -95,7 +152,10 @@ public class EmailSender {
 		return msgBody;
 	}
 	
-	private static String getDenyMessageBody( Profile profile, Booking booking, Activity activity ) {
+	private static String getDenyMessageBody( Map<String,Object> objetos ) {
+		Profile profile = ( Profile ) objetos.get( "profile" );
+		Booking booking = ( Booking ) objetos.get( "booking" );
+		Activity activity = ( Activity ) objetos.get( "activity" );
 		String nombre = profile.getName();
 		String fecha = booking.getProposalPerformingDateString();
 		int numParticipantes = booking.getNumPartakers();
@@ -117,7 +177,10 @@ public class EmailSender {
 		return msgBody;
 	}
 	
-	private static String getAcceptMessageBody( Profile profile, Booking booking, Activity activity ) {
+	private static String getAcceptMessageBody( Map<String,Object> objetos ) {
+		Profile profile = ( Profile ) objetos.get( "profile" );
+		Booking booking = ( Booking ) objetos.get( "booking" );
+		Activity activity = ( Activity ) objetos.get( "activity" );
 		String nombre = profile.getName();
 		String fecha = booking.getProposalPerformingDateString();
 		int numParticipantes = booking.getNumPartakers();
@@ -137,7 +200,9 @@ public class EmailSender {
 		return msgBody;
 	}
 	
-	private static String getPwdRecoveryBody( Profile profile, String newPwd ) {
+	private static String getPwdRecoveryBody( Map<String,Object> objetos ) {
+		Profile profile = ( Profile ) objetos.get( "profile" );
+		String newPwd = ( String ) objetos.get( "newPwd" );
 		String nombre = profile.getName();
 		String username = profile.getUsername();
 		
@@ -153,8 +218,21 @@ public class EmailSender {
 		return msgBody;
 	}
 	
+	private static String getInstructorMessageBody( Map<String, Object> objetos ) {
+		Booking booking = ( Booking ) objetos.get( "booking" );
+		String fecha = booking.getProposalPerformingDateString();
+		
+		String msgBody = "Te ha sido asignada la reserva de una actividad para el día " + fecha + ".\n"
+				+ "Por favor, consulta la página web para ver la reserva con más detalle.\n"
+				+ "Un saludo.\n"
+				+ "---------------------------------------\n"
+				+ "El equipo de NaturAdventure.";
+		
+		return msgBody;
+	}
+	
 	private static String getBookMessageSubject( String activityName ) {
-		return "Reserva de actividad " + activityName + "en NaturAdventure";
+		return "Reserva de actividad " + activityName + " en NaturAdventure";
 	}
 	
 	private static String getDenyMessageSubject( String activityName ) {
@@ -167,6 +245,13 @@ public class EmailSender {
 	
 	private static String getPwdRecoverySubject() {
 		return "Solicitud de recuperación de contraseña en NaturAdventure";
+	}
+	
+	private static String getInstructorMessageSubject(
+			Map<String, Object> objetos) {
+		Booking booking = ( Booking ) objetos.get( "booking" );
+		String fecha = booking.getProposalPerformingDateString();
+		return "Reserva asignada para el día " + fecha;
 	}
 	
 

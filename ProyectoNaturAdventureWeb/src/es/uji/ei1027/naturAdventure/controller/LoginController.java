@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.uji.ei1027.naturAdventure.dao.GenericUserDao;
 import es.uji.ei1027.naturAdventure.dao.LoginDao;
-import es.uji.ei1027.naturAdventure.dao.UserDao;
 import es.uji.ei1027.naturAdventure.domain.Profile;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
@@ -22,11 +22,11 @@ import es.uji.ei1027.naturAdventure.validator.UserValidator;
 @Controller
 public class LoginController {
 	
-	private UserDao userDao;
+	private GenericUserDao userDao;
 	private LoginDaoFactory loginDaoFactory;
 	
 	@Autowired
-	public void setUserDao( UserDao userDao ) {
+	public void setUserDao( GenericUserDao userDao ) {
 		this.userDao = userDao;
 	}
 	

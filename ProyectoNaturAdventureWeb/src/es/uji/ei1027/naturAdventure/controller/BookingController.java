@@ -1,6 +1,8 @@
 package es.uji.ei1027.naturAdventure.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -107,7 +109,7 @@ public class BookingController {
 		return "booking/book";
 	}
 	
-	@RequestMapping(value="/confirmBooking/{codActivity}", method=RequestMethod.POST)
+	@RequestMapping(value="/confirmBooking/{codActivity}")
 	public String confirmBooking( Model model, @PathVariable int codActivity, @ModelAttribute("booking") Booking booking, 
 			BindingResult bindingResult, HttpSession session ) {
 		
@@ -165,7 +167,11 @@ public class BookingController {
 		booking.setStatus( BookingStatus.pending );
 		bookingDao.addBooking( booking );
 		Activity activity = activityDao.getActivity( codActivity );
-		EmailSender.sendEmail( EmailType.book,  profile, booking, activity, null );
+		Map<String, Object> objetos = new HashMap<String, Object>();
+		objetos.put( "profile" , profile );
+		objetos.put( "booking", booking );
+		objetos.put( "activity" , activity );
+		EmailSender.sendEmail( EmailType.book,  objetos );
 		return "redirect:../bookingAccepted.html";
 	}
 	
@@ -248,7 +254,7 @@ public class BookingController {
 	public String denyBooking( @PathVariable int codBooking, Model model, HttpSession session ) {
 		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ){
 			model.addAttribute( "user", new UserDetails() );
-			session.setAttribute( "nextURL", "/booking/list.html" );
+			session.setAttribute( "nextURL", "/booking/bookingDetails/" + codBooking + ".html" );
 			return "login";
 		}
 		Booking booking = bookingDao.getBooking( codBooking );
@@ -256,8 +262,13 @@ public class BookingController {
 		bookingDao.updateBooking( booking );
 		Activity activity = activityDao.getActivity( booking.getCodActivity() );
 		Profile profile = customerDao.getCustomer( booking.getCustomerNif() );
-		EmailSender.sendEmail( EmailType.deny, profile, booking, activity, null );
-		return "redirect:../list.html";
+		Map<String, Object> objetos = new HashMap<String, Object>();
+		objetos.put( "profile", profile );
+		objetos.put( "booking", booking );
+		objetos.put( "activity", activity );
+		EmailSender.sendEmail( EmailType.deny, objetos );
+		model.addAttribute( "booking", bookingDao.getBooking( codBooking ) );
+		return "booking/bookingDetails";
 	}
 	
 	/*@RequestMapping("/accept/{codBooking}")
@@ -297,25 +308,48 @@ public class BookingController {
 		return "redirect:bookingDetails/" + codBooking + ".html";
 	}
 	
-	/*@RequestMapping("/confirmBooking/{codBooking}")
+	@RequestMapping("/accept/{codBooking}")
 	public String confirmBooking( @PathVariable int codBooking,  HttpSession session, Model model ) {
 		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ){
 			model.addAttribute( "user", new UserDetails() );
-			session.setAttribute( "nextURL", "/booking/accept/" + codBooking + ".html" );
+			session.setAttribute( "nextURL", "/booking/bookingDetails/" + codBooking + ".html" );
 			return "login";
 		}
 		Booking booking = bookingDao.getBooking( codBooking );
-		booking.setStatus( BookingStatus.accepted );
-		bookingDao.updateBooking( booking );
-		Activity activity = activityDao.getActivity( booking.getCodActivity() );
-		Profile profile = customerDao.getCustomer( booking.getCustomerNif() );
-		EmailSender.sendEmail( EmailType.accept, profile, booking, activity, null );
-		return "redirect:../list.html";
-	}*/
+		
+		List<Instructor> assignedInstructors = this.instructorDao.getAssignedInstructors( codBooking );
+		
+		if( assignedInstructors.size() == 0 ) {
+			model.addAttribute( "booking", bookingDao.getBooking( codBooking ) );
+			refreshAssignInstructorModel( model, codBooking );
+			model.addAttribute( "acceptResult", false );
+			model.addAttribute( "codBooking", codBooking );
+		}
+		else {
+			booking.setStatus( BookingStatus.accepted );
+			bookingDao.updateBooking( booking );
+			Activity activity = activityDao.getActivity( booking.getCodActivity() );
+			Profile profile = customerDao.getCustomer( booking.getCustomerNif() );
+			Map<String, Object> objetos = new HashMap<String, Object>();
+			objetos.put( "profile" , profile );
+			objetos.put( "booking", booking );
+			objetos.put( "activity" , activity );
+			String [] instructorEmails = new String[ assignedInstructors.size() ];
+			int i = 0;
+			for(  Instructor instructor: assignedInstructors ) {
+				instructorEmails[i] = instructor.getEmail();
+				i++;
+			}
+			objetos.put( "instructorEmails" , instructorEmails );
+			EmailSender.sendEmail( EmailType.accept, objetos );
+			model.addAttribute( "acceptResult", true );
+		}
+		return "booking/acceptResult";
+	}	
 	
 	@RequestMapping("/bookingDetails/{codBooking}")
 	public String showBookingDetails( @PathVariable int codBooking, HttpSession session, Model model ) {
-		if( !Authentification.checkAuthentification( session, Roles.CUSTOMER.getLevel() ) ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL" , "booking/bookingDetails/" + codBooking + ".html" );
 			return "login";
