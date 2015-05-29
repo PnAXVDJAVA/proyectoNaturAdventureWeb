@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
-<t:paginabasica title="Gestión de actividades">
+<t:paginabasica title="Editar actividad | NaturAdventure">
 <jsp:body>
 	
 	<h2>Editar actividad</h2>

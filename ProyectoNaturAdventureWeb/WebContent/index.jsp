@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
 
-<t:paginabasica title="EI1027">
+<t:paginabasica title="EI1027 | NaturAdventure">
 	<jsp:body>
 		<script>
 			window.onload=mov();

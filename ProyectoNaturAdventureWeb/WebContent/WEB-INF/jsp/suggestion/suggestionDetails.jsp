@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="d"%>
-<t:paginabasica title="Gestión de actividades">
+<t:paginabasica title="Información de sugerencia | NaturAdventure">
 <jsp:body>
 	
 	<h2>Detalles de la sugerencia</h2>

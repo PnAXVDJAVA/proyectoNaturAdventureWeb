@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="status" scope="request" value='${booking.status}'/> 
-<t:paginabasica title="Gestión de reservas">
+<t:paginabasica title="Información de la reserva | NaturAdventure">
 <jsp:body>
 	
 	<h2>Detalles de la reserva</h2>

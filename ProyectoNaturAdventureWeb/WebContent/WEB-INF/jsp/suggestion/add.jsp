@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
-<t:paginabasica title="Información">
+<t:paginabasica title="Sugerencias | NaturAdventure">
 <jsp:body>
 
 	<h2>Sugerencias, quejas, dudas</h2>

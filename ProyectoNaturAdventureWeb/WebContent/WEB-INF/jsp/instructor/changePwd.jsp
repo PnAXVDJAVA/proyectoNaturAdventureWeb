@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
-<t:paginabasica title="Gestión de monitores">
+<t:paginabasica title="Cambiar contraseña | NaturAdventure">
 <jsp:body>
 	<body>
 	

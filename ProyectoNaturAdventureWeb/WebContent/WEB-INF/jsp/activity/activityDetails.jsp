@@ -5,7 +5,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="d"%>
 <d:set var="picture" scope="request" value='${activity.pictureString}'/>
-<t:paginabasica title="Gestión de actividades">
+<t:paginabasica title="Información de actividad | NaturAdventure">
 <jsp:body>
 	
 	<h2>Detalles de la actividad</h2>

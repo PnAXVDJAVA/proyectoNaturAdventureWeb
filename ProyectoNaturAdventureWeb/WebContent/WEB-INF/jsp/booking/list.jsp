@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
-<t:paginabasica title="Gestión de reservas">
+<t:paginabasica title="Lista de reservas | NaturAdventure">
 <jsp:body>
 	
 		<h1>Lista de reservas</h1>

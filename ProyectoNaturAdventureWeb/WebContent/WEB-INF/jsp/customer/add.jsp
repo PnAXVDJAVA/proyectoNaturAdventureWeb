@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
-<t:paginabasica title="Gestión de clientes">
+<t:paginabasica title="Registrar usuario | NaturAdventure">
 <jsp:body>
 	
-	<h2>Registro de usuario</h2>
+	<h2>Registrar usuario</h2>
 	    <form:form method="post" modelAttribute="customerUser" role="form" class="form form-horizontal" 
 	    	onsubmit="return checkPasswords();">
 	    	<div class="form-group">

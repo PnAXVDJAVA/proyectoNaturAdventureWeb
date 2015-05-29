@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
-<t:paginabasica title="Gestión de clientes">
+<t:paginabasica title="Recuperar contraseña | NaturAdventure">
 <jsp:body>
 	
 	<h2>Recuperación de contraseña</h2>
-		<p>Para la recuperación de una contraseña olvidada necesitamos saber tu nombre de usuario
+		<p>Para la recuperación la contraseña, necesitamos saber tu nombre de usuario
 			 y el correo electrónico correspondiente con el que te registraste.</p>
 		<p>Si los datos son correctos, se procederá a enviarte un correo electrónico con la nueva contraseña.</p>
 	    <form:form method="post" modelAttribute="pwdRecoveryDetails" role="form" class="form form-horizontal">

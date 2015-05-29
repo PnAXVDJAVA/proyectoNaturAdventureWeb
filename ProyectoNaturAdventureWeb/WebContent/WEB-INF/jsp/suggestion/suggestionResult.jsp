@@ -3,7 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
  
-<t:paginabasica title="Resultado del envío">
+<t:paginabasica title="Sugerencias | NaturAdventure">
 <jsp:body>
 
 	<h2>Resultado del envío</h2>

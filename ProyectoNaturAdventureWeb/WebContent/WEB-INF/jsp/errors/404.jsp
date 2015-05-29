@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
-<t:paginabasica title="Error 404">
+<t:paginabasica title="NaturAdventure">
 <jsp:body>
 	
 	<h1>Error 404</h1>
