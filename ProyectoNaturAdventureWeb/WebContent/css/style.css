@@ -168,7 +168,7 @@
 .info-hidden-image {
 	float: right;
 	border: 1px solid black;
-	padding-right: 20px;
+	margin-right: 20px;
 }
 
 .info-visible {

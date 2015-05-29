@@ -1,23 +1,32 @@
 package es.uji.ei1027.naturAdventure.service;
 
 
+import java.io.ByteArrayOutputStream;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
 import javax.mail.Authenticator;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
+import com.sun.xml.internal.ws.util.ByteArrayDataSource;
 
 import es.uji.ei1027.naturAdventure.domain.Activity;
 import es.uji.ei1027.naturAdventure.domain.Booking;
 import es.uji.ei1027.naturAdventure.domain.Profile;
 
 public class EmailSender {
+	private static boolean isAcceptBooking = false;
 	
 	public static void sendEmail( EmailType emailType, Map<String,Object> objetos ) {
 		String messageBody = "";
@@ -30,12 +39,14 @@ public class EmailSender {
 				activity = ( Activity ) objetos.get( "activity" );
 				messageSubject = getBookMessageSubject( activity.getName() );
 				profile = ( Profile ) objetos.get( "profile" );
+				isAcceptBooking = false;
 				break;
 			case deny:
 				messageBody = getDenyMessageBody( objetos );
 				activity = ( Activity ) objetos.get( "activity" );
 				messageSubject = getDenyMessageSubject( activity.getName() );
 				profile = ( Profile ) objetos.get( "profile" );
+				isAcceptBooking = false;
 				break;
 			case accept:
 				messageBody = getAcceptMessageBody( objetos );
@@ -45,10 +56,12 @@ public class EmailSender {
 				String instructorMessageBody = getInstructorMessageBody( objetos );
 				String instructorMessageSubject = getInstructorMessageSubject( objetos );
 				sendMultipleEmails( instructorMessageBody , instructorMessageSubject, emails );
+				isAcceptBooking = true;
 				break;
 			case pwdRecovery:
 				messageBody = getPwdRecoveryBody( objetos );
 				messageSubject = getPwdRecoverySubject();
+				isAcceptBooking = false;
 				break;
 		}
 		profile = ( Profile ) objetos.get( "profile" );
@@ -78,8 +91,35 @@ public class EmailSender {
 			msg.setFrom( new InternetAddress( username ) );
 			msg.setRecipients( Message.RecipientType.TO , InternetAddress.parse( email ) );
 			msg.setSubject( messageSubject );
-			msg.setText( messageBody );
 			
+			if( isAcceptBooking ) {
+				BodyPart messageBodyPart = new MimeBodyPart();
+				messageBodyPart.setText( messageBody );
+				
+				Multipart multipart = new MimeMultipart();
+				multipart.addBodyPart( messageBodyPart );
+				
+				messageBodyPart = new MimeBodyPart();
+				
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				try {
+					EmailSenderCreatePDF.writePDF( outputStream );
+				}
+				catch( Exception e ) {
+					e.printStackTrace();
+				}
+				byte[] bytes = outputStream.toByteArray();
+				
+				javax.activation.DataSource dataSource = new ByteArrayDataSource( bytes , "application/pdf" );
+				messageBodyPart.setDataHandler( new DataHandler( dataSource ) );
+				messageBodyPart.setFileName( "Booking.pdf" );
+				
+				multipart.addBodyPart( messageBodyPart );
+				
+				msg.setContent( multipart );
+			}
+			else
+				msg.setText( messageBody );			
 			Transport.send( msg );
 		}
 		catch( MessagingException e ) {
@@ -186,6 +226,13 @@ public class EmailSender {
 		int numParticipantes = booking.getNumPartakers();
 		String hora = booking.getStartHour().toString();
 		String nombreActividad = activity.getName();
+		
+		double totalAPagar = numParticipantes * activity.getPricePerPerson();
+		
+		String[] info = {booking.getBookingDateString(), nombreActividad, booking.getCodBooking() + "",
+						 fecha, hora, numParticipantes + "", totalAPagar + ""};
+		
+		EmailSenderCreatePDF.setInfo(info);
 		
 		String msgBody = "Hola " + nombre + ":\n"
 				+ "Acabamos de confirmar la reserva que previamente realizaste con los siguientes datos:\n"

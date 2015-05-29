@@ -81,6 +81,9 @@
 .sectionText {
 	float: left;
 	width: 50%;
+}
+
+.text-index {
 	text-align: justify;
     text-justify: inter-word;
 }
