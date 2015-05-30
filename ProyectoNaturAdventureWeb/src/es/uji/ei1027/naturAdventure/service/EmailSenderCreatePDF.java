@@ -33,9 +33,11 @@ public class EmailSenderCreatePDF {
 		PdfWriter.getInstance(documento,outputStream);
 		documento.open();
 		
-		PdfPTable tabla = new PdfPTable(1);
-		//tabla.setWidths(new int[]{4, 20});
-		PdfPCell celda;
+		/* ESTO ES PARA INTENTAR BUSCAR UNA RUTA QUE ME SIRVA PARA PONER EL DICHOSO ICONO*/
+		
+		/* SI TE SIRVE, newFile(".").getAbsolutePath() DEVUELVE EL DIRECTORIO DE ECLIPSE ( C:/ECLIPSE )
+		 * ES DECIR, SI PONGO LA IMAGEN EN MI DIRECTORIO ( C:/ECLIPSE ), ESTARÁ EN EL PDF PERO NO ES PLAN */
+//		
 //		System.out.println(new java.io.File(".").getAbsolutePath());
 //		String[] rutas = {
 //						"images/",
@@ -70,9 +72,16 @@ public class EmailSenderCreatePDF {
 //		}
 //		
 		
+		
+		/* SI ENCUENTRAS LA FORMA DE CONSEGUIR LA IMAGEN, CAMBIAR RUTA DE FOTO */
+	
+		
+//		PdfPTable tabla = new PdfPTable(2);
+//		tabla.setWidths(new int[]{4, 20});
+//		PdfPCell celda;
 //		try	{
 //			
-//		    Image foto = Image.getInstance(EmailSenderCreatePDF.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "icon.png");
+//		    Image foto = Image.getInstance("icon.png");					/* RUTA DE FOTO */
 //		    foto.scaleToFit(60, 60);
 //		    
 //		    celda = new PdfPCell(foto);
@@ -95,11 +104,17 @@ public class EmailSenderCreatePDF {
 //		tabla.setHorizontalAlignment(PdfPTable.ALIGN_LEFT);
 //		documento.add(tabla);
 		
+		
+		/* ESTO ES PARA QUE ESCRIBA EL TITULO SIN IMAGEN */
+		
 		documento.add(new Paragraph("NaturAdventure",
                 FontFactory.getFont("arial",
                 40,
                 Font.BOLDITALIC,
                 BaseColor.BLACK)));
+		
+		
+		/* ESTO ES EL RESTO DEL PDF, NO LO TOQUES QUE ESTO VA BIEN */
 		
 		Paragraph texto = new Paragraph("La reserva realizada el día " + info[0] + " ha sido ACEPTADA.");
 		texto.setSpacingBefore(30.0f);
@@ -171,10 +186,6 @@ public class EmailSenderCreatePDF {
 			document.add(tabla);
 		
 		} catch (DocumentException e) {}
-		
-	}
-	
-	public static void main(String[] args) {
 		
 	}
 }

@@ -1,0 +1,34 @@
+
+.info-help-navigator {
+	float:left;
+	width: 30%;
+}
+
+.info-help-text {
+	float:right;
+	width: 70%;
+	text-align: justify;
+    text-justify: inter-word;
+    padding: 20px;
+}
+
+.info-help-nav {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.nav-pills>li.active>a {
+	color: black;
+	background-color: #92E7B6 !important;
+}
+
+.info-help-subnav {
+	display: hidden;
+	padding-left: 30px;
+	font-size: 16px;
+	font-weight: normal;
+}
+
+.info-help-subnav a {
+	color: black !important;
+}

@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepickr.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepickr.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleIndex.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleHelp.css">
 		<link href='http://fonts.googleapis.com/css?family=Londrina+Solid|Skranji:700' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans|Roboto' rel='stylesheet' type='text/css'>
 		
@@ -28,6 +29,7 @@
 		<script src="${pageContext.request.contextPath}/js/datepickr.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/datepickr.js"></script>
 		<script src="${pageContext.request.contextPath}/js/functionIndex.js"></script>
+		<script src="${pageContext.request.contextPath}/js/functionHelp.js"></script>
 		
 		<script type="text/javascript">
 			$('#nav').affix({
