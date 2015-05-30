@@ -5,7 +5,8 @@
 <t:paginabasica title="NaturAdventure">
 <jsp:body>
 	
-	<h1>Error 404</h1>
+	<h1>Error 408</h1>
+	<p>Tiempo de espera agotado.</p>
 	<p>El recurso no está disponible o la página no existe en el servidor.</p>
 	<p>Si desea comunicarlo para que nuestro departamento lo pueda corregir lo antes posible,
 	puede hacerlo desde el siguiente enlace:</p>

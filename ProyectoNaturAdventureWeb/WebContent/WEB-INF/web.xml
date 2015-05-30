@@ -21,6 +21,26 @@
 		<error-code>404</error-code>
 		<location>/errors/404.html</location>
 	</error-page>
+	
+	<error-page>
+		<error-code>408</error-code>
+		<location>/errors/408.html</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/errors/500.html</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>503</error-code>
+		<location>/errors/503.html</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>509</error-code>
+		<location>/errors/509.html</location>
+	</error-page>
   
   <!--CharsetFilter start--> 
 

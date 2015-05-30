@@ -1,9 +1,12 @@
 package es.uji.ei1027.naturAdventure.service;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+
+import javax.servlet.ServletContext;
+
+import org.apache.catalina.startup.Tomcat;
+import org.springframework.core.io.ClassPathResource;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -30,33 +33,73 @@ public class EmailSenderCreatePDF {
 		PdfWriter.getInstance(documento,outputStream);
 		documento.open();
 		
-		PdfPTable tabla = new PdfPTable(2);
-		tabla.setWidths(new int[]{4, 20});
+		PdfPTable tabla = new PdfPTable(1);
+		//tabla.setWidths(new int[]{4, 20});
 		PdfPCell celda;
-		try	{
-			
-		    Image foto = Image.getInstance("//icon.png");
-		    foto.scaleToFit(60, 60);
-		    
-		    celda = new PdfPCell(foto);
-		    celda.setBorder(Rectangle.NO_BORDER);
-		    tabla.addCell(celda);
-		}
-		catch ( Exception e ) {
-		    e.printStackTrace();
-		}
+//		System.out.println(new java.io.File(".").getAbsolutePath());
+//		String[] rutas = {
+//						"images/",
+//						EmailSenderCreatePDF.class.getProtectionDomain().getCodeSource().getLocation().getPath(),
+//						EmailSenderCreatePDF.class.getPackage().getName(),
+//						EmailSenderCreatePDF.class.getProtectionDomain().toString(),
+//						EmailSenderCreatePDF.class.getProtectionDomain().getCodeSource().toString(),
+//						EmailSenderCreatePDF.class.getProtectionDomain().getCodeSource().getLocation().toString(),
+//						EmailSenderCreatePDF.class.getProtectionDomain().getCodeSource().getLocation().getFile(),
+//						EmailSenderCreatePDF.class.getProtectionDomain().getCodeSource().getLocation().getHost(),
+//						"../",
+//						"..\\.\\",
+//						"\\",
+//						};
+//		
+//		for(String s : rutas){
+//			try {
+//				System.out.println("Ruta: " + s);
+//				String r = s + "/icon.png";
+//				System.out.println("Ruta + /icon.png: " + r);
+//				java.io.File f = new java.io.File(r);
+//				System.out.println("EXISTE: " + f.exists());
+//				
+//				r = s + "\\icon.png";
+//				System.out.println("Ruta + \\icon.png: " + r);
+//				f = new java.io.File(r);
+//				System.out.println("EXISTE: " + f.exists());
+//				
+//			}catch(Exception e) {
+//				System.out.println("ERROR CON " + s);
+//			}
+//		}
+//		
 		
-		celda = new PdfPCell(new Paragraph("NaturAdventure",
+//		try	{
+//			
+//		    Image foto = Image.getInstance(EmailSenderCreatePDF.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "icon.png");
+//		    foto.scaleToFit(60, 60);
+//		    
+//		    celda = new PdfPCell(foto);
+//		    celda.setBorder(Rectangle.NO_BORDER);
+//		    tabla.addCell(celda);
+//		}
+//		catch ( Exception e ) {
+//		    e.printStackTrace();
+//		}
+//		
+//		celda = new PdfPCell(new Paragraph("NaturAdventure",
+//                FontFactory.getFont("arial",
+//                40,
+//                Font.BOLDITALIC,
+//                BaseColor.BLACK)));
+//		
+//	    celda.setBorder(Rectangle.NO_BORDER);
+//		tabla.addCell(celda);
+//		
+//		tabla.setHorizontalAlignment(PdfPTable.ALIGN_LEFT);
+//		documento.add(tabla);
+		
+		documento.add(new Paragraph("NaturAdventure",
                 FontFactory.getFont("arial",
                 40,
                 Font.BOLDITALIC,
                 BaseColor.BLACK)));
-		
-	    celda.setBorder(Rectangle.NO_BORDER);
-		tabla.addCell(celda);
-		
-		tabla.setHorizontalAlignment(PdfPTable.ALIGN_LEFT);
-		documento.add(tabla);
 		
 		Paragraph texto = new Paragraph("La reserva realizada el día " + info[0] + " ha sido ACEPTADA.");
 		texto.setSpacingBefore(30.0f);
@@ -128,6 +171,10 @@ public class EmailSenderCreatePDF {
 			document.add(tabla);
 		
 		} catch (DocumentException e) {}
+		
+	}
+	
+	public static void main(String[] args) {
 		
 	}
 }
