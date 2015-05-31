@@ -23,6 +23,7 @@ import es.uji.ei1027.naturAdventure.dao.InstructorDao;
 import es.uji.ei1027.naturAdventure.domain.Activity;
 import es.uji.ei1027.naturAdventure.domain.Booking;
 import es.uji.ei1027.naturAdventure.domain.BookingStatus;
+import es.uji.ei1027.naturAdventure.domain.Customer;
 import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.Profile;
 import es.uji.ei1027.naturAdventure.domain.Roles;
@@ -140,7 +141,16 @@ public class BookingController {
 		contador++;
 		session.setAttribute( "contadorReserva" , contador );
 		
-		return "booking/confirmBooking";
+		//
+		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
+			List<Customer> customerList = this.customerDao.getCustomers();		
+			model.addAttribute( "customerList", customerList );
+			//return "redirect:../chooseCustomer/" + codActivity + ".html";
+			return "booking/chooseCustomer";
+		}
+		else {
+			return "booking/confirmBooking";			
+		}
 	}
 	
 	@RequestMapping(value="/acceptBooking/{codActivity}")
@@ -161,14 +171,22 @@ public class BookingController {
 				
 		booking.setCodActivity( codActivity );
 		
-		Profile profile = ( Profile ) session.getAttribute( "profile" );
-		String customerNif = profile.getNif();
-		booking.setCustomerNif( customerNif );
+		Map<String, Object> objetos = new HashMap<String, Object>();
+
+		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+			Customer customer = this.customerDao.getCustomer( booking.getCustomerNif() );
+			objetos.put( "profile" , customer );
+		}
+		else {
+			Profile profile = ( Profile ) session.getAttribute( "profile" );
+			String customerNif = profile.getNif();
+			booking.setCustomerNif( customerNif );
+			objetos.put( "profile" , profile );
+		}
+		
 		booking.setStatus( BookingStatus.pending );
 		bookingDao.addBooking( booking );
 		Activity activity = activityDao.getActivity( codActivity );
-		Map<String, Object> objetos = new HashMap<String, Object>();
-		objetos.put( "profile" , profile );
 		objetos.put( "booking", booking );
 		objetos.put( "activity" , activity );
 		EmailSender.sendEmail( EmailType.book,  objetos );

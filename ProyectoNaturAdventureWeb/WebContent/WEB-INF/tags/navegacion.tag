@@ -35,6 +35,7 @@
 							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="${pageContext.request.contextPath}/activity/list.html">Listar actividades</a></li>
+								<li><a href="${pageContext.request.contextPath}/activity/customerList.html">Listar actividades (modo cliente)</a></li>
 								<li><a href="${pageContext.request.contextPath}/activity/add.html">Añadir actividad</a></li>
 							</ul>
 						</li>

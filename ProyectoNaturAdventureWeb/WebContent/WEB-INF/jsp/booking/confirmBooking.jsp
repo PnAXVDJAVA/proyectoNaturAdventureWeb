@@ -69,7 +69,12 @@
 	    <form:form method="post" modelAttribute="booking" role="form" class="form form-horizontal" 
 		    action="${pageContext.request.contextPath}/booking/acceptBooking/${activity.codActivity}.html">
 	    
-	    	<p>¿Deseas confirmar la reserva?</p>
+	    	<div class="form-group">
+		           	<div class="col-xs-3"></div>
+		            <div class="col-xs-7" style="text-align:center">
+		    			¿Deseas confirmar la reserva?
+		    		</div>
+		    	</div>
 	    	
 	    	<form:input type="hidden" path="proposalPerformingDateString"/>
 	    	<form:input type="hidden" path="numPartakers"/>
@@ -80,7 +85,7 @@
 	           	<div class="col-xs-3"></div>
 	            <div class="col-xs-8">	            
 	            	<button onClick="location.href='${pageContext.request.contextPath}/booking/acceptBooking/${activity.codActivity}.html'" type="submit" class="btn btn-custom btn-padding">Confirmar reserva</button>
-	            	<button class="btn btn-custom btn-padding">Cancelar reserva</button>
+	            	<button onClick="location.href='${pageContext.request.contextPath}/activity/customerList.html'" class="btn btn-custom btn-padding">Cancelar reserva</button>
 	    		</div>
 		    </div>
 	    </form:form>

@@ -6,8 +6,7 @@
 <jsp:body>
 	
 	<h1>Error 500</h1>
-	<p>Ha ocurrido un error con el servidor</p>
-	<p>El recurso no está disponible o la página no existe en el servidor.</p>
+	<p>Ha ocurrido un error interno al realizar la comunicación con el servidor</p>
 	<p>Si desea comunicarlo para que nuestro departamento lo pueda corregir lo antes posible,
 	puede hacerlo desde el siguiente enlace:</p>
 	<p><a href="${pageContext.request.contextPath}/suggestion/add.html">Informar de un error</a></p>

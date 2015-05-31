@@ -14,7 +14,6 @@
 	    <p> En breves momentos recibirás un correo electrónico con los datos de la solicitud.<br>
 	    Nuestro departamento pasará a comprobarla y en los próximos días recibirá, un nuevo correo electronico, con la comprobación de la misma</p>
 	   	<p>¡Gracias por confiar en nosotros!</p>
-	   	<p><a href="${pageContext.request.contextPath}/booking/customerBookingList/${profile.nif}.html">Ver lista de reservas</a></p>
 	    
 </jsp:body>
 </t:paginabasica>
