@@ -10,32 +10,39 @@
 		<div class="info-help-navigator">
 			<nav>
 				<ul class="nav nav-pills nav-stacked info-help-nav">
-					<li onclick="setInfoHelpSeccionUsuario()" role="presentation" class="active"><a>Sección Usuario</a></li>
+					<li role="presentation" class="active"><a>Sección Actividades</a></li>
 					<li>
 						<div class="info-help-subnav">
 							<ul class="nav nav-pills nav-stacked">
-								<li onclick="setInfoHelpIniciarSesion()" role="presentation"><a>Iniciar sesión</a></li>
-								<li onclick="setInfoHelpCerrarSesion()" role="presentation"><a>Cerrar sesión</a></li>
+								<li onclick="setInfoHelpConsultarActividades()" role="presentation"><a>Consultar actividades</a></li>
+							</ul>
+						</div>
+					</li>
+					<li role="presentation" class="active"><a>Sección Cliente</a></li>
+					<li>
+						<div class="info-help-subnav">
+							<ul class="nav nav-pills nav-stacked">
 								<li onclick="setInfoHelpEditarPerfil()" role="presentation"><a>Editar perfil</a></li>
 								<li onclick="setInfoHelpCambiarContrasenya()" role="presentation"><a>Cambiar contraseña</a></li>
+								<li onclick="setInfoHelpCerrarSesion()" role="presentation"><a>Cerrar sesión</a></li>
 							</ul>
 						</div>
 					</li>
 					
-					<li onclick="setInfoHelpSeccionActividades()" role="presentation" class="active"><a>Sección Actividades</a></li>
-					<li>
-						<div class="info-help-subnav">
-							<ul class="nav nav-pills nav-stacked">
-								<li onclick="setInfoHelpListaDeActividades()" role="presentation"><a>Lista de actividades</a></li>
-							</ul>
-						</div>
-					</li>
-					<li onclick="setInfoHelpSeccionReservas()" role="presentation" class="active"><a>Sección Reservas</a></li>
+					<li role="presentation" class="active"><a>Sección Reservas</a></li>
 					<li>
 						<div class="info-help-subnav">
 							<ul class="nav nav-pills nav-stacked">
 								<li onclick="setInfoHelpNuevaReserva()" role="presentation"><a>Nueva reserva</a></li>
-								<li onclick="setInfoHelpConsultarReservas()" role="presentation"><a>Consultar reservas</a></li>
+								<li onclick="setInfoHelpConsultarReservas()" role="presentation"><a>Consultar reservas realizadas</a></li>
+							</ul>
+						</div>
+					</li>
+					<li role="presentation" class="active"><a>Sección Sugerencias</a></li>
+					<li>
+						<div class="info-help-subnav">
+							<ul class="nav nav-pills nav-stacked">
+								<li onclick="setInfoHelpSugerencias()" role="presentation"><a>Segurencias, quejas, dudas</a></li>
 							</ul>
 						</div>
 					</li>
