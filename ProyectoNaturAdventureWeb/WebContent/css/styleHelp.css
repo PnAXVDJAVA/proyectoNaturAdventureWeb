@@ -17,9 +17,18 @@
 	font-weight: bold;
 }
 
-.nav-pills>li.active>a {
+.info-help-navigator .nav-pills>li.active>a {
 	color: black;
 	background-color: #92E7B6 !important;
+}
+
+.info-help-navigator .nav-pills>li.active>a:HOVER {
+	color: black !important;
+}
+
+.info-help-subnav .nav>li>a:hover {
+	font-weight: bold !important;
+	background-color: #c9c9c9 !important;
 }
 
 .info-help-subnav {
