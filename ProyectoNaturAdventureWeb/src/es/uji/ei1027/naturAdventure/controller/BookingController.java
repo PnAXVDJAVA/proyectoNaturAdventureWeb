@@ -1,6 +1,9 @@
 package es.uji.ei1027.naturAdventure.controller;
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ibm.icu.text.SimpleDateFormat;
 
 import es.uji.ei1027.naturAdventure.dao.ActivityDao;
 import es.uji.ei1027.naturAdventure.dao.BookingDao;
@@ -377,10 +382,110 @@ public class BookingController {
 		return "booking/bookingDetails";
 	}
 	
-	@RequestMapping("/send")
-	public String send() {
-		bookingDao.sendPdf();
-		return "booking/send";
+	@RequestMapping("/customerBookingDetails.html")
+	public String showCustomerBookingDetails( @RequestParam("nif") String nif, @RequestParam("codBooking") int codBooking, 
+												Model model, HttpSession session ) {
+		if( !Authentification.checkAuthentificationByNif( session, Roles.CUSTOMER.getLevel(), nif ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "booking/customerBookingDetails.html?nif=" + nif + "&codBooking=" + codBooking );
+			return "login";
+		}
+		Booking booking = this.bookingDao.getBooking( codBooking );
+		model.addAttribute( "booking", booking );
+		return "booking/customerBookingDetails";
+	}
+	
+	@RequestMapping("/instructorBookingDetails.html")
+	public String showInstructorBookingDetails( @RequestParam("instructorNif") String instructorNif, 
+												@RequestParam("codBooking") int codBooking, Model model, HttpSession session ) {
+		if( !Authentification.checkAuthentificationByNif( session, Roles.INSTRUCTOR.getLevel(), instructorNif ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "booking/customerBookingDetails.html?nif=" + instructorNif + "&codBooking=" + codBooking );
+			return "login";
+		}
+		Booking booking = this.bookingDao.getBooking( codBooking );
+		model.addAttribute( "booking", booking );
+		return "booking/instructorBookingDetails";
+	}
+	
+	@RequestMapping("/instructorBookingList/{nif}")
+	public String instructorBookingList( @PathVariable String nif, Model model, HttpSession session ) {
+		if( !Authentification.checkAuthentificationByNif( session, Roles.INSTRUCTOR.getLevel(), nif ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "booking/instructorBookingList/" + nif + ".html" );
+			return "login";
+		}
+		
+		List<Booking> instructorBookings = this.bookingDao.getInstructorBookings( nif );
+		model.addAttribute( "instructorBookings", instructorBookings );
+		
+		return "booking/instructorBookingList";
+	}
+	
+	@RequestMapping("/instructorBookingListSearch.html")
+	public String instructorBookingListSearch( Model model, HttpSession session, @RequestParam("nif") String nif, 
+												@RequestParam("criterioBusqueda") String criterio, @RequestParam("valor") String valor ) {
+		if( !Authentification.checkAuthentificationByNif( session, Roles.INSTRUCTOR.getLevel(), nif ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "booking/instructorBookingList/" + nif + ".html" );
+			return "login";
+		}
+		
+		List<Booking> instructorBookings = this.bookingDao.getInstructorBookings( nif );
+		DateService dateService = null;
+		String year = null;
+		String month = null;
+		Date valorDate = null;
+		Date date = null;
+		
+		switch( criterio ) {
+			case "todas":
+				model.addAttribute( "instructorBookings", instructorBookings );
+				break;
+			case "anyo":
+				List<Booking> instructorBookingsByYear = new LinkedList<>();
+				for( Booking booking: instructorBookings ) {
+					dateService = new DateService( booking.getProposalPerformingDate() );
+					year = "" + dateService.getYear();
+					if( year.equals( valor ) ) {
+						instructorBookingsByYear.add( booking );
+					}
+				}
+				model.addAttribute( "instructorBookings", instructorBookingsByYear );
+				break;
+			case "mes":
+				List<Booking> instructorBookingsByMonth = new LinkedList<>();
+				for( Booking booking: instructorBookings ) {
+					dateService = new DateService( booking.getProposalPerformingDate() );
+					month = "" + dateService.getMonth();
+					if( month.equals( valor ) ) {
+						instructorBookingsByMonth.add( booking );
+					}
+				}
+				model.addAttribute( "instructorBookings", instructorBookingsByMonth );
+				break;
+			case "dia":
+				List<Booking> instructorBookingsDay = new LinkedList<>();
+				SimpleDateFormat format = new SimpleDateFormat( "d/M/yyyy" );
+				try {
+					valorDate = new Date( format.parse( valor ).getTime() );
+				}
+				catch( ParseException e ) {}
+				
+				for( Booking booking: instructorBookings ) {
+					date = booking.getProposalPerformingDate();
+					if( date.equals( valorDate ) ) {
+						instructorBookingsDay.add( booking );
+					}
+				}
+				model.addAttribute( "instructorBookings", instructorBookingsDay );
+				break;
+		}
+		
+		model.addAttribute( "criterioBusqueda", criterio );
+		model.addAttribute( "valor", valor );
+		
+		return "booking/instructorBookingList";
 	}
 	
 	private void refreshAssignInstructorModel( Model model, int codBooking ) {

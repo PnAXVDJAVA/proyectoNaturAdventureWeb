@@ -242,6 +242,21 @@ public class ActivityController {
 		return "activity/activityDetails";
 	}
 	
+	@RequestMapping(value="/activityCustomerDetails/{codActivity}")
+	public String showActivityCustomerDetails( @PathVariable int codActivity, HttpSession session, Model model ) {
+		if( Authentification.checkAuthentification( session, Roles.INSTRUCTOR.getLevel() ) || 
+				Authentification.checkAuthentification( session, Roles.CUSTOMER.getLevel() ) ) {
+				Activity activity = activityDao.getActivity( codActivity );
+				String encoded = Base64.encodeBytes( activity.getPicture() );
+				activity.setPictureString( encoded );
+				model.addAttribute( activity );
+				return "activity/activityCustomerDetails";	 
+		}
+		model.addAttribute( "user", new UserDetails() );
+		session.setAttribute( "nextURL", "/activity/activityCustomerDetails/" + codActivity + ".html" );
+		return "login";
+	}
+	
 	//refactorizar
 	private void refreshSpecializedInstructorModel( Model model, int codActivity ) {
 		//Añadimos el código de la actividad

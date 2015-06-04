@@ -23,7 +23,7 @@
 						<td>${customer.nif}</td>
 						<td>${customer.name}</td>
 	                	<td>${customer.username}</td>
-						<td><a href="${pageContext.request.contextPath}/customer/customerDetails/${customer.nif}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a>
+						<td><a href="${pageContext.request.contextPath}/customer/customerDetails/${customer.nif}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a></td>
 					</tr>
 				
 				</c:forEach>

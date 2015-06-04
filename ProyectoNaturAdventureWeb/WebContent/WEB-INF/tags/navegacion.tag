@@ -80,9 +80,9 @@
 						</li>
 					</d:when>
 					<d:when test='${role==1}'>
-						<li><a href="${pageContext.request.contextPath}/index.jsp">Reservas asignadas</a></li>
 						<li><a href="${pageContext.request.contextPath}/instructor/update/${profile.nif}.html">Editar perfil</a></li>
 						<li><a href="${pageContext.request.contextPath}/instructor/changePwd/${user.username}.html">Cambiar contraseña</a></li>
+						<li><a href="${pageContext.request.contextPath}/booking/instructorBookingList/${profile.nif}.html">Reservas asignadas</a></li>
 					</d:when>
 					<d:when test='${role==0}'>
 						<li><a href="${pageContext.request.contextPath}/customer/update/${profile.nif}.html">Editar perfil</a></li>

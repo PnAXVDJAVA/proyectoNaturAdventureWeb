@@ -36,7 +36,7 @@
 	                			</c:when>
 	                		</c:choose>
 	                	</td>
-	                	<td><a href="${pageContext.request.contextPath}/booking/customerBookingDetails/${booking.codBooking}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a></td>	                	
+	                	<td><a href="${pageContext.request.contextPath}/booking/customerBookingDetails.html?nif=${booking.customerNif}&codBooking=${booking.codBooking}"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a></td>	                	
 					</tr>
 				
 				</c:forEach>

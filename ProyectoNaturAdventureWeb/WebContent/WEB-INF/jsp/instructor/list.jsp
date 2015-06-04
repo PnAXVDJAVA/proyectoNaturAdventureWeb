@@ -13,13 +13,6 @@
 				<tr>
 					<th>NIF</th>
 					<th>Nombre</th>
-					<th>Primer apellido</th>
-					<th>Segundo apellido</th>
-					<th>Dirección</th>
-					<th>Teléfono</th>
-					<th>Fecha de cumpleaños</th>
-					<th>E-mail</th>
-					<th>Cuenta bancaria</th>
 					<th>Username</th>
 				</tr>
 				
@@ -28,17 +21,8 @@
 					<tr>
 						<td>${instructor.nif}</td>
 						<td>${instructor.name}</td>
-	                	<td>${instructor.firstSurname}</td>
-	                	<td>${instructor.secondSurname}</td>
-	                	<td>${instructor.address}</td>
-	                	<td>${instructor.telephone}</td>
-	                	<td>${instructor.dateOfBirth}</td>
-	                	<td>${instructor.email}</td>
-	                	<td>${instructor.bankAccount}</td>
 	                	<td>${instructor.userID}</td>
-	                	<td><a href="update/${instructor.nif}.html"><span class="glyphicon glyphicon-pencil"></span></a></td>
-	                	<td><a href="delete/${instructor.nif}.html" onclick="return confirm('¿Estás seguro de que quieres borrar el monitor?');"><span class="glyphicon glyphicon-trash"></span></a></td>
-	                	<td><a href="changePwd/${instructor.userID}.html">Cambiar contraseña</a></td>
+	                	<td><a href="${pageContext.request.contextPath}/instructor/instructorDetails/${instructor.nif}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a></td>
 					</tr>
 				
 				</c:forEach>

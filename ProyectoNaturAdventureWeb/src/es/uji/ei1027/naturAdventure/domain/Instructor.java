@@ -87,18 +87,18 @@ public class Instructor implements Profile {
 	
 	public void setDateOfBirth( Date dateOfBirth ) {
 		this.dateOfBirth = dateOfBirth;
-		java.util.Date utilDate = new java.util.Date( this.dateOfBirth.getTime() );
-		this.dateOfBirthString = utilDate.toString();
+		SimpleDateFormat format = new SimpleDateFormat( "d/M/yyyy" );
+		this.dateOfBirthString = format.format( this.dateOfBirth );
 	}
 	
-	public String getDateOfBirthString( String dateOfBirth ) {
+	public String getDateOfBirthString() {
 		return this.dateOfBirthString;
 	}
 	
 	public void setDateOfBirthString( String dateOfBirthString ) {
 		this.dateOfBirthString = dateOfBirthString;
 		try {
-			this.dateOfBirth = new Date( new SimpleDateFormat( "MMM d, yyyy" ).parse( dateOfBirthString ).getTime() );
+			this.dateOfBirth = new Date( new SimpleDateFormat( "d/M/yyyy" ).parse( dateOfBirthString ).getTime() );
 		} catch (ParseException e) {
 			//
 		}

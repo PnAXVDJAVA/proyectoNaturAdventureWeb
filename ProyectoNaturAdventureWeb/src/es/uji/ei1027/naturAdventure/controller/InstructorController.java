@@ -176,5 +176,17 @@ public class InstructorController {
 		userDetailsDao.updateUser( user, Roles.INSTRUCTOR.getLevel() );
 		return "redirect:../../index.jsp";
 	}
+	
+	@RequestMapping(value="/instructorDetails/{nif}")
+	public String showInstructorDetails( @PathVariable String nif, Model model, HttpSession session ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/instructor/instructorDetails/" + nif + ".html" );
+			return "login";
+		}
+		Instructor instructor = this.instructorDao.getInstructor( nif );
+		model.addAttribute( "instructor", instructor );
+		return "instructor/instructorDetails";
+	}
 
 }

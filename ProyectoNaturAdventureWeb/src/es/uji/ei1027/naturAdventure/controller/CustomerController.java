@@ -189,7 +189,7 @@ public class CustomerController {
 	
 	@RequestMapping(value="/customerDetails/{nif}")
 	public String showCustomerDetails( @PathVariable String nif, Model model, HttpSession session ) {
-		if( !Authentification.checkAuthentificationByNif( session, Roles.CUSTOMER.getLevel() , nif) ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
 			model.addAttribute( "user", new UserDetails() );
 			session.setAttribute( "nextURL" , "customer/customerDetails/" + nif + ".html" );
 			return "login";
@@ -197,6 +197,17 @@ public class CustomerController {
 		model.addAttribute( "customer", customerDao.getCustomer( nif ) );
 		model.addAttribute( "bookings", bookingDao.getCustomerBookings( nif ) );
 		return "customer/customerDetails";
+	}
+	
+	@RequestMapping(value="/customerInstructorDetails/{nif}")
+	public String showCustomerInstructorDetails( @PathVariable String nif, Model model, HttpSession session ) {
+		if( !Authentification.checkAuthentification( session, Roles.INSTRUCTOR.getLevel() ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "customer/customerInstructorDetails/" + nif + ".html" );
+			return "login";
+		}
+		model.addAttribute( "customer", customerDao.getCustomer( nif ) );
+		return "customer/customerInstructorDetails";
 	}
 	
 	@RequestMapping(value="/pwdRecovery")
