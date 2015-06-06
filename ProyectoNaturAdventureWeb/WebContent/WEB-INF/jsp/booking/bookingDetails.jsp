@@ -41,8 +41,8 @@
 		    </div>
 		    
 		    <div class="formgroup detail-row">
-		    	<div class="col-sm-5"><span class="negrita">NIF del cliente:</span></div>
-		    	<div class="col-sm-5"><a href="${pageContext.request.contextPath}/customer/customerDetails/${booking.customerNif}.html">${booking.customerNif}</a></div>
+		    	<div class="col-sm-5"><span class="negrita">Nombre del cliente:</span></div>
+		    	<div class="col-sm-5"><a href="${pageContext.request.contextPath}/customer/customerDetails/${booking.customerNif}.html">${booking.customerName}</a></div>
 		    	<div class="clear"></div>
 		    </div>
 		    
@@ -103,7 +103,7 @@
 			
 				<div class="right">
 				
-					<p>Lista de <span class="negrita">monitores asignados</span> a la reserva:</p>
+					<p>Lista de monitores asignados a la <span class="negrita">reserva</span>:</p>
 					
 					<c:choose>
 						<c:when test='${not empty assignedInstructors}'>
@@ -138,7 +138,7 @@
 						
 							<hr class="myHr">
 							
-							<p>Lista de <span class="negrita">monitores disponibles</span>: </p>
+							<p>Lista de monitores asignados a la <span class="negrita">actividad</span>: </p>
 							<c:choose>
 								<c:when test='${not empty availableInstructors}'>
 									<div class="table-responsive adapter">

@@ -176,16 +176,18 @@ public class EmailSender {
 		int numParticipantes = booking.getNumPartakers();
 		String hora = booking.getStartHour().toString();
 		String nombreActividad = activity.getName();
+		double totalAPagar = numParticipantes * activity.getPricePerPerson();
 		
 		String msgBody = "Hola " + nombre + ":\n"
-				+ "Te confirmamos que acabas de realizar una reserva\n"
+				+ "Le confirmamos que acaba de realizar una reserva\n"
 				+ "de una actividad en NaturAdventure.\n"
 				+ "Los datos de la reserva son:\n"
 				+ "\t-Nombre de la actividad: " + nombreActividad + "\n"
 				+ "\t-Fecha de realización propuesta: " + fecha + "\n"
 				+ "\t-Hora de realización propuesta: " + hora + "\n"
 				+ "\t-Número de participantes: " + numParticipantes + "\n"
-				+ "Pronto se te enviará un email de confirmación o rechazo de la reserva.\n"
+				+ "\t-Total a pagar: " + totalAPagar + " €\n"
+				+ "Pronto se le enviará un email de confirmación o rechazo de la reserva.\n"
 				+ "Un saludo.\n"
 				+ "---------------------------------------\n"
 				+ "El equipo de NaturAdventure." ;
@@ -204,12 +206,12 @@ public class EmailSender {
 		
 		String msgBody = "Hola " + nombre + ":\n"
 				+ "Sintiéndolo mucho nos hemos visto obligados a rechazar "
-				+ "tu propuesta de reserva por distintos motivos con los siguientes datos:\n"
+				+ "su propuesta de reserva por distintos motivos con los siguientes datos:\n"
 				+ "\t-Nombre de la actividad: " + nombreActividad + "\n"
 				+ "\t-Fecha de realización propuesta: " + fecha + "\n"
 				+ "\t-Hora de realización propuesta: " + hora + "\n"
 				+ "\t-Número de participantes: " + numParticipantes + "\n"
-				+ "Te pedimos disculpas por las molestias y te invitamos a realizar la reserva "
+				+ "Le pedimos disculpas por las molestias y le invitamos a realizar la reserva "
 				+ "para un día distinto.\n"
 				+ "Un saludo.\n"
 				+ "---------------------------------------\n"
@@ -235,11 +237,12 @@ public class EmailSender {
 		EmailSenderCreatePDF.setInfo(info);
 		
 		String msgBody = "Hola " + nombre + ":\n"
-				+ "Acabamos de confirmar la reserva que previamente realizaste con los siguientes datos:\n"
+				+ "Acabamos de confirmar la reserva que previamente realizó con los siguientes datos:\n"
 				+ "\t-Nombre de la actividad: " + nombreActividad + "\n"
 				+ "\t-Fecha de realización propuesta: " + fecha + "\n"
 				+ "\t-Hora de realización propuesta: " + hora + "\n"
 				+ "\t-Número de participantes: " + numParticipantes + "\n"
+				+ "\t-Total a pagar: " + totalAPagar + " €\n"
 				+ "Gracias por confiar en nosotros."
 				+ "Un saludo.\n"
 				+ "---------------------------------------\n"
@@ -254,11 +257,11 @@ public class EmailSender {
 		String username = profile.getUsername();
 		
 		String msgBody = "Hola " + nombre + ":\n"
-				+ "Hemos recibido una solicitud de recuperación de contraseña tu cuenta de NaturAdventure.\n"
-				+ "En base a ello, hemos cambiado la contraseña de tu cuenta. Los nuevos datos de tu cuenta son:\n"
+				+ "Hemos recibido una solicitud de recuperación de contraseña su cuenta de NaturAdventure.\n"
+				+ "En base a ello, hemos cambiado la contraseña de su cuenta. Los nuevos datos de su cuenta son:\n"
 				+ "\t-Nombre de usuario: " + username + "\n"
 				+ "\t-Nueva contraseña: " + newPwd + "\n"
-				+ "Para cualquier duda no dudes en contactar con nosotros.\n"
+				+ "Para cualquier duda no dude en contactar con nosotros.\n"
 				+ "Un saludo.\n"
 				+ "---------------------------------------\n"
 				+ "El equipo de NaturAdventure.";
@@ -269,8 +272,8 @@ public class EmailSender {
 		Booking booking = ( Booking ) objetos.get( "booking" );
 		String fecha = booking.getProposalPerformingDateString();
 		
-		String msgBody = "Te ha sido asignada la reserva de una actividad para el día " + fecha + ".\n"
-				+ "Por favor, consulta la página web para ver la reserva con más detalle.\n"
+		String msgBody = "Le ha sido asignada la reserva de una actividad para el día " + fecha + ".\n"
+				+ "Por favor, consulte la página web para ver la reserva con más detalle.\n"
 				+ "Un saludo.\n"
 				+ "---------------------------------------\n"
 				+ "El equipo de NaturAdventure.";

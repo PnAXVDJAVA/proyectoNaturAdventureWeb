@@ -30,6 +30,11 @@
 		    	<div class="col-sm-5">${booking.numPartakers}</div>
 		    	<div class="clear"></div>
 		    </div>
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Precio total:</span></div>
+		    	<div class="col-sm-5">${precio} €</div>
+		    	<div class="clear"></div>
+		    </div>
 		</div>
 		
 		<div class="right">
@@ -66,29 +71,27 @@
 		    </div>
 	    </div>
 	    
-	    <form:form method="post" modelAttribute="booking" role="form" class="form form-horizontal" 
-		    action="${pageContext.request.contextPath}/booking/acceptBooking/${activity.codActivity}.html">
-	    
-	    	<div class="form-group">
-		           	<div class="col-xs-3"></div>
-		            <div class="col-xs-7" style="text-align:center">
-		    			¿Deseas confirmar la reserva?
-		    		</div>
-		    	</div>
-	    	
-	    	<form:input type="hidden" path="proposalPerformingDateString"/>
-	    	<form:input type="hidden" path="numPartakers"/>
-	    	<form:input type="hidden" path="bookingDateString"/>
-	    	<form:input type="hidden" path="startHour"/>	    	
-	    	
-		    <div class="form-group">
-	           	<div class="col-xs-3"></div>
-	            <div class="col-xs-8">	            
-	            	<button onClick="location.href='${pageContext.request.contextPath}/booking/acceptBooking/${activity.codActivity}.html'" type="submit" class="btn btn-custom btn-padding">Confirmar reserva</button>
-	            	<button onClick="location.href='${pageContext.request.contextPath}/activity/customerList.html'" class="btn btn-custom btn-padding">Cancelar reserva</button>
-	    		</div>
-		    </div>
-	    </form:form>
+	    <div class="left">
+		    <form:form method="post" modelAttribute="booking" role="form" class="form form-horizontal" 
+			    action="${pageContext.request.contextPath}/booking/acceptBooking/${activity.codActivity}.html">
+		    
+		    	<div class="form-group">
+			            <div class="col-sm-5">
+			    			¿Deseas confirmar la reserva?
+			    		</div>
+			    </div>
+		    	
+		    	<form:input type="hidden" path="proposalPerformingDateString"/>
+		    	<form:input type="hidden" path="numPartakers"/>
+		    	<form:input type="hidden" path="bookingDateString"/>
+		    	<form:input type="hidden" path="startHour"/>	    	
+		    	
+		    	<div class="col-sm-4">    
+	           		<button onClick="location.href='${pageContext.request.contextPath}/booking/acceptBooking/${activity.codActivity}.html'" type="submit" class="btn btn-custom btn-padding">Confirmar reserva</button>
+		    	</div>   
+		    </form:form>
+           	<button onClick="history.back(-1)" class="btn btn-custom btn-padding">Cancelar reserva</button>
+	    </div>
 	    
 </jsp:body>
 </t:paginabasica>

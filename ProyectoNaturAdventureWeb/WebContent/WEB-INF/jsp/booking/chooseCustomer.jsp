@@ -32,6 +32,11 @@
 		    	<div class="col-sm-5">${booking.numPartakers}</div>
 		    	<div class="clear"></div>
 		    </div>
+		    <div class="formgroup detail-row">
+		    	<div class="col-sm-5"><span class="negrita">Precio total:</span></div>
+		    	<div class="col-sm-5">${precio} €</div>
+		    	<div class="clear"></div>
+		    </div>
 		    
 		    <br>
 		    
@@ -57,16 +62,16 @@
 		    	</table>
 		    </div>
 		    
+		    <div class="left">
 			  <form:form method="post" modelAttribute="booking" role="form" class="form form-horizontal" 
 			    action="${pageContext.request.contextPath}/booking/acceptBooking/${activity.codActivity}.html" 
 			    onsubmit="return confirmarReserva();">
 		    
 		   		<div class="form-group">
-		           	<div class="col-xs-3"></div>
-		            <div class="col-xs-7" style="text-align:center">
-		    			¿Deseas confirmar la reserva?
-		    		</div>
-		    	</div>
+			            <div class="col-sm-5">
+			    			¿Deseas confirmar la reserva?
+			    		</div>
+			    </div>
 		    	
 		    	<form:input type="hidden" path="proposalPerformingDateString"/>
 		    	<form:input type="hidden" path="numPartakers"/>
@@ -75,14 +80,14 @@
 		    	<form:input type="hidden" path="customerNif" id="customerNif"/>	    	
 		    	
 			    <div class="form-group">
-		           	<div class="col-xs-3"></div>
-		            <div class="col-xs-8">	            
+		            <div class="col-sm-8">	            
 		            	<button type="submit" class="btn btn-custom btn-padding">Confirmar reserva</button>
-		            	<button onClick="location.href='${pageContext.request.contextPath}/activity/customerList.html'" class="btn btn-custom btn-padding">Cancelar reserva</button>
 					</div>
 				</div>
 				
 		    </form:form>
+		    <button onClick="history.back(-1)" class="btn btn-custom btn-padding">Cancelar reserva</button>
+	    </div>
 	    
 	    <div class="hidden alert alert-danger alert-dismissable" id="alert">
 		  	Tienes que elegir un cliente.

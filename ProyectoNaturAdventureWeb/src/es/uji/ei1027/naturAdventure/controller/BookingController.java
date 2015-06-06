@@ -87,6 +87,72 @@ public class BookingController {
 		return "booking/list";
 	}
 	
+	@RequestMapping("/listSearch.html")
+	public String listSearch( Model model, HttpSession session, @RequestParam("criterioBusqueda") String criterio, 
+								@RequestParam("valor") String valor ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "booking/list.html" );
+			return "login";
+		}
+		
+		List<Booking> bookings = this.bookingDao.getBookings();
+		DateService dateService = null;
+		String year = null;
+		String month = null;
+		Date valorDate = null;
+		Date date = null;
+		
+		switch( criterio ) {
+			case "todas":
+				model.addAttribute( "bookings", bookings );
+				break;
+			case "anyo":
+				List<Booking> bookingsByYear = new LinkedList<>();
+				for( Booking booking: bookings ) {
+					dateService = new DateService( booking.getProposalPerformingDate() );
+					year = "" + dateService.getYear();
+					if( year.equals( valor ) ) {
+						bookingsByYear.add( booking );
+					}
+				}
+				model.addAttribute( "bookings", bookingsByYear );
+				break;
+			case "mes":
+				List<Booking> bookingsByMonth = new LinkedList<>();
+				for( Booking booking: bookings ) {
+					dateService = new DateService( booking.getProposalPerformingDate() );
+					month = "" + dateService.getMonth();
+					if( month.equals( valor ) ) {
+						bookingsByMonth.add( booking );
+					}
+				}
+				model.addAttribute( "bookings", bookingsByMonth );
+				break;
+			case "dia":
+				List<Booking> bookingsDay = new LinkedList<>();
+				SimpleDateFormat format = new SimpleDateFormat( "d/M/yyyy" );
+				try {
+					valorDate = new Date( format.parse( valor ).getTime() );
+				}
+				catch( ParseException e ) {}
+				
+				for( Booking booking: bookings ) {
+					date = booking.getProposalPerformingDate();
+					if( date.equals( valorDate ) ) {
+						bookingsDay.add( booking );
+					}
+				}
+				model.addAttribute( "bookings", bookingsDay );
+				break;
+		}
+		
+		model.addAttribute( "criterioBusqueda", criterio );
+		model.addAttribute( "valor", valor );
+		
+		return "booking/list";
+	}
+	
 	@RequestMapping("/customerBookingList/{nif}")
 	public String customerListBookings( Model model, HttpSession session, @PathVariable String nif ) {
 		if( !Authentification.checkAuthentificationByNif( session, Roles.CUSTOMER.getLevel(), nif ) ) {
@@ -94,7 +160,73 @@ public class BookingController {
 			session.setAttribute( "nextURL", "/booking/customerBookingList/" + nif + ".html" );
 			return "login";
 		}
-		model.addAttribute( "bookings", bookingDao.getCustomerBookings( nif ) );
+		model.addAttribute( "customerBookings", bookingDao.getCustomerBookings( nif ) );
+		return "booking/customerBookingList";
+	}
+	
+	@RequestMapping("/customerBookingListSearch.html")
+	public String customerBookingListSearch( Model model, HttpSession session, @RequestParam("nif") String nif, 
+												@RequestParam("criterioBusqueda") String criterio, @RequestParam("valor") String valor ) {
+		if( !Authentification.checkAuthentificationByNif( session, Roles.CUSTOMER.getLevel(), nif ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL" , "booking/instructorBookingList/" + nif + ".html" );
+			return "login";
+		}
+		
+		List<Booking> customerBookings = this.bookingDao.getCustomerBookings( nif );
+		DateService dateService = null;
+		String year = null;
+		String month = null;
+		Date valorDate = null;
+		Date date = null;
+		
+		switch( criterio ) {
+			case "todas":
+				model.addAttribute( "customerBookings", customerBookings );
+				break;
+			case "anyo":
+				List<Booking> customerBookingsByYear = new LinkedList<>();
+				for( Booking booking: customerBookings ) {
+					dateService = new DateService( booking.getProposalPerformingDate() );
+					year = "" + dateService.getYear();
+					if( year.equals( valor ) ) {
+						customerBookingsByYear.add( booking );
+					}
+				}
+				model.addAttribute( "customerBookings", customerBookingsByYear );
+				break;
+			case "mes":
+				List<Booking> customerBookingsByMonth = new LinkedList<>();
+				for( Booking booking: customerBookings ) {
+					dateService = new DateService( booking.getProposalPerformingDate() );
+					month = "" + dateService.getMonth();
+					if( month.equals( valor ) ) {
+						customerBookingsByMonth.add( booking );
+					}
+				}
+				model.addAttribute( "customerBookings", customerBookingsByMonth );
+				break;
+			case "dia":
+				List<Booking> customerBookingsDay = new LinkedList<>();
+				SimpleDateFormat format = new SimpleDateFormat( "d/M/yyyy" );
+				try {
+					valorDate = new Date( format.parse( valor ).getTime() );
+				}
+				catch( ParseException e ) {}
+				
+				for( Booking booking: customerBookings ) {
+					date = booking.getProposalPerformingDate();
+					if( date.equals( valorDate ) ) {
+						customerBookingsDay.add( booking );
+					}
+				}
+				model.addAttribute( "customerBookings", customerBookingsDay );
+				break;
+		}
+		
+		model.addAttribute( "criterioBusqueda", criterio );
+		model.addAttribute( "valor", valor );
+		
 		return "booking/customerBookingList";
 	}
 	
@@ -129,6 +261,10 @@ public class BookingController {
 		booking.setBookingDate( DateService.getTodaysDate() );
 		model.addAttribute( "activity", this.activityDao.getActivity( codActivity ) );
 		
+		Activity activity = this.activityDao.getActivity( codActivity );
+		double precio = booking.getNumPartakers() * activity.getPricePerPerson() ;
+		model.addAttribute( "precio", precio );
+		
 		this.bookingValidator.validate( booking ,  bindingResult );
 		
 		if( bindingResult.hasErrors() ) {
@@ -146,11 +282,9 @@ public class BookingController {
 		contador++;
 		session.setAttribute( "contadorReserva" , contador );
 		
-		//
 		if( Authentification.checkAuthentification( session, Roles.ADMIN.getLevel()) ) {
 			List<Customer> customerList = this.customerDao.getCustomers();		
 			model.addAttribute( "customerList", customerList );
-			//return "redirect:../chooseCustomer/" + codActivity + ".html";
 			return "booking/chooseCustomer";
 		}
 		else {
@@ -314,7 +448,8 @@ public class BookingController {
 			return "login";
 		}
 		bookingDao.assignInstructor( codBooking, nif );
-		refreshAssignInstructorModel( model, codBooking );
+		Booking booking = this.bookingDao.getBooking( codBooking );
+		refreshAssignInstructorModel( model, codBooking, booking.getCodActivity() );
 		return "redirect:bookingDetails/" + codBooking + ".html";
 	}
 	
@@ -327,7 +462,8 @@ public class BookingController {
 			return "login";
 		}
 		bookingDao.removeAssignedInstructor( codBooking, nif );
-		refreshAssignInstructorModel( model, codBooking );
+		Booking booking = this.bookingDao.getBooking( codBooking );
+		refreshAssignInstructorModel( model, codBooking, booking.getCodActivity() );
 		return "redirect:bookingDetails/" + codBooking + ".html";
 	}
 	
@@ -344,7 +480,7 @@ public class BookingController {
 		
 		if( assignedInstructors.size() == 0 ) {
 			model.addAttribute( "booking", bookingDao.getBooking( codBooking ) );
-			refreshAssignInstructorModel( model, codBooking );
+			refreshAssignInstructorModel( model, codBooking, booking.getCodActivity() );
 			model.addAttribute( "acceptResult", false );
 			model.addAttribute( "codBooking", codBooking );
 		}
@@ -378,7 +514,8 @@ public class BookingController {
 			return "login";
 		}
 		model.addAttribute( "booking", bookingDao.getBooking( codBooking ) );
-		refreshAssignInstructorModel( model, codBooking );
+		Booking booking = this.bookingDao.getBooking( codBooking );
+		refreshAssignInstructorModel( model, codBooking, booking.getCodActivity() );
 		return "booking/bookingDetails";
 	}
 	
@@ -488,12 +625,12 @@ public class BookingController {
 		return "booking/instructorBookingList";
 	}
 	
-	private void refreshAssignInstructorModel( Model model, int codBooking ) {
+	private void refreshAssignInstructorModel( Model model, int codBooking, int codActivity ) {
 		model.addAttribute( "codBooking", codBooking );
-		List<Instructor> instructors = instructorDao.getInstructors();
+		List<Instructor> specializedInstructors = instructorDao.getSpecializedInstructors( codActivity );
 		List<Instructor> assignedInstructors = instructorDao.getAssignedInstructors( codBooking );
 		model.addAttribute( "assignedInstructors", assignedInstructors );
-		List<Instructor> difference = ListsDifference.listsDifference( instructors, assignedInstructors );
+		List<Instructor> difference = ListsDifference.listsDifference( specializedInstructors, assignedInstructors );
 		model.addAttribute( "availableInstructors", difference );
 	}
 }
