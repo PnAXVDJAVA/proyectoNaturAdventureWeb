@@ -12,15 +12,22 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import es.uji.ei1027.naturAdventure.domain.Degree;
+import es.uji.ei1027.naturAdventure.service.CodeGetter;
 
 @Repository
 public class DegreeDao {
 
 	private JdbcTemplate jdbcTemplate;
+	private CodeGetter codeGetter;
 	
 	@Autowired
 	public void setDataSource( DataSource dataSource ) {
 		this.jdbcTemplate = new JdbcTemplate( dataSource );
+	}
+	
+	@Autowired
+	public void setCodeGetter( CodeGetter codeGetter ) {
+		this.codeGetter = codeGetter;
 	}
 	
 	private static final class DegreeMapper implements RowMapper<Degree> {
@@ -43,8 +50,9 @@ public class DegreeDao {
 	}
 	
 	public void addDegree( Degree degree ) {
+		int nextCodDegree = this.codeGetter.getNextCode( "codDegree" , "Degree" );
 		this.jdbcTemplate.update( "INSERT INTO Degree ( coddegree, name, description ) VALUES( ?, ?, ? )",
-									degree.getCodDegree(), degree.getName(), degree.getDescription() );
+									nextCodDegree, degree.getName(), degree.getDescription() );
 	}
 	
 	public void updateDegree( Degree degree ) {
@@ -54,6 +62,20 @@ public class DegreeDao {
 	
 	public void deleteDegree( Degree degree ) {
 		this.jdbcTemplate.update( "DELETE FROM Degree WHERE coddegree = ?", degree.getCodDegree() );
+	}
+	
+	public List<Degree> getInstructorDegrees( String nif ) {
+		return this.jdbcTemplate.query( "SELECT d.* FROM Degree AS d JOIN Instructor_Degrees AS id USING (codDegree) WHERE id.instructorNif = ?", new Object[] { nif }, new DegreeMapper() );
+	}
+	
+	public void addDegreeToInstructor( int codDegree, String instructorNif ) {
+		this.jdbcTemplate.update( "INSERT INTO Instructor_Degrees ( codDegree, instructorNif ) VALUES ( ?, ? )", 
+									codDegree, instructorNif );
+	}
+	
+	public void removeDegreeFromInstructor( int codDegree, String instructorNif ) {
+		this.jdbcTemplate.update( "DELETE FROM Instructor_Degrees WHERE codDegree = ? AND instructorNif = ?", 
+									codDegree, instructorNif );
 	}
 	
 }

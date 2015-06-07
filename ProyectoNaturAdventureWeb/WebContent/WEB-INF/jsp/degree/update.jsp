@@ -1,42 +1,52 @@
-<%@page contentType="text/html; charset=iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
-<!DOCTYPE html>
-
-<html>
-
-	<head>
-		<meta charset="UTF-8" />
-		<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/natacio.css"> -->
-		<title>Editar título</title>
-	</head>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<t:paginabasica title="Editar tÃ­tulo | NaturAdventure">
+<jsp:body>
 	
-	<body>
-	
-	<h2>Editar título</h2>
-	    <form:form method="post" modelAttribute="degree">
-	        <table>
-	            <tr>
-	                <td><form:label path="codDegree">Código título: </form:label></td>
-	                <td><form:input path="codDegree" value="${degree.codDegree}" readonly="true" /></td>
-	                <td><form:errors path="codDegree" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="name">Nombre: </form:label></td>
-	                <td><form:input path="name" /></td>
-	                <td><form:errors path="name" cssClass="error" /></td>
-	            </tr>
-	            <tr>
-	                <td><form:label path="description">Descripción: </form:label></td>
-	                <td><form:input path="description" /></td>
-	            </tr>
-	            <tr>
-	                <td colspan="2"><input type="submit" value="Confirmar cambios" />
-	                </td>
-	            </tr>
-	        </table>
+	<h2>Editar tÃ­tulo</h2>
+	    <form:form method="post" modelAttribute="degree" role="form" class="form form-horizontal"
+	    	accept-charset="UTF-8" enctype="multipart/form-data">
+			
+			<div class="form-group">
+					<div class="col-xs-3">
+	                	<form:label path="name" class="control-label">Nombre: </form:label>
+	                </div>
+	                <div class="col-xs-5">
+		                <div class="col-lg-7">
+		                	<form:input path="name" class="form-control"/>
+		           		</div>
+	           		</div>
+	           		<div class="col-xs-3">
+	                	<form:errors path="name" cssClass="error" />
+	           		</div>
+	           		<div class="clear"></div>
+	        </div>
+			<div class="form-group">
+					<div class="col-xs-3">
+	                	<form:label path="description" class="control-label">DescripciÃ³n: </form:label>
+	                </div>
+	               <div class="col-xs-5">
+		                <div class="col-lg-10">
+		                	<form:input path="description" class="form-control"/>
+		           		</div>
+	           		</div>
+	           		<div class="col-xs-3">
+	                	<form:errors path="description" cssClass="error" />
+	           		</div>
+	           		<div class="clear"></div>
+           	</div>
+			<div class="form-group">
+					<div class="col-xs-3"></div>
+					<div class="col-xs-6">
+		                <button class="btn btn-custom btn-padding" type="submit">Confirmar cambios</button>
+		                <button type="reset" class="btn btn-custom btn-padding">Restaurar valores</button>
+		                <input type="button" class="btn btn-custom btn-padding" value="Cancelar" onclick="history.back(-1)"/>	                
+			        </div>
+	        </div>
+	                
 	    </form:form>
-	    
-	</body>
 	
-</html>
+</jsp:body>
+</t:paginabasica>

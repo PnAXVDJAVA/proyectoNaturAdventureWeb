@@ -1,5 +1,7 @@
 package es.uji.ei1027.naturAdventure.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +19,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+
+
+import org.springframework.web.bind.annotation.RequestParam;
+
+import es.uji.ei1027.naturAdventure.dao.DegreeDao;
 import es.uji.ei1027.naturAdventure.dao.InstructorDao;
 import es.uji.ei1027.naturAdventure.dao.UserDetailsDao;
+import es.uji.ei1027.naturAdventure.domain.Degree;
 import es.uji.ei1027.naturAdventure.domain.Instructor;
 import es.uji.ei1027.naturAdventure.domain.InstructorUserDetailsModel;
 import es.uji.ei1027.naturAdventure.domain.Roles;
 import es.uji.ei1027.naturAdventure.domain.UserDetails;
 import es.uji.ei1027.naturAdventure.service.Authentification;
+import es.uji.ei1027.naturAdventure.service.ListsDifference;
 import es.uji.ei1027.naturAdventure.validator.InstructorUpdateValidator;
 import es.uji.ei1027.naturAdventure.validator.InstructorValidator;
 import es.uji.ei1027.naturAdventure.validator.PasswordValidator;
@@ -35,6 +44,7 @@ import es.uji.ei1027.naturAdventure.validator.UserDetailsValidator;
 public class InstructorController {
 	
 	private InstructorDao instructorDao;
+	private DegreeDao degreeDao;
 	private UserDetailsDao userDetailsDao;
 	private UserDetailsValidator userDetailsValidator;
 	
@@ -51,6 +61,11 @@ public class InstructorController {
 	@Autowired
 	public void setUserDetailsValidator( UserDetailsValidator udv) {
 		this.userDetailsValidator = udv;
+	}
+	
+	@Autowired
+	public void setDegreeDao( DegreeDao degreeDao ) {
+		this.degreeDao = degreeDao;
 	}
 	
 	@RequestMapping("/list")
@@ -186,7 +201,62 @@ public class InstructorController {
 		}
 		Instructor instructor = this.instructorDao.getInstructor( nif );
 		model.addAttribute( "instructor", instructor );
+		refreshInstructorDegreeModel( model, nif );
 		return "instructor/instructorDetails";
+	}
+	
+	@RequestMapping(value="/addTitle.html")
+	public String addTitle( @RequestParam("codDegree") int codDegree, @RequestParam("instructorNif") String instructorNif, 
+							Model model, HttpSession session ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/instructor/instructorDetails/" + instructorNif + ".html" );
+			return "login";
+		}
+		this.degreeDao.addDegreeToInstructor( codDegree, instructorNif );
+		Instructor instructor = this.instructorDao.getInstructor( instructorNif );
+		model.addAttribute( "instructor", instructor );
+		refreshInstructorDegreeModel( model, instructorNif );
+		return "redirect:instructorDetails/" + instructorNif + ".html";
+	}
+	
+	@RequestMapping(value="/removeTitle.html")
+	public String removeTitle( @RequestParam("codDegree") int codDegree, @RequestParam("instructorNif") String instructorNif, 
+								Model model, HttpSession session ) {
+		if( !Authentification.checkAuthentification( session, Roles.ADMIN.getLevel() ) ) {
+			model.addAttribute( "user", new UserDetails() );
+			session.setAttribute( "nextURL", "/instructor/instructorDetails/" + instructorNif + ".html" );
+			return "login";
+		}
+		this.degreeDao.removeDegreeFromInstructor( codDegree, instructorNif );
+		Instructor instructor = this.instructorDao.getInstructor( instructorNif );
+		model.addAttribute( "instructor", instructor );
+		refreshInstructorDegreeModel( model, instructorNif );
+		return "redirect:instructorDetails/" + instructorNif + ".html";
+	}
+	
+	
+	private void refreshInstructorDegreeModel( Model model, String nif ) {
+		
+		List<Degree> degrees = this.degreeDao.getDegrees();
+		
+		List<Degree> instructorDegrees = this.degreeDao.getInstructorDegrees( nif );
+		
+		System.out.println( "Asignadas: " );
+		for( Degree degree: instructorDegrees ) {
+			System.out.println( degree.getName() ); 
+		}
+		
+		model.addAttribute( "instructorDegrees", instructorDegrees );
+		
+		List<Degree> difference = ListsDifference.listsDifference( degrees, instructorDegrees );
+		
+		System.out.println( "Diferencia: " );
+		for( Degree degree: difference ) {
+			System.out.println( degree.getName() ); 
+		}
+		
+		model.addAttribute( "degrees", difference );
 	}
 
 }

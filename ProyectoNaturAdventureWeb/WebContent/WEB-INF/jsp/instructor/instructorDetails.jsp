@@ -68,6 +68,61 @@
 		    	<div class="clear"></div>
 		    </div>
 		</div>
+		
+		<div class="right">
+		
+			<p>Lista de <span class="negrita">títulos</span> del monitor:</p>
+			
+			<c:choose>
+				<c:when test='${not empty instructorDegrees}'>
+					<div class="table-responsive adapter">
+						<table class="table table-striped">
+							<tr>
+								<th>Nombre</th>
+							</tr>
+							<c:forEach items="${instructorDegrees}" var="instructorDegree">
+								<tr>
+									<td>${instructorDegree.name}</td>
+									<td><a href="${pageContext.request.contextPath}/degree/degreeDetails/${instructorDegree.codDegree}.html"><span class="glyphicon glyphicon-info-sign"></span>  Detalles título</a></td>
+									<td><a href="${pageContext.request.contextPath}/instructor/removeTitle.html?codDegree=${instructorDegree.codDegree}&instructorNif=${instructor.nif}"><span class="glyphicon glyphicon-remove"></span>  Borrar título</a></td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<span class="red">El monitor no tiene ningún título.</span>
+				</c:otherwise>
+			</c:choose>
+				
+			<hr class="myHr">
+			
+			<p>Lista de <span class="negrita">títulos disponibles</span>: </p>
+				
+			<c:choose>
+				<c:when test='${not empty degrees}'>
+					<div class="table-responsive adapter">
+						<table class="table table-striped">
+							<tr>
+								<th>Nombre</th>
+							</tr>
+							<c:forEach items="${degrees}" var="degree">
+								
+								<tr>
+									<td>${degree.name}</td>
+									<td><a href="${pageContext.request.contextPath}/degree/degreeDetails/${degree.codDegree}.html"><span class="glyphicon glyphicon-info-sign"></span>  Detalles título</a></td>
+									<td><a href="${pageContext.request.contextPath}/instructor/addTitle.html?codDegree=${degree.codDegree}&instructorNif=${instructor.nif}"><span class="glyphicon glyphicon-plus"></span>  Añadir título</a></td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<span class="red">No hay títulos disponibles.</span>
+				</c:otherwise>
+			</c:choose>
+			
+		</div>
 	    
 </jsp:body>
 </t:paginabasica>

@@ -59,4 +59,10 @@ public class Degree {
 	public String toString() {/////////////////////////////////////////////////////////////////////////////////////
 		return "Cod: " + codDegree + "; Name: " + name + "; Description: " + description;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Degree other = (Degree) obj;
+		return this.codDegree == other.getCodDegree();
+	}
 }

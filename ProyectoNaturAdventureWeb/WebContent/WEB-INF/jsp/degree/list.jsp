@@ -1,47 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!DOCTYPE html>
-
-<html>
-
-	<head>
-	<meta charset="utf-8">
-	<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/natacio.css"> -->
-	<title>Gestionar títulos</title>
-	</head>
-	
-	<body>
-	
-		<h1>Lista de títulos</h1>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<t:paginabasica title="Lista de títulos | NaturAdventure">
+<jsp:body>
 		
-		<table>
+		<h2>Lista de títulos</h2>
 		
-			<tr>
-				<th>Código</th>
-				<th>Nombre</th>
-				<th>Descripción</th>
-			</tr>
-			
-			<c:forEach items="${degrees}" var="degree">
+		<div class="table-responsive">
+			<table class="table table-striped">
 			
 				<tr>
-					<td>${degree.codDegree}</td>
-					<td>${degree.name}</td>
-                	<td>${degree.description}</td>
-                	<td><a href="update/${degree.codDegree}.html">Edita</a>
-                	<td><a href="delete/${degree.codDegree}.html">Borra</a>
+					<th>Código</th>
+					<th>Nombre</th>
 				</tr>
+				
+				<c:forEach items="${degrees}" var="degree">
+					<tr>
+						<td>${degree.codDegree}</td>
+	                	<td>${degree.name}</td>
+	                	<td><a href="${pageContext.request.contextPath}/degree/degreeDetails/${degree.codDegree}.html"><span class="glyphicon glyphicon-info-sign"></span>  Más detalles</a></td>	                	
+					</tr>
+				
+				</c:forEach>
 			
-			</c:forEach>
+			</table>
+		</div>
 		
-		</table>
+		<a href="${pageContext.request.contextPath}/degree/add.html"><span class="glyphicon glyphicon-plus"></span>  Añadir título</a><br>
 		
-		<a href="add.html">Añadir título</a>
 	
-	</body>
-	
-</html>
+</jsp:body>
+</t:paginabasica>
+
+
 
 
