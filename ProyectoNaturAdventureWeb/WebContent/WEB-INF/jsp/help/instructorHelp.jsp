@@ -45,6 +45,16 @@
 				<h3>Editar perfil</h3>
 				<p>Puede editar su perfil pulsando la opción Editar perfil que se encuentra en barra superior de navegación o pulsado el siguiente enlace: <a href="${pageContext.request.contextPath}/instructor/update/${profile.nif}.html">Editar perfil</a>.
 En la ventana de editar perfil, modifique el campo de texto que desea. Para guardar los cambios basta con solo pulsar el botón Confirmar cambios que se encuentra al final del formulario.</p>
+				<h4 class="underlined">Ayuda sobre el formato de los datos</h4>
+				<p>
+					<ul>
+						<li><span class="negrita">NIF: </span>Tiene que ser un NIF válido de nueve caracteres. Ejemplos: 12345678A, A12345678, Z1234567A</li>
+						<li><span class="negrita">Teléfono: </span>Tiene que ser un número de teléfono válido. Ejemplos: 902123456, +34 902123456, (+34)902123456, (+34) 611111111</li>
+						<li><span class="negrita">E-mail: </span>Tiene que ser un e-mail válido. Ejemplos: ejemplo@ejemplo.com</li>
+						<li><span class="negrita">Fecha de cumpleaños: </span>El día, el mes y el año tienen que tener formato numérico. Ejemplos: Día: 5; Mes: 7; Año: 1990</li>
+						<li><span class="negrita">Cuenta bancaria: </span>Tiene que tener 24 dígitos.</li>
+					</ul>
+				</p>
 				<hr class="myHr">
 				<p>Si tiene alguna duda puede contactar con nosotros a través del siguiente enlace: <a href="${pageContext.request.contextPath}/info/contact.html">Enlace de contacto</a></p>
 			</div>

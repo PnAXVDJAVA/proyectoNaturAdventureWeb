@@ -146,7 +146,7 @@
 				<div class="col-xs-2"></div>
 				<div class="col-xs-5">
 	                <button class="btn btn-custom btn-padding" type="submit">Confirmar cambios</button>
-	                <button type="reset" class="btn btn-custom btn-padding">Limpiar</button>
+	                <button type="reset" class="btn btn-custom btn-padding">Restaurar valores</button>
 	                <input type="button" class="btn btn-custom btn-padding" value="Cancelar" onclick="history.back(-1)"/>	                
 	            </div>
 	        </div>

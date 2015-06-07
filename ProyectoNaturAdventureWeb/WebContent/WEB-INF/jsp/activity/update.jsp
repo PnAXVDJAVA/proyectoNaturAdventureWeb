@@ -133,10 +133,11 @@
 	           		<div class="clear"></div>
 	        </div>
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-	                <button class="btn btn-custom" type="submit">Confirmar cambios</button>
-	                <button type="reset" class="btn btn-custom">Limpiar</button>
-	                <input type="button" class="btn btn-custom" value="Cancelar" onclick="history.back(-1)"/>	                
+				<div class="col-xs-3"></div>
+				<div class="col-xs-6">
+	                <button class="btn btn-custom btn-padding" type="submit">Confirmar cambios</button>
+	                <button type="reset" class="btn btn-custom btn-padding">Restaurar valores</button>
+	                <input type="button" class="btn btn-custom btn-padding" value="Cancelar" onclick="history.back(-1)"/>	                
 	            </div>
 	        </div>
 	                

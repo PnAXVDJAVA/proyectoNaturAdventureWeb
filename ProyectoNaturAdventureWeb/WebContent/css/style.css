@@ -11,6 +11,10 @@
 	color:red;
 }
 
+.underlined {
+	text-decoration: underline;
+}
+
 .error {
 	color: #C22C51;
 	border: 1px solid #C22C51;

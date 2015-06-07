@@ -45,6 +45,14 @@
 				<h3>Registro de usuario</h3>
 				<p>Para poder registrarse en el sistema, pulse la opción Registrarse que encontrara en la barra superior de navegación o pulsado el siguiente enlace: <a href="${pageContext.request.contextPath}/customer/add.html">Registrarse</a>.
 En la ventana de registro, introduzca los datos solicitados y pulse Registrar para completar el registro.</p>
+				<h4 class="underlined">Ayuda sobre el formato de los datos</h4>
+				<p>
+					<ul>
+						<li><span class="negrita">NIF: </span>Tiene que ser un NIF válido de nueve caracteres. Ejemplos: 12345678A, A12345678, Z1234567A</li>
+						<li><span class="negrita">Teléfono: </span>Tiene que ser un número de teléfono válido. Ejemplos: 902123456, +34 902123456, (+34)902123456, (+34) 611111111</li>
+						<li><span class="negrita">E-mail: </span>Tiene que ser un e-mail válido. Ejemplos: ejemplo@ejemplo.com</li>
+					</ul>
+				</p>
 				<hr class="myHr">
 				<p>Si tiene alguna duda puede contactar con nosotros a través del siguiente enlace: <a href="${pageContext.request.contextPath}/info/contact.html">Enlace de contacto</a></p>
 			</div>

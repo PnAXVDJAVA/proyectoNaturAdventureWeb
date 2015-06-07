@@ -61,6 +61,14 @@
 				<h3>Editar perfil</h3>
 				<p>Puede editar su perfil pulsando la opción Editar perfil que se encuentra en barra superior de navegación o pulsado el siguiente enlace: <a href="${pageContext.request.contextPath}/customer/update/${profile.nif}.html">Editar perfil</a>.
 En la ventana de editar perfil, modifique el campo de texto que desea. Para guardar los cambios basta con solo pulsar el botón Confirmar cambios que se encuentra al final del formulario.</p>
+				<h4 class="underlined">Ayuda sobre el formato de los datos</h4>
+				<p>
+					<ul>
+						<li><span class="negrita">NIF: </span>Tiene que ser un NIF válido de nueve caracteres. Ejemplos: 12345678A, A12345678, Z1234567A</li>
+						<li><span class="negrita">Teléfono: </span>Tiene que ser un número de teléfono válido. Ejemplos: 902123456, +34 902123456, (+34)902123456, (+34) 611111111</li>
+						<li><span class="negrita">E-mail: </span>Tiene que ser un e-mail válido. Ejemplos: ejemplo@ejemplo.com</li>
+					</ul>
+				</p>
 				<hr class="myHr">
 				<p>Si tiene alguna duda puede contactar con nosotros a través del siguiente enlace: <a href="${pageContext.request.contextPath}/info/contact.html">Enlace de contacto</a></p>
 			</div>
@@ -85,7 +93,9 @@ También puede cerrar sesión pulsando sobre el siguiente enlace: <a href="${pag
 						<li>Seleccione la opción Listar actividades que encontrara en la barra superior de navegación. Puede acceder también a esta opción pulsado el siguiente enlace: <a href="${pageContext.request.contextPath}/activity/customerList.html">Listar actividades</a>.</li>
 						<li>Seleccione la actividad que desee realizar y pulse en la flecha con dirección hacia abajo que encontrara al final recuadro de la actividad.</li>
 						<li>Seleccione Reservar actividad.</li>
-						<li>Introduzca los datos solicitados. Para introducir la fecha propuesta, pulse el calendario para seleccionar la fecha que desea realizar la actividad.</li>
+						<li>Introduzca los datos solicitados. Para introducir la fecha propuesta, pulse el calendario para seleccionar la fecha que desea realizar la actividad. 
+						El número de participantes tiene que estar en formato numérico y tiene que estar en el rango de mínimo y máximo número de participantes
+						que aparece a la derecha de la pantalla.</li>
 						<li>Pulse Siguiente para confirmar los cambios.</li>
 						<li>Aparecerá una ventana de confirmación de la reserva. Compruebe que los datos introducidos son los correctos.</li>
 						<li>Pulse Confirmar reserva para aceptar su solicitud.</li>

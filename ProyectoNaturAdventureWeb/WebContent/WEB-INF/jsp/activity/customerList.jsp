@@ -30,8 +30,8 @@
 					<div class="info-hidden"  id="${activity.codActivity}">
 						<div class="info-hidden-text">
 							<p>Descripción: ${activity.description}</p>
-							<p>Nivel: ${activity.level}</p>
-							<p>Duracion: ${activity.duration}</p>
+							<p>Nivel de dificultad: ${activity.level}</p>
+							<p>Duracion: ${activity.duration} minutos</p>
 							<p>Mínimo número de participantes: ${activity.minPartakers}</p>
 							<p>Máximo número de participantes: ${activity.maxPartakers}</p>
 						</div>

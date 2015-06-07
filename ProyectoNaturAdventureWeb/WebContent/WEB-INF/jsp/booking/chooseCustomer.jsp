@@ -79,14 +79,11 @@
 		    	<form:input type="hidden" path="startHour"/>
 		    	<form:input type="hidden" path="customerNif" id="customerNif"/>	    	
 		    	
-			    <div class="form-group">
-		            <div class="col-sm-8">	            
-		            	<button type="submit" class="btn btn-custom btn-padding">Confirmar reserva</button>
-					</div>
-				</div>
-				
+			    <div class="col-sm-4">    
+	           		<button onClick="location.href='${pageContext.request.contextPath}/booking/acceptBooking/${activity.codActivity}.html'" type="submit" class="btn btn-custom btn-padding">Confirmar reserva</button>
+		    	</div>   
 		    </form:form>
-		    <button onClick="history.back(-1)" class="btn btn-custom btn-padding">Cancelar reserva</button>
+           	<button onClick="history.back(-1)" class="btn btn-custom btn-padding">Cancelar reserva</button>
 	    </div>
 	    
 	    <div class="hidden alert alert-danger alert-dismissable" id="alert">
