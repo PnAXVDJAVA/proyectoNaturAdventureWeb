@@ -18,7 +18,7 @@
 				<div id="measuringWrapper${activity.codActivity}" class="msWrapper">
 					<div class="activity-info-left">
 						<h3 class="activityName">${activity.name}</h3>
-						<p>Precio: ${activity.pricePerPerson} €</p>
+						<p class="activity-price">Precio: ${activity.pricePerPerson} €</p>
 					</div>
 					
 					<div class="menu-down-right">

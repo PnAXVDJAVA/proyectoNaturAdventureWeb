@@ -48,6 +48,10 @@ public class ActivityController {
 		this.instructorDao = instructorDao;
 	}
 	
+	public void prueba() {
+		System.out.println( "prueba" );
+	}
+	
 	
 	@RequestMapping("/list")
 	public String listActivities( Model model, HttpSession session ) {
