@@ -36,7 +36,7 @@
 		            </div>
 		        </div>	
 		        <div class="clear"></div>
-		        <button type="submit" class="btn btn-custom col-md-2">Acceder</button>
+		        <button id="loginSubmit" type="submit" class="btn btn-custom col-md-2">Acceder</button>
 		    	<a href="${pageContext.request.contextPath}/customer/pwdRecovery.html" class="col-md-3 pwd-forget">¿Has olvidado tu contraseña?</a>
 		    </form:form>
 
